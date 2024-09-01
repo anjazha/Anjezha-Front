@@ -4,19 +4,19 @@ import { AlignJustify, Moon, Sun, XIcon } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
-    const [disList,setList] = useState("-right-[100%]")
-    const [mode,setMode] = useState("light")
-    const changeMode = ()=>{
-        setMode(mode === "light"? "dark" : "light")
+    const [disList, setList] = useState("-right-[100%]")
+    const [mode, setMode] = useState("light")
+    const changeMode = () => {
+        setMode(mode === "light" ? "dark" : "light")
         document.querySelector("html")?.classList.toggle("dark")
     }
     return (
         <div className="relative flex justify-center py-7 rounded-b-3xl bg-navColor">
             <div className="container">
                 <div>
-                    <div onClick={()=>setList(disList==="right-0" ? "-right-[100%]" : "right-0")} className="cursor-pointer sm:hidden w-fit">
+                    <div onClick={() => setList(disList === "right-0" ? "-right-[100%]" : "right-0")} className="cursor-pointer sm:hidden w-fit">
                         {
-                            disList==="right-0"? <XIcon /> : <AlignJustify />
+                            disList === "right-0" ? <XIcon /> : <AlignJustify />
                         }
                     </div>
                     <div className={`fixed z-50 ${disList} h-full w-[300px] duration-500 bg-[#D9D9D9] p-3 py-5 sm:p-0 top-20 sm:top-0 sm:right-0 sm:bg-transparent sm:w-fit sm:relative`}>
@@ -30,10 +30,14 @@ const Navbar = () => {
                                 </Link>
                             </li>
                         </ul>
+                    
+                    </div>
+                    <div className="flex items-center justify-center ">
+                        <h1 className="text-5xl font-extrabold font-serif">أنجزها|Anjezha</h1>
                     </div>
                     <div onClick={changeMode} className="absolute z-40 -translate-y-1/2 cursor-pointer icon top-1/2 left-36">
                         {
-                            mode === "light"? <Moon className="cursor-pointer"/> : <Sun />
+                            mode === "light" ? <Moon className="cursor-pointer" /> : <Sun />
                         }
                     </div>
                 </div>
