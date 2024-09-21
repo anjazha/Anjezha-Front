@@ -1,10 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { NavigateFunction } from "react-router-dom"
 import { axiosInstance } from "./axiosInstance"
 import Cookie from "cookie-universal"
 import { addUser } from "../store/Slices/userSlice"
+import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit"
 
-export const getUser = (dispatch:any,myUrl:NavigateFunction)=>{
+type dispatch = ThunkDispatch<{
+    user: {
+        id: string;
+        name: string;
+        email: string;
+        password: string;
+        phone_number: string;
+        profile_picture: string;
+        created_at: string;
+    };
+}, undefined, UnknownAction> 
+
+export const getUser = (dispatch:dispatch,myUrl:NavigateFunction)=>{
     const cookie = Cookie()
     axiosInstance.get("/profile",{
         headers:{
