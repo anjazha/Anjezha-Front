@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import HomePage from './pages/HomePage'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         </Routes>
       </div>
       <Footer/>
+      <Toaster />
     </div>
   )
 }
