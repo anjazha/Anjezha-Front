@@ -1,8 +1,34 @@
 import { Search } from "lucide-react";
 import image from "../assets/homeImage.png"
 import PopularTask from "../components/PopularTask";
+import { useEffect, useState } from "react"
+import { getAllCategory } from "../functions/getAllCategory"
+import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom";
 
+interface subData {
+    categoryId:string,
+    subcategory:string
+}
+interface dataType {
+    id:string,
+    category:string,
+    subcategories:subData[]
+}
+interface form {
+    search:string
+}
 const HomePage = () => {
+    const {register,handleSubmit} = useForm<form>()
+    const [data,setData] = useState<dataType[]>([])
+    const myUrl = useNavigate()
+    const onSubmit = (data:form)=>{
+        console.log(data)
+        myUrl(`/search?q=${data.search}`)
+    }
+    useEffect(() => {
+        getAllCategory(setData)
+    },[])
     return (
         <div className="flex justify-center py-5">
             <div className="container">
@@ -11,12 +37,12 @@ const HomePage = () => {
                 </div>
                 <div className="flex flex-col items-center gap-2">
                     <h1 className="text-lg font-bold dark:text-bodyColor">ما هي المساعدة التي تحتاجها؟</h1>
-                    <div className="w-full sm:w-[400px] h-10 rounded-full mt-1 bg-inputColor dark:bg-inputDark flex justify-between items-center px-4">
-                        <input type="text" className="w-full h-full bg-transparent rounded outline-none dark:text-bodyColor dark:caret-bodyColor"/>
+                    <form onSubmit={handleSubmit(onSubmit)} className="w-full sm:w-[400px] h-10 rounded-full mt-1 bg-inputColor dark:bg-inputDark flex justify-between items-center px-4">
+                        <input type="text" {...register("search",{required:true})} className="w-full h-full bg-transparent rounded outline-none dark:text-bodyColor dark:caret-bodyColor"/>
                         <div>
                             <Search size={16} className="dark:text-bodyColor"/>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div className="flex justify-center mt-8">
                     <div className="relative">
@@ -34,11 +60,15 @@ const HomePage = () => {
                 </div>
                 <div className="py-3 mt-8 border-t border-black dark:border-bodyColor">
                     <h2 className="text-xl font-bold dark:text-bodyColor">المهام الشائعة:</h2>
-                    <div className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {
-                            Array.from({length:8},(_,x)=><PopularTask key={x}/>)
+                            data.length > 0 ?
+                            <div className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                                {data.map((ele,x)=><PopularTask name={ele.category} id={ele.id} key={x}/>)}
+                            </div>
+                            : <div className="flex justify-center items-center mt-5">
+                                <span className="inline-block w-7 h-7 rounded-full border-2 border-black border-l-[#D4CDA6] animate-spin"></span>
+                            </div>
                         }
-                    </div>
                 </div>
             </div>
         </div>

@@ -1,12 +1,13 @@
 import image from "../assets/taskImage.jpeg"
+import { useNavigate } from "react-router-dom";
 
-const PopularTask = () => {
+const PopularTask = ({name,id}:{name:string,id:string}) => {
+    const myUrl = useNavigate()
     return (
-        <div className="p-3 bg-[#E2DDC6] rounded-md">
+        <div onClick={()=>myUrl(`/search?categoryId=${id}`)} className="p-3 bg-[#E2DDC6] rounded-md cursor-pointer hover:border hover:border-[#7F7442] duration-300">
             <img src={image} alt="image task" />
             <div className="mt-3">
-                <h2 className="font-semibold">إزالة الأثاث</h2>
-                <p className="text-red-500 font-semibold mt-2">0$</p>
+                <h2 className="font-semibold">{name}</h2>
             </div>
         </div>
     );

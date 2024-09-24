@@ -23,7 +23,7 @@ const Register = () => {
     }
     return (
         <div className="flex justify-center py-5">
-            <div className="container z-40 flex flex-col items-center">
+            <div className="container z-30 flex flex-col items-center">
                 <h1 className="text-xl font-bold text-center dark:text-bodyColor">انشاء حساب</h1>
                 <div className="bg-[#D4CDA6] p-3 py-4 rounded-xl w-full sm:w-[400px] mt-3">
                     <form onSubmit={handleSubmit(onSubmit)}>

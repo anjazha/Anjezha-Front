@@ -8,8 +8,10 @@ import Cookie from "cookie-universal"
 import { getUser } from "../functions/getUser";
 import { useSelector } from "react-redux";
 import UserDialog from "./UserDialog";
+import { derminLocation } from "../functions/location";
 
 const Navbar = () => {
+    const user = useSelector((state:RootState)=>state.user)
     const [disList, setList] = useState("-right-[100%]")
     const [mode, setMode] = useState("light")
     const changeMode = () => {
@@ -22,9 +24,9 @@ const Navbar = () => {
     useEffect(()=>{
         if(cookie){
             getUser(dispatch,myUrl)
+            derminLocation()
         }
     },[cookie])
-    const user = useSelector((state:RootState)=>state.user)
     return (
         <div className="relative flex justify-center py-7 rounded-b-3xl bg-navColor">
             <div className="container">
@@ -48,7 +50,7 @@ const Navbar = () => {
                                         </Link>
                                     </li>
                                     <li className="p-1 px-4 border border-black w-fit rounded-3xl bg-buttonsColor">
-                                        <Link to={""}>
+                                        <Link to={"/becomeTasker"}>
                                             اصبح عامل
                                         </Link>
                                     </li>
