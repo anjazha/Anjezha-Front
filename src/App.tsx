@@ -23,11 +23,12 @@ function App() {
           <Route element={<GlobalRoutes />}>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/categories' element={<Categories />} />
+            
           </Route>
           <Route element={<ProtectRoutes />}>
             <Route path='/search' element={<Search />} />
             <Route path='/becomeTasker' element={<BecomeTasker />} />
+            <Route path='/categories' element={<Categories />} />
             
           </Route>
         </Routes>
