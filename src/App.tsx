@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast'
 import BecomeTasker from './pages/BecomeTasker'
 import GlobalRoutes from './pages/GlobalRoutes'
 import ProtectRoutes from './pages/ProtectRoutes'
+import Categories from './pages/Categories'
 
 function App() {
 
@@ -22,10 +23,12 @@ function App() {
           <Route element={<GlobalRoutes />}>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/categories' element={<Categories />} />
           </Route>
           <Route element={<ProtectRoutes />}>
             <Route path='/search' element={<Search />} />
             <Route path='/becomeTasker' element={<BecomeTasker />} />
+            
           </Route>
         </Routes>
       </div>
