@@ -29,7 +29,6 @@ function App() {
             <Route path='/search' element={<Search />} />
             <Route path='/becomeTasker' element={<BecomeTasker />} />
             <Route path='/categories' element={<Categories />} />
-            
           </Route>
         </Routes>
       </div>

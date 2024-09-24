@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { getAllCategory } from "../functions/getAllCategory"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 interface subData {
     categoryId:string,
@@ -65,9 +66,7 @@ const HomePage = () => {
                             <div className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                 {data.map((ele,x)=><PopularTask name={ele.category} id={ele.id} key={x}/>)}
                             </div>
-                            : <div className="flex justify-center items-center mt-5">
-                                <span className="inline-block w-7 h-7 rounded-full border-2 border-black border-l-[#D4CDA6] animate-spin"></span>
-                            </div>
+                            : <Spinner/>
                         }
                 </div>
             </div>

@@ -30,6 +30,7 @@ const BecomeTasker = () => {
         // console.log(data);
         if(!localStorage.longitude || !localStorage.latitude){
             setErrorMap(true)
+            setLoading(false)
             return
         }
         const allData = {
@@ -81,16 +82,16 @@ const BecomeTasker = () => {
                             {errors.bidding?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل </p>}
                         </div>
                         {
-                            localStorage.longitude && localStorage.latitude ?
+                            // localStorage.longitude && localStorage.latitude ?
+                            // <div className="mt-3">
+                            //     <label htmlFor="location">الموقع</label><br/>
+                            //     <div className="flex items-center justify-between w-full h-8 px-2 mt-1 rounded bg-inputColor">
+                            //         <input type="text" value={`${localStorage.longitude}, ${localStorage.latitude}`} disabled readOnly id="location" className="w-full h-full bg-transparent rounded outline-none" />
+                            //     </div>
+                            // </div>
                             <div className="mt-3">
-                                <label htmlFor="location">الموقع</label><br/>
-                                <div className="flex items-center justify-between w-full h-8 px-2 mt-1 rounded bg-inputColor">
-                                    <input type="text" value={`${localStorage.longitude}, ${localStorage.latitude}`} disabled readOnly id="location" className="w-full h-full bg-transparent rounded outline-none" />
-                                </div>
-                            </div>
-                            :<div className="mt-3">
                                 <label htmlFor="location" className="mb-1 inline-block">الموقع</label><br/>
-                                <Map />
+                                <Map setErrorMap={setErrorMap}/>
                                 {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
                             </div>
                         }
