@@ -37,7 +37,7 @@ const Navbar = () => {
                         }
                     </div>
                     <div className={`fixed z-50 ${disList} h-full w-[300px] duration-500 bg-[#D9D9D9] p-3 py-5 md:p-0 top-20 md:top-0 md:right-0 md:bg-transparent md:w-fit md:relative`}>
-                        <ul className="flex flex-col items-center font-semibold list-none md:flex-row gap-7">
+                        <ul className="flex flex-col items-center font-semibold list-none md:flex-row gap-7 md:gap-5 lg:gap-7">
                             <li><Link to={"/"}>الصفحة الرئيسية</Link></li>
                             <li><Link to={"/categories"}>الفئات</Link></li>
                             <li><Link to={""}>تصفح المهام</Link></li>
@@ -45,7 +45,7 @@ const Navbar = () => {
                                 cookie ? 
                                 <>
                                     <li className="p-1 px-4 border border-black w-fit rounded-3xl bg-buttonsColor">
-                                        <Link to={""}>
+                                        <Link to={"/createPost"}>
                                             نشر مهمة
                                         </Link>
                                     </li>

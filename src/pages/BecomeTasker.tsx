@@ -67,7 +67,7 @@ const BecomeTasker = () => {
                         </div>
                         <div className="mt-3">
                             <label htmlFor="category">الفئة</label>
-                            <select required {...register("categoryId",{required:true})} id="category" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor">
+                            <select required {...register("categoryId",{required:true})} id="category" className="w-full h-8 px-2 mt-1 rounded outline-none bg-inputColor">
                                 {
                                     data.map(item=>(
                                         <option key={item.id} value={item.id}>{item.category}</option>

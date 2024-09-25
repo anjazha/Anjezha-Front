@@ -12,6 +12,8 @@ import GlobalRoutes from './pages/GlobalRoutes'
 import ProtectRoutes from './pages/ProtectRoutes'
 import Categories from './pages/Categories'
 import Profile from './pages/Profile'
+import CreatePost from './pages/CreatePost'
+import SubCategories from './pages/SubCategories'
 
 function App() {
 
@@ -31,6 +33,8 @@ function App() {
             <Route path='/becomeTasker' element={<BecomeTasker />} />
             <Route path='/categories' element={<Categories />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/createPost' element={<CreatePost />} />
+            <Route path='/subCategories/:id' element={<SubCategories />} />
           </Route>
         </Routes>
       </div>

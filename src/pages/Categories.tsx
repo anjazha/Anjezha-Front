@@ -2,6 +2,7 @@ import  { useState, useEffect } from 'react';
 import { getAllCategory } from '../functions/getAllCategory'; 
 import image1 from "../assets/featuredTask.jpg";
 import Spinner from '../components/Spinner';
+import { Link } from 'react-router-dom';
 
 
 interface SubData {
@@ -37,11 +38,11 @@ const CategoriesPage = () => {
                             />
                             <div className='p-4'>
                                 <h2 className="text-xl font-bold mb-2">{category.category}</h2>
-                                <ul className="list-inside list-disc">
+                                <ul className="list-inside list-disc flex flex-col">
                                     {category.subcategories.map((sub,index) => (
-                                        <li key={index} className="text-[#000000] cursor-pointer underline">
+                                        <Link to={`/subCategories/${sub.categoryId}`} key={index} className="text-[#000000] cursor-pointer underline">
                                             {sub.subcategory}
-                                        </li>
+                                        </Link>
                                     ))}
                                 </ul>
                             </div>
