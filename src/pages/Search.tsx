@@ -10,7 +10,7 @@ const Search = () => {
             getSearch("q",search.get("q"))
         }
         if(search.get("categoryId")){
-            getSearch("categoryId",search.get("categoryId"))
+            getSearch("category",search.get("categoryId"))
         }
     },[search])
     return (

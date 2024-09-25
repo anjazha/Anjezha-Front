@@ -23,7 +23,7 @@ const UserDialog = () => {
                 <span className="inline-block p-[10px] py-1 rounded-full bg-[#7F7442] text-white font-bold">{user.name[0].toUpperCase()}</span>
             </div>
             <div className={`${display} absolute top-full mt-2 z-40 left-0 w-[150px] p-2 rounded-md shadow-lg bg-white`}>
-                <div className="w-full flex border-b items-center gap-2 hover:bg-slate-200 p-2 rounded-md">
+                <div onClick={()=>myUrl("/profile")} className="w-full flex border-b items-center gap-2 hover:bg-slate-200 p-2 rounded-md">
                     <span className="inline-block rounded-full text-[#7F7442] font-bold"><Settings /></span>
                     <span className="font-semibold">الاعدادات</span>
                 </div>

@@ -28,7 +28,7 @@ const Navbar = () => {
         }
     },[cookie])
     return (
-        <div className="relative flex justify-center py-7 rounded-b-3xl bg-navColor">
+        <div className="sticky top-0 z-50 shadow-md flex justify-center py-7 rounded-b-3xl bg-navColor">
             <div className="container">
                 <div>
                     <div onClick={() => setList(disList === "right-0" ? "-right-[100%]" : "right-0")} className="cursor-pointer md:hidden w-fit">

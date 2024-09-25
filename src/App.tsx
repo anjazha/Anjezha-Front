@@ -11,6 +11,7 @@ import BecomeTasker from './pages/BecomeTasker'
 import GlobalRoutes from './pages/GlobalRoutes'
 import ProtectRoutes from './pages/ProtectRoutes'
 import Categories from './pages/Categories'
+import Profile from './pages/Profile'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
             <Route path='/search' element={<Search />} />
             <Route path='/becomeTasker' element={<BecomeTasker />} />
             <Route path='/categories' element={<Categories />} />
+            <Route path='/profile' element={<Profile />} />
           </Route>
         </Routes>
       </div>
