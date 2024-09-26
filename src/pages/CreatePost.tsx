@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { getAllCategory } from "../functions/getAllCategory";
 import Map from "../components/Map";
-import { getSkills } from "../functions/getSkills";
+import { XIcon } from "lucide-react";
+import { createPost } from "../functions/createPost";
 
 interface formType {
     title: string;
@@ -11,6 +12,7 @@ interface formType {
     budget: string;
     address: string;
     status: string;
+    skills: string;
     categoryId: string;
     start_time:string;
     end_time:string;
@@ -18,11 +20,16 @@ interface formType {
 }
 interface subData {
     categoryId:string,
-    subcategory:string
+    subcategory:string,
+    id:string,
+    imageUrl:string,
+    description:string,
 }
 interface dataType {
     id:string,
     category:string,
+    imageUrl:string,
+    description:string,
     subcategories:subData[]
 }
 
@@ -31,9 +38,28 @@ const CreatePost = ()=>{
     const [loading,setLoading] = useState(false)
     const [data,setData] = useState<dataType[]>([])
     const [errorMap,setErrorMap] = useState(false)
+    const [errorSkills,setErrorSkills] = useState(false)
+    const inputSkills = useRef<HTMLInputElement | null>(null)
+    const [skills,setSkills] = useState<string[]>([])
+    const addSkills = ()=>{
+        setErrorSkills(false)
+        const newSkill = inputSkills.current?.value
+        if(newSkill){
+            setSkills((prev)=>[...prev,newSkill])
+            inputSkills.current!.value = ""
+        }
+    }
+    const deleteSkill = (item:string)=>{
+        const newSkills = skills.filter((ele)=>ele !== item)
+        setSkills(newSkills)
+    }
     const onSubmit = (data:formType) => {
-        // setLoading(true)
-        // console.log(data);
+        setLoading(true)
+        if(skills.length === 0){
+            setErrorSkills(true)
+            setLoading(false)
+            return
+        }
         if(!localStorage.longitude || !localStorage.latitude){
             setErrorMap(true)
             setLoading(false)
@@ -47,19 +73,22 @@ const CreatePost = ()=>{
             address: data.address,
             status: data.status,
             category_id: +data.categoryId,
+            skills: skills,
             schedule : {
-                start_time:data.start_time,
-                end_time:data.end_time,
+                start_time:`${data.start_time}:00`,
+                end_time:`${data.end_time}:00`,
                 schedule_type:data.schedule_type,
             },
-            latitude: +localStorage.latitude,
-            longitude: +localStorage.longitude
+            location :{
+                latitude: +localStorage.latitude,
+                longitude: +localStorage.longitude
+            }
         }
         console.log(allData);
+        createPost(allData,setLoading)
     }
     useEffect(() => {
         getAllCategory(setData)
-        getSkills()
     },[])
     return(
         <div className="flex justify-center py-5">
@@ -111,6 +140,30 @@ const CreatePost = ()=>{
                             {errors.status?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الحالة</p>}
                         </div>
                         <div className="mt-3">
+                            <label htmlFor="skills">المهارات</label><br/>
+                            <div className="flex items-center gap-5 mt-1">
+                                <input type="text" ref={inputSkills} id="skills" className="w-full h-8 p-2 rounded outline-none bg-inputColor " />
+                                <button type="button" onClick={()=>addSkills()} className="h-8 p-2 py-0 text-white rounded bg-buttonsColor">اضافة</button>
+                            </div>
+                            {errorSkills && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل المهارات</p>}
+                        </div>
+                        {
+                            skills.length > 0 && 
+                                <div className="mt-3">
+                                    <label htmlFor="skills">مهاراتك</label><br/>
+                                    <div className="flex flex-wrap items-center gap-5 mt-2">
+                                        {
+                                            skills.map((ele,index)=>(
+                                                <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-green-500 rounded">
+                                                    <span className="text-sm">{ele}</span>
+                                                    <span onClick={()=>deleteSkill(ele)} className="absolute bg-black rounded cursor-pointer -left-1 -top-1"><XIcon size={15} /></span>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                        }
+                        <div className="mt-3">
                             <label htmlFor="schedule_type">وقت العمل</label>
                             <select required {...register("schedule_type",{required:true})} id="schedule_type" name="schedule_type" className="w-full h-8 px-2 mt-1 rounded outline-none bg-inputColor">
                                 {
@@ -132,7 +185,7 @@ const CreatePost = ()=>{
                             {errors.end_time?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت نهاية العمل</p>}
                         </div>
                         <div className="mt-3">
-                            <label htmlFor="location" className="mb-1 inline-block">الموقع</label><br/>
+                            <label htmlFor="location" className="inline-block mb-1">الموقع</label><br/>
                             <Map setErrorMap={setErrorMap}/>
                             {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
                         </div>
@@ -140,7 +193,7 @@ const CreatePost = ()=>{
                             <button disabled={loading} className="w-full p-2 py-1 text-white rounded bg-buttonsColor">
                                 {
                                     loading ? 
-                                    <div className="flex justify-center items-center">
+                                    <div className="flex items-center justify-center">
                                         <span className="inline-block w-5 h-5 rounded-full border border-black border-l-[#D4CDA6] animate-spin"></span>
                                     </div>
                                     :"ارسال"

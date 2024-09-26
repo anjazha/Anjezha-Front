@@ -12,11 +12,16 @@ interface formType {
 }
 interface subData {
     categoryId:string,
-    subcategory:string
+    subcategory:string,
+    id:string,
+    imageUrl:string,
+    description:string,
 }
 interface dataType {
     id:string,
     category:string,
+    imageUrl:string,
+    description:string,
     subcategories:subData[]
 }
 
@@ -37,7 +42,7 @@ const BecomeTasker = () => {
             bio: data.bio,
             pricing: +data.pricing,
             categoryId: +data.categoryId,
-            bidding: +data.bidding,
+            bidding: 222,
             latitude: +localStorage.latitude,
             longitude: +localStorage.longitude
         }
@@ -77,29 +82,15 @@ const BecomeTasker = () => {
                             {errors.categoryId?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الفئة</p>}
                         </div>
                         <div className="mt-3">
-                            <label htmlFor="bidding">تقديم</label><br/>
-                            <input type="number" {...register("bidding",{required:true})} id="bidding" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.bidding?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل </p>}
+                            <label htmlFor="location" className="inline-block mb-1">الموقع</label><br/>
+                            <Map setErrorMap={setErrorMap}/>
+                            {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
                         </div>
-                        {
-                            // localStorage.longitude && localStorage.latitude ?
-                            // <div className="mt-3">
-                            //     <label htmlFor="location">الموقع</label><br/>
-                            //     <div className="flex items-center justify-between w-full h-8 px-2 mt-1 rounded bg-inputColor">
-                            //         <input type="text" value={`${localStorage.longitude}, ${localStorage.latitude}`} disabled readOnly id="location" className="w-full h-full bg-transparent rounded outline-none" />
-                            //     </div>
-                            // </div>
-                            <div className="mt-3">
-                                <label htmlFor="location" className="mb-1 inline-block">الموقع</label><br/>
-                                <Map setErrorMap={setErrorMap}/>
-                                {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
-                            </div>
-                        }
                         <div className="flex justify-center mt-4">
                             <button disabled={loading} className="w-full p-2 py-1 text-white rounded bg-buttonsColor">
                                 {
                                     loading ? 
-                                    <div className="flex justify-center items-center">
+                                    <div className="flex items-center justify-center">
                                         <span className="inline-block w-5 h-5 rounded-full border border-black border-l-[#D4CDA6] animate-spin"></span>
                                     </div>
                                     :"ارسال"

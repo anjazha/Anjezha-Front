@@ -3,8 +3,11 @@ import { useParams } from "react-router-dom";
 import { getSubCategoriesById } from "../functions/getSubCategoriesById";
 
 interface SubData {
-    categoryId: string;
-    subcategory: string;
+    categoryId:string,
+    subcategory:string,
+    id:string,
+    imageUrl:string,
+    description:string,
 }
 
 const SubCategories = () => {

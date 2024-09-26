@@ -9,11 +9,16 @@ import Spinner from "../components/Spinner";
 
 interface subData {
     categoryId:string,
-    subcategory:string
+    subcategory:string,
+    id:string,
+    imageUrl:string,
+    description:string,
 }
 interface dataType {
     id:string,
     category:string,
+    imageUrl:string,
+    description:string,
     subcategories:subData[]
 }
 interface form {
@@ -64,7 +69,7 @@ const HomePage = () => {
                         {
                             data.length > 0 ?
                             <div className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                {data.map((ele,x)=><PopularTask name={ele.category} id={ele.id} key={x}/>)}
+                                {data.map((ele,x)=><PopularTask name={ele.category} imageUrl={ele.imageUrl} id={ele.id} key={x}/>)}
                             </div>
                             : <Spinner/>
                         }

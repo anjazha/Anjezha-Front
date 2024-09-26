@@ -2,11 +2,16 @@ import { axiosInstance } from "./axiosInstance"
 
 interface subData {
     categoryId:string,
-    subcategory:string
+    subcategory:string,
+    id:string,
+    imageUrl:string,
+    description:string,
 }
 interface dataType {
     id:string,
     category:string,
+    imageUrl:string,
+    description:string,
     subcategories:subData[]
 }
 
