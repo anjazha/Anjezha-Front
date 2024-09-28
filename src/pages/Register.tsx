@@ -18,7 +18,7 @@ const Register = () => {
     const [loading,setLoading] = useState(false)
     const onSubmit = (data:dataType) => {
         setLoading(true)
-        console.log(data);
+        // console.log(data);
         registerUser(data,myUrl,setLoading)
     }
     return (

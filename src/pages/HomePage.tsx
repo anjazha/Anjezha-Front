@@ -6,31 +6,18 @@ import { getAllCategory } from "../functions/getAllCategory"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import { Categories } from "../types/categories";
 
-interface subData {
-    categoryId:string,
-    subcategory:string,
-    id:string,
-    imageUrl:string,
-    description:string,
-}
-interface dataType {
-    id:string,
-    category:string,
-    imageUrl:string,
-    description:string,
-    subcategories:subData[]
-}
 interface form {
     search:string
 }
 const HomePage = () => {
     const {register,handleSubmit} = useForm<form>()
-    const [data,setData] = useState<dataType[]>([])
+    const [data,setData] = useState<Categories[]>([])
     const myUrl = useNavigate()
     const onSubmit = (data:form)=>{
         console.log(data)
-        myUrl(`/search?q=${data.search}`)
+        myUrl(`/search?q=${data.search}&page=1`)
     }
     useEffect(() => {
         getAllCategory(setData)

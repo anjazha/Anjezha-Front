@@ -8,7 +8,7 @@ import UpdatePassword from "../components/UpdatePassword";
 const Profile = () => {
     const user = useSelector((state:RootState) => state.user);
     return (
-        <div className="flex justify-center items-center py-10">
+        <div className="flex items-center justify-center py-10">
             <div className="container">
                 {user.email ? (
                 <div className="">

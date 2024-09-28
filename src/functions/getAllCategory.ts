@@ -1,21 +1,7 @@
+import { Categories } from "../types/categories"
 import { axiosInstance } from "./axiosInstance"
 
-interface subData {
-    categoryId:string,
-    subcategory:string,
-    id:string,
-    imageUrl:string,
-    description:string,
-}
-interface dataType {
-    id:string,
-    category:string,
-    imageUrl:string,
-    description:string,
-    subcategories:subData[]
-}
-
-export const getAllCategory = (setData:React.Dispatch<React.SetStateAction<dataType[]>>) => {
+export const getAllCategory = (setData:React.Dispatch<React.SetStateAction<Categories[]>>) => {
     axiosInstance.get("/category")
     .then((res) => {
         // console.log(res)

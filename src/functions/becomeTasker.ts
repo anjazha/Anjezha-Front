@@ -1,5 +1,6 @@
 import Cookie from "cookie-universal";
 import { axiosInstance } from "./axiosInstance";
+import toast from "react-hot-toast";
 
 interface dataType{
     bio: string;
@@ -19,9 +20,9 @@ export const becomeTasker = (data:dataType,setLoading:React.Dispatch<React.SetSt
         }
     }).then((res)=>{
         console.log(res)
-        // toast.success('تم تسجيلك كعامل بنجاح')
+        toast.success('تم تسجيلك كعامل بنجاح')
     }).catch((err)=>{
         console.log(err)
-        // toast.error('حدث خطأ أثناء تسجيلك كعامل')
+        toast.error('حدث خطأ أثناء تسجيلك كعامل')
     }).finally(()=>setLoading(false));
 }

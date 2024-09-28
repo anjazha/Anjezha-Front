@@ -19,19 +19,18 @@ const UpdateProfile = () => {
     const dispatch = useAppDispatch()
     const onSubmit = (data:formData)=>{
         setLoad(true);
-        console.log(data);
-        console.log(img);
-        updateProfile(data,dispatch)
+        // console.log(data);
+        // console.log(img);
+        updateProfile(data,dispatch,setLoad)
         if(img){
-            updatePicture({profile_picture:img})
+            updatePicture({profile_Picture:img})
         }
-        setLoad(false);
     }
     return (
         <div className="">
             <form action="" onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
                 <div className="flex flex-col w-full bg-[#D4CDA6] gap-6 border border-gray-400 rounded-md sm:pl-5 sm:flex-row sm:w-fit">
-                    <div className="p-3 px-5 bg-navColor border border-gray-400 rounded-md">
+                    <div className="p-3 px-5 border border-gray-400 rounded-md bg-navColor">
                         <h1 className="mb-4 text-2xl font-bold">ملفك الشخصي</h1>
                         <div>
                             <h1 className="text-xl font-bold">الصورة</h1>
@@ -42,13 +41,13 @@ const UpdateProfile = () => {
                                         ? URL.createObjectURL(img)
                                         : user?.profile_picture || image
                                     }
-                                    className="w-32 rounded-full aspect-square inline-block m-auto"
+                                    className="inline-block w-32 m-auto rounded-full aspect-square"
                                 ></img>
                             </div>
                             <div className="flex justify-center pb-2">
                                 <label
                                     htmlFor="file"
-                                    className="p-2 px-3 font-bold text-white bg-buttonsColor rounded-md cursor-pointer"
+                                    className="p-2 px-3 font-bold text-white rounded-md cursor-pointer bg-buttonsColor"
                                 >
                                     اختار صورة
                                 </label>
@@ -78,7 +77,7 @@ const UpdateProfile = () => {
                                     {...register("name")}
                                     defaultValue={user.name}
                                     id="name"
-                                    className="w-full px-2 h-8 border rounded border-gray-400 outline-none bg-inputColor"
+                                    className="w-full h-8 px-2 border border-gray-400 rounded outline-none bg-inputColor"
                                     />
                                 </div>
                             </div>
@@ -104,7 +103,7 @@ const UpdateProfile = () => {
                                     {...register("phone_number")}
                                     defaultValue={user.phone_number}
                                     id="phone"
-                                    className="w-full px-2 h-8 border rounded border-gray-400 outline-none bg-inputColor"
+                                    className="w-full h-8 px-2 border border-gray-400 rounded outline-none bg-inputColor"
                                     />
                                 </div>
                             </div>
@@ -114,7 +113,7 @@ const UpdateProfile = () => {
                                 <button
                                     type="submit"
                                     disabled={load}
-                                    className="p-1 px-4 font-bold text-white bg-buttonsColor border border-black rounded"
+                                    className="p-1 px-4 font-bold text-white border border-black rounded bg-buttonsColor"
                                 >
                                     {load ? (
                                     <div className="flex items-center gap-1">

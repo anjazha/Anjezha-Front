@@ -4,6 +4,7 @@ import { getAllCategory } from "../functions/getAllCategory";
 import Map from "../components/Map";
 import { XIcon } from "lucide-react";
 import { createPost } from "../functions/createPost";
+import { Categories } from "../types/categories";
 
 interface formType {
     title: string;
@@ -18,25 +19,11 @@ interface formType {
     end_time:string;
     schedule_type:string;
 }
-interface subData {
-    categoryId:string,
-    subcategory:string,
-    id:string,
-    imageUrl:string,
-    description:string,
-}
-interface dataType {
-    id:string,
-    category:string,
-    imageUrl:string,
-    description:string,
-    subcategories:subData[]
-}
 
 const CreatePost = ()=>{
     const {register,handleSubmit,formState:{errors}} = useForm<formType>()
     const [loading,setLoading] = useState(false)
-    const [data,setData] = useState<dataType[]>([])
+    const [data,setData] = useState<Categories[]>([])
     const [errorMap,setErrorMap] = useState(false)
     const [errorSkills,setErrorSkills] = useState(false)
     const inputSkills = useRef<HTMLInputElement | null>(null)
