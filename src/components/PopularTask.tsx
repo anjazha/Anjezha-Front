@@ -5,7 +5,7 @@ const PopularTask = ({name,id,imageUrl}:{name:string,id:string,imageUrl:string |
     const myUrl = useNavigate()
     return (
         <div 
-        onClick={() => myUrl(`/search?categoryId=${id}`)} 
+        onClick={() => myUrl(`/search?category=${id}&page=1`)} 
         className="p-3 rounded-md shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-white dark:bg-[#3B371E] border border-transparent dark:border-[#7F7442] hover:border-[#7F7442]"
     >
         <img 

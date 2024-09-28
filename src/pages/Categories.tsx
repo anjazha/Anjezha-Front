@@ -3,25 +3,10 @@ import { getAllCategory } from '../functions/getAllCategory';
 import image1 from "../assets/featuredTask.jpg";
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
-
-
-interface subData {
-    categoryId:string,
-    subcategory:string,
-    id:string,
-    imageUrl:string,
-    description:string,
-}
-interface DataType {
-    id:string,
-    category:string,
-    imageUrl:string,
-    description:string,
-    subcategories:subData[]
-}
+import { Categories } from '../types/categories';
 
 const CategoriesPage = () => {
-    const [categories, setCategories] = useState<DataType[]>([]);
+    const [categories, setCategories] = useState<Categories[]>([]);
 
     useEffect(() => {
         getAllCategory(setCategories);

@@ -22,7 +22,7 @@ type dispatch = ThunkDispatch<{
     };
 }, undefined, UnknownAction> 
 
-export const updateProfile = (data: formData,dispatch:dispatch) => {
+export const updateProfile = (data: formData,dispatch:dispatch,setLoad: React.Dispatch<React.SetStateAction<boolean>>) => {
     const cookie = Cookie()
     axiosInstance.put("/profile",data,{
         headers:{
@@ -37,12 +37,14 @@ export const updateProfile = (data: formData,dispatch:dispatch) => {
     }).catch((err)=>{
         console.log(err)
         toast.error("حدث خطأ أثناء تعديل ملفك الشخصي")
+    }).finally(()=>{
+        setLoad(false)
     })
 }
 
-export const updatePicture = (data:{profile_picture:File | null | undefined}) => {
+export const updatePicture = (data:{profile_Picture:File | null | undefined}) => {
     const cookie = Cookie()
-    axiosInstance.patch("/user/profile/picture",data,{
+    axiosInstance.patch("/profile/picture",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
             "Content-Type":"multipart/form-data"

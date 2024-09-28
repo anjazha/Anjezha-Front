@@ -3,18 +3,11 @@ import { useParams } from "react-router-dom";
 import { getSubCategoriesById } from "../functions/getSubCategoriesById";
 import Spinner from '../components/Spinner';
 import HowItWorks from "../components/HowItWorks";
-
-interface SubData {
-    categoryId:string,
-    subcategory:string,
-    id:string,
-    imageUrl:string,
-    description:string,
-}
+import { subCategories } from "../types/categories";
 
 const SubCategories = () => {
     const {id} = useParams()
-    const [data,setData] = useState<SubData | null>(null) 
+    const [data,setData] = useState<subCategories | null>(null) 
     useEffect(() => {
         getSubCategoriesById(id,setData)
     }, [id])

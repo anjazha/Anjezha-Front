@@ -20,13 +20,12 @@ const UpdateProfile = () => {
     const dispatch = useAppDispatch()
     const onSubmit = (data:formData)=>{
         setLoad(true);
-        console.log(data);
-        console.log(img);
-        updateProfile(data,dispatch)
+        // console.log(data);
+        // console.log(img);
+        updateProfile(data,dispatch,setLoad)
         if(img){
-            updatePicture({profile_picture:img})
+            updatePicture({profile_Picture:img})
         }
-        setLoad(false);
     }
     return (
         <div className="min-h-screen bg-gray-50 py-10 px-4 flex flex-col justify-center">

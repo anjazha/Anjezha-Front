@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { getAllCategory } from "../functions/getAllCategory";
 import Map from "../components/Map";
 import { becomeTasker } from "../functions/becomeTasker";
+import { Categories } from "../types/categories";
 
 interface formType {
     bio: string;
@@ -10,25 +11,11 @@ interface formType {
     categoryId: string;
     bidding:string
 }
-interface subData {
-    categoryId:string,
-    subcategory:string,
-    id:string,
-    imageUrl:string,
-    description:string,
-}
-interface dataType {
-    id:string,
-    category:string,
-    imageUrl:string,
-    description:string,
-    subcategories:subData[]
-}
 
 const BecomeTasker = () => {
     const {register,handleSubmit,formState:{errors}} = useForm<formType>()
     const [loading,setLoading] = useState(false)
-    const [data,setData] = useState<dataType[]>([])
+    const [data,setData] = useState<Categories[]>([])
     const [errorMap,setErrorMap] = useState(false)
     const onSubmit = (data:formType) => {
         setLoading(true)
