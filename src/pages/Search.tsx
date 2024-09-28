@@ -12,41 +12,94 @@ const Search = () => {
     useEffect(() => {
         getSearch([...search][0][0],[...search][0][1],7,+[...search][1][1],setData)
     },[search])
-    // console.log(allData.data)
-    return (
-        <div className='flex justify-center py-10'>
-            <div className="container">
-            {
-                allData ? 
-                <>
-                    {
-                        allData.data.tasks.length === 0 ?
-                        <div>
+    console.log(allData?.data)
+    return 
+        (
+            <div className='flex justify-center py-10'>
+              <div className="container">
+                {
+                  allData ? (
+                    <>
+                      {
+                        allData.data.tasks.length === 0 ? (
+                          <div>
                             <h2 className='text-2xl font-semibold text-center'>لا يوجد مهام في هذه الفئة</h2>
-                        </div>
-                        :
-                        <>
-                            <div className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                                {allData.data.tasks.map((ele:tasks,x:number)=>(
-                                    <div key={x} className="p-3 rounded-md shadow-lg  duration-300 transition-transform transform hover:scale-105 cursor-pointer bg-bodyColor dark:bg-inputDark border border-transparent hover:border-navColor ">
-                                        <img src={image} alt="image task" className="h-[200px] w-full"/>
-                                        <div className="mt-3">
-                                            <h2 className="font-semibold text-lg text-inputDark dark:text-bodyColor text-ellipsis line-clamp-1">{ele.title}</h2>
-                                            <p className='my-2 text-ellipsis text-inputDark dark:text-bodyColor line-clamp-3'>{ele.description}</p>
-                                            <p className='text-red-500'>$ {ele.budget}</p>
-                                        </div>
+                          </div>
+                        ) : (
+                          <>
+                            <div className="grid grid-cols-1 gap-5 mt-5">
+                              {allData.data.tasks.map((ele: tasks, x: number) => (
+                                <div
+                                  key={x}
+                                  className="p-4 rounded-lg shadow-md bg-bodyColor dark:bg-inputDark border border-transparent hover:border-navColor duration-300 transition-transform transform hover:scale-105 cursor-pointer flex flex-col sm:flex-row items-start"
+                                >
+                                  <div className="flex-1">
+                                    {/* Task Title */}
+                                    <h2 className="font-semibold md:text-xl text-darkColor dark:text-bodyColor text-ellipsis line-clamp-1">
+                                      {ele.title}
+                                    </h2>
+          
+                                    {/* Task Address, Date, Time, Schedule - Small Text */}
+                                    <div className="text-xs text-gray-500 dark:text-gray-400 flex gap-x-5 flex-wrap">
+                                      <p>{ele.address}</p>
+                                      <p>{new Date(ele.date).toLocaleDateString()}</p>
+                                      <p>{ele.start_time} - {ele.end_time}</p>
+                                      <p>{ele.schedule_type}</p>
                                     </div>
-                                ))}
+          
+                                    {/* Task Description */}
+                                    <p className="my-2 text-sm text-darkColor dark:text-bodyColor line-clamp-3">
+                                      {ele.description}
+                                    </p>
+          
+                                    {/* Task Category as a Primary Color Tag */}
+                                    <div className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                                      <span className="inline-block bg-buttonsColor text-white px-2 py-1 rounded-full text-xs font-bold font-medium">
+                                        {ele.category}
+                                      </span>
+          
+                                      {/* Task Skills as Gray Tags */}
+                                      <div className="mt-2 flex flex-wrap gap-2">
+                                        {ele.skills.map((skill, index) => (
+                                          <span
+                                            key={index}
+                                            className="inline-block bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs font-medium"
+                                          >
+                                            {skill}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    </div>
+          
+                                    {/* Task Budget */}
+                                    <div className="mt-4 text-lg font-bold text-primaryColor">
+                                      $ {ele.budget}
+                                    </div>
+                                  </div>
+          
+                                  {/* Action Button */}
+                                  <div className="flex items-center mt-4 sm:mt-0 sm:ml-5">
+                                    <button
+                                      className="bg-buttonsColor text-white py-1 px-4 rounded-full text-sm hover:bg-buttonsHover transition"
+                                    >
+                                      Apply Now
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
                             </div>
+          
+                            {/* Pagination Component */}
                             <Pagination search={search} setSearch={setSearch} pagination={allData.pagination} />
-                        </>
-                    }
-                </>
-                :<Spinner />
-            }
+                          </>
+                        )
+                      }
+                    </>
+                  ) : <Spinner />
+                }
+              </div>
             </div>
-        </div>
-    )
+          )
 }
 export default Search
 
