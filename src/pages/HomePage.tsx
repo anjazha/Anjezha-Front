@@ -1,6 +1,5 @@
 import { Search } from "lucide-react";
 // import image from "../assets/homeImage.png"
-import image from "../assets/coverImage.jpeg";
 import PopularTask from "../components/PopularTask";
 import { useEffect, useState } from "react";
 import { getAllCategory } from "../functions/getAllCategory";
@@ -31,8 +30,8 @@ const HomePage = () => {
   const [data, setData] = useState<dataType[]>([]);
   const myUrl = useNavigate();
   const onSubmit = (data: form) => {
-    console.log(data);
-    myUrl(`/search?q=${data.search}`);
+    // console.log(data);
+    myUrl(`/search?q=${data.search}&page=1`);
   };
   useEffect(() => {
     getAllCategory(setData);
