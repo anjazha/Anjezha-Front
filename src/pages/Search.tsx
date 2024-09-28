@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SetURLSearchParams, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getSearch } from '../functions/search'
@@ -8,8 +7,6 @@ import { dataTypeSearch, paginaton, tasks } from '../types/search'
 
 const Search = () => {
     const [search,setSearch] = useSearchParams()
-    // console.log(search.get("categoryId"))
-    // console.log(search.get("q"))
     const [allData,setData] = useState<dataTypeSearch | null>(null)
     // console.log([...search]);
     useEffect(() => {
