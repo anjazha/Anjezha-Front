@@ -13,7 +13,7 @@ const Profile = () => {
                 {user.email ? (
                 <div className="">
                     <UpdateProfile />
-                    <UpdatePassword/>
+                    {/* <UpdatePassword/> */}
                 </div>
                 ) : (
                 <Spinner />

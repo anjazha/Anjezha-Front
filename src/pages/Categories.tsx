@@ -29,33 +29,38 @@ const CategoriesPage = () => {
 
     return (
         <div className="container p-6 mx-auto">
-            <h1 className="mb-6 text-3xl font-bold text-center">الفئات</h1>
-            {
-                categories.length > 0 ?
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    {categories.map((category,index) => (
-                        <div key={index} className="bg-[#C2C2C2] overflow-hidden rounded-lg shadow-lg">
-                            <img
-                                src={category.imageUrl ? category.imageUrl : image1} 
-                                alt={category.category}
-                                className="object-cover w-full h-48 transition duration-300 ease-in-out delay-150 bg-gray-500 rounded-md hover:-translate-y-1 hover:scale-110 hover:bg-gray-600"
-                            />
-                            <div className='p-4'>
-                                <h2 className="mb-2 text-xl font-bold">{category.category}</h2>
-                                <ul className="flex flex-col list-disc list-inside">
-                                    {category.subcategories.map((sub,index) => (
-                                        <Link to={`/subCategories/${sub.id}`} key={index} className="text-[#000000] cursor-pointer underline">
-                                            {sub.subcategory}
-                                        </Link>
-                                    ))}
-                                </ul>
+        <h1 className="mb-6 text-3xl font-bold text-center dark:text-bodyColor">الفئات</h1>
+        {
+            categories.length > 0 ?
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {categories.map((category, index) => (
+                    <div key={index} className="overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1">
+                        <img
+                            src={category.imageUrl ? category.imageUrl : image1}
+                            alt={category.category}
+                            className="object-cover w-full h-48 transition-transform duration-300 ease-in-out hover:scale-105"
+                        />
+                        <div className='p-4 bg-white dark:bg-inputDark rounded-b-lg'>
+                            <h2 className="mb-2 text-xl font-bold dark:text-bodyColor">{category.category}</h2>
+                            <div className="flex flex-wrap gap-2">
+                                {category.subcategories.map((sub, index) => (
+                                    <Link 
+                                        to={`/subCategories/${sub.id}`} 
+                                        key={index} 
+                                        className="inline-block px-3 py-1 text-sm font-semibold text-white bg-buttonsColor rounded-full hover:bg-[#4F46E599] dark:bg-[#B8B294] dark:hover:bg-[#C2B884] transition-colors duration-300"
+                                    >
+                                        {sub.subcategory}
+                                    </Link>
+                                ))}
                             </div>
                         </div>
-                    ))}
-                </div>
-                : <Spinner />
-            }
-        </div>
+                    </div>
+                ))}
+            </div>
+            : <Spinner />
+        }
+    </div>
+    
     );
 };
 

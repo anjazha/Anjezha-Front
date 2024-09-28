@@ -18,7 +18,7 @@ import SubCategories from './pages/SubCategories'
 function App() {
 
   return (
-    <div className='flex flex-col justify-between min-h-screen bg-bodyColor dark:bg-bodyDark'>
+    <div className='flex flex-col justify-between min-h-screen bg-bodyColor dark:bg-bodyDark font'>
       <Navbar/>
       <div className="Routes">
         <Routes>
