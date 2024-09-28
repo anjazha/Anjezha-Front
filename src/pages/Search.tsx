@@ -54,7 +54,7 @@ const Search = () => {
 export default Search
 
 const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton,search: URLSearchParams,setSearch: SetURLSearchParams}) => {
-    const setPage = (number:any) => {
+    const setPage = (number:string) => {
         const currentParams = new URLSearchParams(search);
     
         if (currentParams.has("page")) currentParams.set("page", number);
@@ -68,7 +68,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton,search
                 <button
                     className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle `}
                     onClick={() => {
-                    setPage(pagination.prevPage);
+                    setPage(`${pagination.prevPage}`);
                     }}
                 >
                     &lt;&lt;
@@ -81,7 +81,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton,search
                     pagination.currentPage === i + 1 ? "bg-gray-300" : ""
                     }`}
                     onClick={() => {
-                    setPage(i + 1);
+                    setPage(`${i + 1}`);
                     }}
                 >
                     {i + 1}
@@ -91,7 +91,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton,search
                 <button
                     className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle `}
                     onClick={() => {
-                    setPage(pagination.nextPage);
+                    setPage(`${pagination.nextPage}`);
                     }}
                 >
                     &gt;&gt;
