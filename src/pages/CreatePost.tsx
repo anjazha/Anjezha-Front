@@ -80,11 +80,11 @@ const CreatePost = ()=>{
     return(
         <div className="flex justify-center py-5">
         <div className="container z-30 flex flex-col items-center">
-            <h1 className="text-2xl font-bold text-center text-darkColor">نشر مهمة</h1>
-            <div className="bg-lightColor p-5 rounded-xl w-full  mt-5 shadow-md">
+            <h1 className="text-2xl font-bold text-center text-darkColor dark:text-bodyColor">نشر مهمة</h1>
+            <div className="bg-bodyColor dark:bg-inputDark p-5 rounded-xl w-full  mt-5 shadow-md">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-4">
-                        <label htmlFor="title" className="block text-lg font-semibold">الاسم</label>
+                        <label htmlFor="title" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الاسم</label>
                         <input
                             type="text"
                             {...register("title", { required: true })}
@@ -95,7 +95,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="description" className="block text-lg font-semibold">الوصف</label>
+                        <label htmlFor="description" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الوصف</label>
                         <textarea
                             rows={10}
                             {...register("description", { required: true })}
@@ -106,7 +106,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="date" className="block text-lg font-semibold">التاريخ</label>
+                        <label htmlFor="date" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">التاريخ</label>
                         <input
                             type="date"
                             {...register("date", { required: true })}
@@ -117,7 +117,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="budget" className="block text-lg font-semibold">السعر</label>
+                        <label htmlFor="budget" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">السعر</label>
                         <input
                             type="number"
                             {...register("budget", { required: true })}
@@ -128,7 +128,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="category" className="block text-lg font-semibold">الفئة</label>
+                        <label htmlFor="category" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الفئة</label>
                         <select
                             required
                             {...register("categoryId", { required: true })}
@@ -143,7 +143,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="address" className="block text-lg font-semibold">العنوان</label>
+                        <label htmlFor="address" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">العنوان</label>
                         <input
                             type="text"
                             {...register("address", { required: true })}
@@ -154,7 +154,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="status" className="block text-lg font-semibold">الحالة</label>
+                        <label htmlFor="status" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الحالة</label>
                         <input
                             type="text"
                             {...register("status", { required: true })}
@@ -165,7 +165,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="skills" className="block text-lg font-semibold">المهارات</label>
+                        <label htmlFor="skills" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">المهارات</label>
                         <div className="flex items-center gap-3 mt-1">
                             <input
                                 type="text"
@@ -186,10 +186,10 @@ const CreatePost = ()=>{
     
                     {skills.length > 0 && (
                         <div className="mb-4">
-                            <label className="block text-lg font-semibold">مهاراتك</label>
+                            <label className="block text-lg font-semibold text-darkColor dark:text-bodyColor">مهاراتك</label>
                             <div className="flex flex-wrap items-center gap-5 mt-2">
                                 {skills.map((ele, index) => (
-                                    <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-green-500 rounded">
+                                    <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-navColor rounded">
                                         <span className="text-sm">{ele}</span>
                                         <span onClick={() => deleteSkill(ele)} className="absolute bg-black rounded cursor-pointer -left-1 -top-1"><XIcon size={15} /></span>
                                     </div>
@@ -199,7 +199,7 @@ const CreatePost = ()=>{
                     )}
     
                     <div className="mb-4">
-                        <label htmlFor="schedule_type" className="block text-lg font-semibold">وقت العمل</label>
+                        <label htmlFor="schedule_type" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">وقت العمل</label>
                         <select
                             required
                             {...register("schedule_type", { required: true })}
@@ -214,7 +214,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="start_time" className="block text-lg font-semibold">وقت بدء العمل</label>
+                        <label htmlFor="start_time" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">وقت بدء العمل</label>
                         <input
                             type="time"
                             {...register("start_time", { required: true })}
@@ -225,7 +225,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="end_time" className="block text-lg font-semibold">وقت نهاية العمل</label>
+                        <label htmlFor="end_time" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">وقت نهاية العمل</label>
                         <input
                             type="time"
                             {...register("end_time", { required: true })}
@@ -236,7 +236,7 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
-                        <label htmlFor="location" className="block text-lg font-semibold">الموقع</label>
+                        <label htmlFor="location" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
                         <Map setErrorMap={setErrorMap} />
                         {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك</p>}
                     </div>

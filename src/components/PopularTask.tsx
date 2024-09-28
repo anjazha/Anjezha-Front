@@ -6,12 +6,12 @@ const PopularTask = ({name,id,imageUrl}:{name:string,id:string,imageUrl:string |
     return (
         <div 
         onClick={() => myUrl(`/search?category=${id}&page=1`)} 
-        className="p-3 rounded-md shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-white dark:bg-[#3B371E] border border-transparent dark:border-[#7F7442] hover:border-[#7F7442]"
+        className="p-3 rounded-md shadow-lg  duration-300 transition-transform transform hover:scale-105 cursor-pointer bg-bodyColor dark:bg-inputDark border border-transparent hover:border-navColor "
     >
         <img 
             src={imageUrl ? imageUrl : image} 
             alt="image task" 
-            className="h-[200px] w-full rounded-md object-cover transition-transform duration-300 transform hover:scale-105"
+            className="h-[200px] w-full rounded-md object-cover "
         />
         <div className="mt-3">
             <h2 className="font-semibold text-navColor dark:text-bodyColor">{name}</h2>

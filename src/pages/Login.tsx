@@ -44,7 +44,7 @@ const Login = () => {
                 type="email"
                 {...register("email", { required: true })}
                 id="email"
-                dir="ltr"
+                // dir="ltr"
                 className="w-full h-10 p-2 mt-1 rounded border border-gray-300 dark:border-gray-600 outline-none bg-inputColor dark:bg-inputDark dark:text-gray-200"
               />
               {errors.email?.type === "required" && (
@@ -61,11 +61,11 @@ const Login = () => {
                 كلمة المرور
               </label>
               <br />
-              <div className="flex items-center justify-between w-full h-10 px-2 mt-1 rounded border border-gray-300 dark:border-gray-600 bg-inputColor dark:bg-inputDark">
+              <div className="flex items-center justify-between w-full h-10 px-2 mt-1 rounded border border-gray-300 dark:border-gray-600 dark:text-gray-200 bg-inputColor dark:bg-inputDark">
                 <input
                   type={changePass}
                   {...register("password", { required: true })}
-                  dir="ltr"
+                  // dir="ltr"
                   id="pass"
                   className="w-full h-full bg-transparent rounded outline-none dark:text-gray-200"
                 />

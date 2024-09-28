@@ -19,7 +19,7 @@ const CategoriesPage = () => {
             categories.length > 0 ?
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {categories.map((category, index) => (
-                    <div key={index} className="overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1">
+                    <div key={index} className="overflow-hidden rounded-lg bg-white dark:bg-inputDark shadow-lg transition-transform duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1">
                         <img
                             src={category.imageUrl ? category.imageUrl : image1}
                             alt={category.category}

@@ -21,7 +21,7 @@ const UpdatePassword = () => {
     return (
         <div className="w-full mt-10 sm:w-[500px] mx-auto">
         <h1 className="mb-4 text-2xl font-extrabold text-center dark:text-bodyColor">تعديل كلمة المرور</h1>
-        <div className="border rounded-lg p-6 shadow-lg bg-lightBg dark:bg-darkBg">
+        <div className="border rounded-lg p-6 shadow-lg bg-lightBg dark:bg-bodyDark">
             <form onSubmit={handleSubmit(onSubmit)} action="">
                 <div>
                     <label htmlFor="oldPassword" className="text-base font-bold dark:text-bodyColor">كلمة المرور السابقة</label>

@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { RootState} from "../store/store";
 import Spinner from "../components/Spinner";
 import UpdateProfile from "../components/UpdateProfile";
-import UpdatePassword from "../components/UpdatePassword";
 
 
 const Profile = () => {

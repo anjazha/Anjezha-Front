@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate } from "react-router-dom";
-import image from "../assets/logo.png";
 import { AlignJustify, Moon, Sun, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { RootState, useAppDispatch } from "../store/store";
@@ -30,7 +29,7 @@ const Navbar = () => {
     }
   }, [cookie]);
   return (
-    <div className="sticky top-0 z-50 shadow-lg py-4 bg-white text-gray-800">
+    <div className="sticky top-0 z-50 shadow-lg py-4 bg-bodyColor dark:bg-inputDark text-inputDark dark:text-bodyColor">
       <div className="container mx-auto flex justify-between items-center px-5 md:px-10">
         {/* Mobile Menu Toggle */}
         <div className="md:hidden cursor-pointer">
@@ -46,8 +45,8 @@ const Navbar = () => {
         {/* Navigation Links */}
         <div
           className={`fixed z-50 ${
-            isNavOpen ? "right-0" : "right-[-100%]"
-          }  h-full w-[300px] bg-gray-100 text-gray-800 p-5 top-20 transition-all duration-500 md:static md:flex md:items-center md:gap-10 md:bg-transparent md:w-auto md:p-0`}
+            isNavOpen ? "right-0 shadow-md" : "right-[-100%]"
+          }  h-full w-[300px] bg-bodyColor dark:bg-inputDark text-inputDark dark:text-bodyColor p-5 top-20 transition-all duration-500 md:static md:flex md:items-center md:gap-10 md:bg-transparent md:w-auto md:p-0`}
         >
           <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:gap-4 font-semibold">
             <li>
@@ -89,9 +88,9 @@ const Navbar = () => {
           {/* Dark/Light Mode Toggle */}
           <div onClick={changeMode} className="cursor-pointer">
             {mode === "light" ? (
-              <Moon className="text-gray-800 w-6 h-6" />
+              <Moon className="text-inputDark dark:text-bodyColor w-6 h-6" />
             ) : (
-              <Sun className="text-gray-800 w-6 h-6" />
+              <Sun className="text-inputDark dark:text-bodyColor w-6 h-6" />
             )}
           </div>
 

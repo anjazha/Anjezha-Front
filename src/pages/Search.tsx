@@ -28,11 +28,11 @@ const Search = () => {
                         <>
                             <div className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                                 {allData.data.tasks.map((ele:tasks,x:number)=>(
-                                    <div key={x} className="p-3 bg-[#E2DDC6] rounded-md cursor-pointer hover:border hover:border-[#7F7442] duration-300">
+                                    <div key={x} className="p-3 rounded-md shadow-lg  duration-300 transition-transform transform hover:scale-105 cursor-pointer bg-bodyColor dark:bg-inputDark border border-transparent hover:border-navColor ">
                                         <img src={image} alt="image task" className="h-[200px] w-full"/>
                                         <div className="mt-3">
-                                            <h2 className="font-semibold text-ellipsis line-clamp-1">{ele.title}</h2>
-                                            <p className='my-2 text-ellipsis line-clamp-3'>{ele.description}</p>
+                                            <h2 className="font-semibold text-lg text-inputDark dark:text-bodyColor text-ellipsis line-clamp-1">{ele.title}</h2>
+                                            <p className='my-2 text-ellipsis text-inputDark dark:text-bodyColor line-clamp-3'>{ele.description}</p>
                                             <p className='text-red-500'>$ {ele.budget}</p>
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton,search
         <div className="mt-5 flex justify-center gap-[3px] flex-wrap">
             {pagination?.prevPage && (
                 <button
-                    className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle `}
+                    className={`relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset ring-gray-300 bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
                     onClick={() => {
                     setPage(`${pagination.prevPage}`);
                     }}
@@ -74,8 +74,8 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton,search
             {Array.from({length:pagination?.totalPages || 0},(_e, i) => (
                 <button
                     key={i}
-                    className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle ${
-                    pagination.currentPage === i + 1 ? "bg-gray-300" : ""
+                    className={` relative z-10 inline-flex items-center rounded px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                    pagination.currentPage === i + 1 ? "bg-indigo-600" : "bg-bodyColor text-inputDark border shadow hover:bg-gray-200"
                     }`}
                     onClick={() => {
                     setPage(`${i + 1}`);
@@ -86,7 +86,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton,search
             ))}
             {pagination?.nextPage && (
                 <button
-                    className={` border border-gray-400 rounded p-1 w-8 h-8  flex justify-center align-middle `}
+                    className={`relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset ring-gray-300 bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
                     onClick={() => {
                     setPage(`${pagination.nextPage}`);
                     }}

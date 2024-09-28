@@ -28,14 +28,14 @@ const UpdateProfile = () => {
         }
     }
     return (
-        <div className="min-h-screen bg-gray-50 py-10 px-4 flex flex-col justify-center">
-        <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl w-full bg-white shadow-md rounded-lg p-6">
+        <div className="min-h-screen bg-gray-50 dark:bg-inputDark rounded-lg py-10 px-4 flex flex-col justify-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl border w-full bg-white dark:bg-bodyDark shadow-md rounded-lg p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-8">
             
             {/* Profile Section */}
             <div className="col-span-1 md:w-full">
-              <div className="bg-indigo-600 text-white p-6 rounded-lg text-center">
-                <h2 className="text-xl font-bold mb-4">ملفك الشخصي</h2>
+              <div className="bg-indigo-600 dark:bg-inputDark text-white p-6 rounded-lg text-center">
+                <h2 className="text-xl font-bold mb-4 dark:text-bodyColor">ملفك الشخصي</h2>
                 <div className="flex justify-center mb-4">
                   <img
                     src={img ? URL.createObjectURL(img) : user?.profile_picture || image}
@@ -62,12 +62,12 @@ const UpdateProfile = () => {
             <div className="col-span-2">
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-700 mb-4">معلومات الحساب</h2>
+                  <h2 className="text-2xl font-semibold text-gray-700 dark:text-bodyColor mb-4">معلومات الحساب</h2>
       
                   {/* Name Input */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-semibold text-gray-600 mb-2">الاسم</label>
+                      <label htmlFor="name" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">الاسم</label>
                       <input
                         type="text"
                         {...register("name")}
@@ -79,7 +79,7 @@ const UpdateProfile = () => {
       
                     {/* Email Input */}
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-gray-600 mb-2">البريد الإلكتروني</label>
+                      <label htmlFor="email" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">البريد الإلكتروني</label>
                       <input
                         type="email"
                         {...register("email")}
@@ -92,7 +92,7 @@ const UpdateProfile = () => {
       
                   {/* Phone Input */}
                   <div className="mt-4">
-                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-600 mb-2">رقم الهاتف</label>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">رقم الهاتف</label>
                     <input
                       type="text"
                       {...register("phone_number")}
