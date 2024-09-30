@@ -14,7 +14,7 @@ const Navbar = () => {
   const [mode, setMode] = useState("light");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  console.log(isNavOpen);
+  // console.log(isNavOpen);
   const changeMode = () => {
     localStorage.mode = mode === "light" ? "dark" : "light"
     setMode(mode === "light" ? "dark" : "light");

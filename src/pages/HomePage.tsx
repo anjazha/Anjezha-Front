@@ -42,7 +42,7 @@ const HomePage = () => {
         <div style={{backgroundImage:'url(src/assets/coverImage2.jpeg)', backgroundPosition:'center', backgroundRepeat:"no-repeat", backgroundSize:'cover'}} className="h-[50vh] py-6 relative before:absolute before:bg-[#cecccc5d] before:w-full before:h-full before:top-0 before:left-0">
         
           <div className="flex flex-col items-center gap-2 z-100 relative">
-            <h2 className="text-lg font-bold text-navColor dark:text-bodyColor">
+            <h2 className="text-lg font-bold text-navColor">
               ما هي المساعدة التي تحتاجها؟
             </h2>
             <form

@@ -9,7 +9,7 @@ import UpdatePassword from "./UpdatePassword";
 interface formData {
     name: string;
     email: string;
-    phone_number: string;
+    phoneNumber: string;
 }
 
 const UpdateProfile = () => {
@@ -95,8 +95,8 @@ const UpdateProfile = () => {
                     <label htmlFor="phone" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">رقم الهاتف</label>
                     <input
                       type="text"
-                      {...register("phone_number")}
-                      defaultValue={user.phone_number}
+                      {...register("phoneNumber")}
+                      defaultValue={user.phoneNumber}
                       id="phone"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
                     />

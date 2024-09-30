@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 interface formData {
     name: string;
     email: string;
-    phone_number: string;
+    phoneNumber: string;
 }
 
 type dispatch = ThunkDispatch<{
@@ -16,8 +16,8 @@ type dispatch = ThunkDispatch<{
         name: string;
         email: string;
         password: string;
-        phone_number: string;
-        profile_picture: string;
+        phoneNumber: string;
+        profilePicture: string;
         created_at: string;
     };
 }, undefined, UnknownAction> 
@@ -50,8 +50,8 @@ export const updatePicture = (data:{profilePicture:File | null | undefined}) => 
             "Content-Type":"multipart/form-data"
         }
     })
-    .then((res)=>{
-        console.log(res)
+    .then(()=>{
+        console.log("res")
     }).catch((err)=>{
         console.log(err)
     })

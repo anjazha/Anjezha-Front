@@ -5,7 +5,7 @@ const initialState = {
     name:"",
     email:"",
     password:"",
-    phone_number:"",
+    phoneNumber:"",
     profilePicture:"",
     created_at:"",
 }
@@ -24,7 +24,7 @@ const userSlice = createSlice({
                 name:"",
                 email:"",
                 password:"",
-                phone_number:"",
+                phoneNumber:"",
                 profilePicture:"",
                 created_at:"",
             };
