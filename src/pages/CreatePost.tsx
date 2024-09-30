@@ -155,12 +155,17 @@ const CreatePost = ()=>{
     
                     <div className="mb-4">
                         <label htmlFor="status" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الحالة</label>
-                        <input
-                            type="text"
+                        <select
                             {...register("status", { required: true })}
                             id="status"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
-                        />
+                            className="w-full h-10 px-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        >
+                            <option value="pending">Pending</option>
+                            <option value="open">Open</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="closed">Closed</option>
+                        </select>
                         {errors.status?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الحالة</p>}
                     </div>
     
@@ -237,7 +242,7 @@ const CreatePost = ()=>{
     
                     <div className="mb-4">
                         <label htmlFor="location" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
-                        <Map setErrorMap={setErrorMap} />
+                        <Map latitude={+localStorage.latitude} longitude={+localStorage.longitude} setErrorMap={setErrorMap} />
                         {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك</p>}
                     </div>
     

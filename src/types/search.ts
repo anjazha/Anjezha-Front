@@ -6,6 +6,12 @@ export interface paginaton {
     totalPages: number | null;
 }
 
+export interface attachments {
+    type:string,
+    size:string,
+    url: string,
+}
+
 export interface tasks {
     address: string;
     budget: string;
@@ -24,6 +30,7 @@ export interface tasks {
     title: string;
     total_count: string;
     user_id:string
+    attachments?:attachments[],
 }
 
 export interface dataTypeSearch {

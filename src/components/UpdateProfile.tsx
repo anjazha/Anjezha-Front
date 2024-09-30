@@ -24,7 +24,7 @@ const UpdateProfile = () => {
         // console.log(img);
         updateProfile(data,dispatch,setLoad)
         if(img){
-            updatePicture({profile_Picture:img})
+            updatePicture({profilePicture:img})
         }
     }
     return (
@@ -38,7 +38,7 @@ const UpdateProfile = () => {
                 <h2 className="text-xl font-bold mb-4 dark:text-bodyColor">ملفك الشخصي</h2>
                 <div className="flex justify-center mb-4">
                   <img
-                    src={img ? URL.createObjectURL(img) : user?.profile_picture || image}
+                    src={img ? URL.createObjectURL(img) : user?.profilePicture || image}
                     alt="Profile"
                     className="w-32 h-32 rounded-full border-4 border-white shadow-md"
                   />
