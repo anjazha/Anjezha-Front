@@ -30,7 +30,7 @@ const UpdatePassword = () => {
                             type={changePass} 
                             {...register("oldPassword", { required: true })} 
                             id="oldPassword" 
-                            className="w-full h-full bg-transparent rounded outline-none text-base dark:text-bodyColor" 
+                            className="w-full h-full bg-transparent rounded outline-none text-base dark:bg-bodyColor" 
                         />
                         <div onClick={() => setPass(changePass === "password" ? "text" : "password")} className="cursor-pointer">
                             <EyeOff size={16} className={`${changePass === "password" ? "block" : "hidden"} text-gray-600`} />
@@ -46,7 +46,7 @@ const UpdatePassword = () => {
                             type={changePassNew} 
                             {...register("newPassword", { required: true })} 
                             id="newPassword" 
-                            className="w-full h-full bg-transparent rounded outline-none text-base dark:text-bodyColor" 
+                            className="w-full h-full bg-transparent rounded outline-none text-base dark:bg-bodyColor" 
                         />
                         <div onClick={() => setPassNew(changePassNew === "password" ? "text" : "password")} className="cursor-pointer">
                             <EyeOff size={16} className={`${changePassNew === "password" ? "block" : "hidden"} text-gray-600`} />
