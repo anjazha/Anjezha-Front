@@ -42,7 +42,7 @@ export const updateProfile = (data: formData,dispatch:dispatch,setLoad: React.Di
     })
 }
 
-export const updatePicture = (data:{profile_Picture:File | null | undefined}) => {
+export const updatePicture = (data:{profilePicture:File | null | undefined}) => {
     const cookie = Cookie()
     axiosInstance.patch("/profile/picture",data,{
         headers:{
