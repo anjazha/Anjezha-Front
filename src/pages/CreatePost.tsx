@@ -79,118 +79,189 @@ const CreatePost = ()=>{
     },[])
     return(
         <div className="flex justify-center py-5">
-            <div className="container z-30 flex flex-col items-center">
-            <h1 className="text-xl font-bold text-center dark:text-bodyColor">نشر مهمة</h1>
-                <div className="bg-[#D4CDA6] p-3 py-4 rounded-xl w-full sm:w-[500px] mt-3">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div>
-                            <label htmlFor="title">الاسم</label><br/>
-                            <input type="text" {...register("title",{required:true})} id="title" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.title?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل اسم المهمة</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="description">الوصف</label><br/>
-                            <input type="text" {...register("description",{required:true})} id="description" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.description?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وصف المهمة</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="date">التاريخ</label><br/>
-                            <input type="date" {...register("date",{required:true})} id="date" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.date?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل تاريخ المهمة</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="budget">السعر</label><br/>
-                            <div className="flex items-center justify-between w-full h-8 px-2 mt-1 rounded bg-inputColor">
-                                <input type={"number"} {...register("budget",{required:true})} id="budget" className="w-full h-full bg-transparent rounded outline-none" />
-                            </div>
-                            {errors.budget?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل السعر</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="category">الفئة</label>
-                            <select required {...register("categoryId",{required:true})} id="category" className="w-full h-8 px-2 mt-1 rounded outline-none bg-inputColor">
-                                {
-                                    data.map(item=>(
-                                        <option key={item.id} value={item.id}>{item.category}</option>
-                                    ))
-                                }
-                            </select>
-                            {errors.categoryId?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الفئة</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="address">العنوان</label><br/>
-                            <input type="text" {...register("address",{required:true})} id="address" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.address?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل العنوان</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="status">الحالة</label><br/>
-                            <input type="text" {...register("status",{required:true})} id="status" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.status?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الحالة</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="skills">المهارات</label><br/>
-                            <div className="flex items-center gap-5 mt-1">
-                                <input type="text" ref={inputSkills} id="skills" className="w-full h-8 p-2 rounded outline-none bg-inputColor " />
-                                <button type="button" onClick={()=>addSkills()} className="h-8 p-2 py-0 text-white rounded bg-buttonsColor">اضافة</button>
-                            </div>
-                            {errorSkills && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل المهارات</p>}
-                        </div>
-                        {
-                            skills.length > 0 && 
-                                <div className="mt-3">
-                                    <label htmlFor="skills">مهاراتك</label><br/>
-                                    <div className="flex flex-wrap items-center gap-5 mt-2">
-                                        {
-                                            skills.map((ele,index)=>(
-                                                <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-green-500 rounded">
-                                                    <span className="text-sm">{ele}</span>
-                                                    <span onClick={()=>deleteSkill(ele)} className="absolute bg-black rounded cursor-pointer -left-1 -top-1"><XIcon size={15} /></span>
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                                </div>
-                        }
-                        <div className="mt-3">
-                            <label htmlFor="schedule_type">وقت العمل</label>
-                            <select required {...register("schedule_type",{required:true})} id="schedule_type" name="schedule_type" className="w-full h-8 px-2 mt-1 rounded outline-none bg-inputColor">
-                                {
-                                    ["morning","evening"].map((ele,index)=>(
-                                        <option key={index} value={ele}>{ele === "morning" ? "صباحا" : "مساءا" }</option>
-                                    ))
-                                }
-                            </select>
-                            {errors.schedule_type?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت العمل</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="start_time">وقت بدء العمل</label><br/>
-                            <input type="time" {...register("start_time",{required:true})} id="start_time" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.start_time?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت بدء العمل</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="end_time">وقت نهاية العمل</label><br/>
-                            <input type="time" {...register("end_time",{required:true})} id="end_time" className="w-full h-8 p-2 mt-1 rounded outline-none bg-inputColor " />
-                            {errors.end_time?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت نهاية العمل</p>}
-                        </div>
-                        <div className="mt-3">
-                            <label htmlFor="location" className="inline-block mb-1">الموقع</label><br/>
-                            <Map setErrorMap={setErrorMap}/>
-                            {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
-                        </div>
-                        <div className="flex justify-center mt-4">
-                            <button disabled={loading} className="w-full p-2 py-1 text-white rounded bg-buttonsColor">
-                                {
-                                    loading ? 
-                                    <div className="flex items-center justify-center">
-                                        <span className="inline-block w-5 h-5 rounded-full border border-black border-l-[#D4CDA6] animate-spin"></span>
-                                    </div>
-                                    :"ارسال"
-                                }
+        <div className="container z-30 flex flex-col items-center">
+            <h1 className="text-2xl font-bold text-center text-darkColor dark:text-bodyColor">نشر مهمة</h1>
+            <div className="bg-bodyColor dark:bg-inputDark p-5 rounded-xl w-full  mt-5 shadow-md">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mb-4">
+                        <label htmlFor="title" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الاسم</label>
+                        <input
+                            type="text"
+                            {...register("title", { required: true })}
+                            id="title"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.title?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل اسم المهمة</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="description" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الوصف</label>
+                        <textarea
+                            rows={10}
+                            {...register("description", { required: true })}
+                            id="description"
+                            className="w-full h-50 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.description?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وصف المهمة</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="date" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">التاريخ</label>
+                        <input
+                            type="date"
+                            {...register("date", { required: true })}
+                            id="date"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.date?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل تاريخ المهمة</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="budget" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">السعر</label>
+                        <input
+                            type="number"
+                            {...register("budget", { required: true })}
+                            id="budget"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.budget?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل السعر</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="category" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الفئة</label>
+                        <select
+                            required
+                            {...register("categoryId", { required: true })}
+                            id="category"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        >
+                            {data.map(item => (
+                                <option key={item.id} value={item.id}>{item.category}</option>
+                            ))}
+                        </select>
+                        {errors.categoryId?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الفئة</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="address" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">العنوان</label>
+                        <input
+                            type="text"
+                            {...register("address", { required: true })}
+                            id="address"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.address?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل العنوان</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="status" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الحالة</label>
+                        <input
+                            type="text"
+                            {...register("status", { required: true })}
+                            id="status"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.status?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الحالة</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="skills" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">المهارات</label>
+                        <div className="flex items-center gap-3 mt-1">
+                            <input
+                                type="text"
+                                ref={inputSkills}
+                                id="skills"
+                                className="w-full h-10 p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => addSkills()}
+                                className="h-10 p-2 text-white rounded bg-buttonsColor"
+                            >
+                                اضافة
                             </button>
                         </div>
-                    </form>
-                </div>
+                        {errorSkills && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل المهارات</p>}
+                    </div>
+    
+                    {skills.length > 0 && (
+                        <div className="mb-4">
+                            <label className="block text-lg font-semibold text-darkColor dark:text-bodyColor">مهاراتك</label>
+                            <div className="flex flex-wrap items-center gap-5 mt-2">
+                                {skills.map((ele, index) => (
+                                    <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-navColor rounded">
+                                        <span className="text-sm">{ele}</span>
+                                        <span onClick={() => deleteSkill(ele)} className="absolute bg-black rounded cursor-pointer -left-1 -top-1"><XIcon size={15} /></span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+    
+                    <div className="mb-4">
+                        <label htmlFor="schedule_type" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">وقت العمل</label>
+                        <select
+                            required
+                            {...register("schedule_type", { required: true })}
+                            id="schedule_type"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        >
+                            {["morning", "evening"].map((ele, index) => (
+                                <option key={index} value={ele}>{ele === "morning" ? "صباحا" : "مساءا"}</option>
+                            ))}
+                        </select>
+                        {errors.schedule_type?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت العمل</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="start_time" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">وقت بدء العمل</label>
+                        <input
+                            type="time"
+                            {...register("start_time", { required: true })}
+                            id="start_time"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.start_time?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت بدء العمل</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="end_time" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">وقت نهاية العمل</label>
+                        <input
+                            type="time"
+                            {...register("end_time", { required: true })}
+                            id="end_time"
+                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                        />
+                        {errors.end_time?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت نهاية العمل</p>}
+                    </div>
+    
+                    <div className="mb-4">
+                        <label htmlFor="location" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
+                        <Map setErrorMap={setErrorMap} />
+                        {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك</p>}
+                    </div>
+    
+                    <div className="flex justify-center mt-6">
+                        <button
+                            disabled={loading}
+                            className="w-full p-2 py-2 text-white rounded bg-buttonsColor hover:bg-buttonsHover"
+                        >
+                            {loading ? (
+                                <div className="flex items-center justify-center">
+                                    <svg className="w-5 h-5 mr-3 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                                    </svg>
+                                    <span>جاري التحميل...</span>
+                                </div>
+                            ) : "نشر"}
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+    
     )
 }
 export default CreatePost;

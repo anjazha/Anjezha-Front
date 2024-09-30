@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { RootState} from "../store/store";
 import Spinner from "../components/Spinner";
 import UpdateProfile from "../components/UpdateProfile";
-import UpdatePassword from "../components/UpdatePassword";
 
 
 const Profile = () => {
@@ -13,7 +12,7 @@ const Profile = () => {
                 {user.email ? (
                 <div className="">
                     <UpdateProfile />
-                    <UpdatePassword/>
+                    {/* <UpdatePassword/> */}
                 </div>
                 ) : (
                 <Spinner />

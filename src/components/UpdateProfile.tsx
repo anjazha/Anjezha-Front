@@ -4,6 +4,7 @@ import { RootState, useAppDispatch } from "../store/store";
 import { useState } from "react";
 import image from "../assets/default-user-image.jpg"
 import { updatePicture, updateProfile } from "../functions/updateProfile";
+import UpdatePassword from "./UpdatePassword";
 
 interface formData {
     name: string;
@@ -27,108 +28,105 @@ const UpdateProfile = () => {
         }
     }
     return (
-        <div className="">
-            <form action="" onSubmit={handleSubmit(onSubmit)} className="flex justify-center">
-                <div className="flex flex-col w-full bg-[#D4CDA6] gap-6 border border-gray-400 rounded-md sm:pl-5 sm:flex-row sm:w-fit">
-                    <div className="p-3 px-5 border border-gray-400 rounded-md bg-navColor">
-                        <h1 className="mb-4 text-2xl font-bold">ملفك الشخصي</h1>
-                        <div>
-                            <h1 className="text-xl font-bold">الصورة</h1>
-                            <div className="flex justify-center my-3">
-                                <img
-                                    src={
-                                    img
-                                        ? URL.createObjectURL(img)
-                                        : user?.profile_picture || image
-                                    }
-                                    className="inline-block w-32 m-auto rounded-full aspect-square"
-                                ></img>
-                            </div>
-                            <div className="flex justify-center pb-2">
-                                <label
-                                    htmlFor="file"
-                                    className="p-2 px-3 font-bold text-white rounded-md cursor-pointer bg-buttonsColor"
-                                >
-                                    اختار صورة
-                                </label>
-                                <input
-                                    type="file"
-                                    onChange={(e) => setImg(e.target.files?.item(0))}
-                                    defaultValue=""
-                                    name="profileImage"
-                                    id="file"
-                                    className="hidden"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex flex-col justify-between gap-5 px-5 py-3 sm:px-0">
-                        <div>
-                            <h1 className="mb-4 text-2xl font-bold">
-                                معلومات الحساب
-                            </h1>
-                            <div className="sm:w-[360px] flex flex-col sm:flex-row  sm:justify-between mb-3">
-                                <label htmlFor="name" className="text-lg font-bold">
-                                    الاسم
-                                </label>
-                                <div className="w-full sm:w-[250px]">
-                                    <input
-                                    type="text"
-                                    {...register("name")}
-                                    defaultValue={user.name}
-                                    id="name"
-                                    className="w-full h-8 px-2 border border-gray-400 rounded outline-none bg-inputColor"
-                                    />
-                                </div>
-                            </div>
-                            <div className="sm:w-[360px] flex flex-col sm:flex-row  sm:justify-between mb-3">
-                                <label htmlFor="email" className="text-lg font-bold">
-                                    الايميل
-                                </label>
-                                <input
-                                    type="email"
-                                    {...register("email")}
-                                    defaultValue={user.email}
-                                    id="email"
-                                    className="w-full px-2 h-8 border rounded border-gray-400 outline-none bg-inputColor sm:w-[250px]"
-                                />
-                            </div>
-                            <div className="sm:w-[360px] flex flex-col sm:flex-row  sm:justify-between">
-                                <label htmlFor="phone" className="text-lg font-bold">
-                                    رقم التلفون
-                                </label>
-                                <div className="w-full sm:w-[250px]">
-                                    <input
-                                    type="text"
-                                    {...register("phone_number")}
-                                    defaultValue={user.phone_number}
-                                    id="phone"
-                                    className="w-full h-8 px-2 border border-gray-400 rounded outline-none bg-inputColor"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-end">
-                            <div>
-                                <button
-                                    type="submit"
-                                    disabled={load}
-                                    className="p-1 px-4 font-bold text-white border border-black rounded bg-buttonsColor"
-                                >
-                                    {load ? (
-                                    <div className="flex items-center gap-1">
-                                        <span className="inline-block w-4 h-4 border-2 border-white rounded-full border-l-gray-500 animate-spin"></span>
-                                    </div>
-                                    ) : (
-                                    "حفظ"
-                                    )}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+        <div className="min-h-screen bg-gray-50 dark:bg-inputDark rounded-lg py-10 px-4 flex flex-col justify-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl border w-full bg-white dark:bg-bodyDark shadow-md rounded-lg p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-8">
+            
+            {/* Profile Section */}
+            <div className="col-span-1 md:w-full">
+              <div className="bg-indigo-600 dark:bg-inputDark text-white p-6 rounded-lg text-center">
+                <h2 className="text-xl font-bold mb-4 dark:text-bodyColor">ملفك الشخصي</h2>
+                <div className="flex justify-center mb-4">
+                  <img
+                    src={img ? URL.createObjectURL(img) : user?.profile_picture || image}
+                    alt="Profile"
+                    className="w-32 h-32 rounded-full border-4 border-white shadow-md"
+                  />
                 </div>
-            </form>
-        </div>
+                <div className="mb-4">
+                  <label htmlFor="file" className="cursor-pointer bg-white text-indigo-600 py-2 px-4 rounded-lg font-semibold">
+                    اختار صورة
+                  </label>
+                  <input
+                    type="file"
+                    onChange={(e) => setImg(e.target.files?.item(0))}
+                    name="profileImage"
+                    id="file"
+                    className="hidden"
+                  />
+                </div>
+              </div>
+            </div>
+      
+            {/* Account Information Section */}
+            <div className="col-span-2">
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-2xl font-semibold text-gray-700 dark:text-bodyColor mb-4">معلومات الحساب</h2>
+      
+                  {/* Name Input */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">الاسم</label>
+                      <input
+                        type="text"
+                        {...register("name")}
+                        defaultValue={user.name}
+                        id="name"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                      />
+                    </div>
+      
+                    {/* Email Input */}
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">البريد الإلكتروني</label>
+                      <input
+                        type="email"
+                        {...register("email")}
+                        defaultValue={user.email}
+                        id="email"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                      />
+                    </div>
+                  </div>
+      
+                  {/* Phone Input */}
+                  <div className="mt-4">
+                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">رقم الهاتف</label>
+                    <input
+                      type="text"
+                      {...register("phone_number")}
+                      defaultValue={user.phone_number}
+                      id="phone"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    />
+                  </div>
+                </div>
+      
+                {/* Save Button */}
+                <div className="text-right">
+                  <button
+                    type="submit"
+                    disabled={load}
+                    className="bg-indigo-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out"
+                  >
+                    {load ? (
+                      <div className="flex items-center gap-1">
+                        <span className="inline-block w-4 h-4 border-2 border-white rounded-full border-l-gray-500 animate-spin"></span>
+                      </div>
+                    ) : (
+                      "حفظ"
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <UpdatePassword/>
+      </div>
+      
+      
     );
 }
 
