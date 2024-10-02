@@ -71,7 +71,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="" className="hover:text-indigo-600">
+              <Link to="/browseTasks?page=1" className="hover:text-indigo-600">
                 تصفح المهام
               </Link>
             </li>

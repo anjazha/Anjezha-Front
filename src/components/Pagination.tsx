@@ -14,7 +14,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undef
         <div className="mt-5 flex justify-center gap-[3px] flex-wrap">
             {pagination?.prevPage && (
                 <button
-                    className={`relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset ring-gray-300 bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
+                    className={`relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset  bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
                     onClick={() => {
                     setPage(`${pagination.prevPage}`);
                     }}
@@ -37,7 +37,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undef
             ))}
             {pagination?.nextPage && (
                 <button
-                    className={`relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset ring-gray-300 bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
+                    className={`relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
                     onClick={() => {
                     setPage(`${pagination.nextPage}`);
                     }}

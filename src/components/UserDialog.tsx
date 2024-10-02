@@ -22,18 +22,18 @@ const UserDialog = () => {
             <div onClick={()=>setDisplay((prev)=>prev==="block" ? "hidden" : "block")} className="h-fit w-fit cursor-pointer">
                 <span className="inline-block p-[10px] py-1 rounded-full bg-buttonsColor text-white font-bold">{user.name[0].toUpperCase()}</span>
             </div>
-            <div className={`${display} absolute top-full mt-2 z-40 left-0 w-[150px] p-2 rounded-md shadow-lg bg-white`}>
-                <div onClick={()=>myUrl("/profile")} className="w-full flex border-b items-center gap-2 hover:bg-slate-200 p-2 rounded-md cursor-pointer">
-                    <span className="inline-block rounded-full text-buttonsColor font-bold"><Settings /></span>
-                    <span className="font-semibold text-inputDark">الاعدادات</span>
+            <div className={`${display} absolute top-full mt-2 z-40 left-0 w-[150px] p-2 rounded-md shadow-xl border bg-white dark:bg-inputDark`}>
+                <div onClick={()=>myUrl("/profile")} className="w-full flex border-b items-center gap-2 hover:bg-slate-200 dark:hover:bg-[#65676b] p-2 rounded-md cursor-pointer">
+                    <span className="inline-block rounded-full text-buttonsColor dark:text-[#0866ff] font-bold"><Settings /></span>
+                    <span className="font-semibold text-inputDark dark:text-bodyColor">الاعدادات</span>
                 </div>
-                <div className="w-full border-b flex items-center gap-2 hover:bg-slate-200 p-2 rounded-md cursor-pointer">
-                    <span className="inline-block rounded-full text-buttonsColor font-bold"><MessageCircleMore /></span>
-                    <span className="font-semibold text-inputDark">الرسائل</span>
+                <div className="w-full border-b flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-[#65676b] p-2 rounded-md cursor-pointer">
+                    <span className="inline-block rounded-full text-buttonsColor dark:text-[#0866ff] font-bold"><MessageCircleMore /></span>
+                    <span className="font-semibold text-inputDark dark:text-bodyColor">الرسائل</span>
                 </div>
-                <div onClick={()=>Logout()} className="w-full flex items-center gap-2 hover:bg-slate-200 p-2 rounded-md cursor-pointer">
-                    <span className="inline-block rounded-full text-buttonsColor font-bold"><LogOut size={23} /></span>
-                    <span className="font-semibold text-inputDark">خروج</span>
+                <div onClick={()=>Logout()} className="w-full flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-[#65676b] p-2 rounded-md cursor-pointer">
+                    <span className="inline-block rounded-full text-buttonsColor dark:text-[#0866ff] font-bold"><LogOut size={23} /></span>
+                    <span className="font-semibold text-inputDark dark:text-bodyColor">خروج</span>
                 </div>
             </div>
         </div>
