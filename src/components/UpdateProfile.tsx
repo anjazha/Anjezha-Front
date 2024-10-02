@@ -9,7 +9,7 @@ import UpdatePassword from "./UpdatePassword";
 interface formData {
     name: string;
     email: string;
-    phone_number: string;
+    phoneNumber: string;
 }
 
 const UpdateProfile = () => {
@@ -24,7 +24,7 @@ const UpdateProfile = () => {
         // console.log(img);
         updateProfile(data,dispatch,setLoad)
         if(img){
-            updatePicture({profile_Picture:img})
+            updatePicture({profilePicture:img})
         }
     }
     return (
@@ -38,7 +38,7 @@ const UpdateProfile = () => {
                 <h2 className="text-xl font-bold mb-4 dark:text-bodyColor">ملفك الشخصي</h2>
                 <div className="flex justify-center mb-4">
                   <img
-                    src={img ? URL.createObjectURL(img) : user?.profile_picture || image}
+                    src={img ? URL.createObjectURL(img) : user?.profilePicture || image}
                     alt="Profile"
                     className="w-32 h-32 rounded-full border-4 border-white shadow-md"
                   />
@@ -95,8 +95,8 @@ const UpdateProfile = () => {
                     <label htmlFor="phone" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">رقم الهاتف</label>
                     <input
                       type="text"
-                      {...register("phone_number")}
-                      defaultValue={user.phone_number}
+                      {...register("phoneNumber")}
+                      defaultValue={user.phoneNumber}
                       id="phone"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
                     />

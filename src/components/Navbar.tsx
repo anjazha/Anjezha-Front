@@ -14,8 +14,9 @@ const Navbar = () => {
   const [mode, setMode] = useState("light");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  console.log(isNavOpen);
+  // console.log(isNavOpen);
   const changeMode = () => {
+    localStorage.mode = mode === "light" ? "dark" : "light"
     setMode(mode === "light" ? "dark" : "light");
     document.querySelector("html")?.classList.toggle("dark");
   };
@@ -28,6 +29,16 @@ const Navbar = () => {
       derminLocation();
     }
   }, [cookie]);
+  useEffect(()=>{
+    if(localStorage.mode === "dark"){
+      document.querySelector("html")?.classList.add("dark")
+      setMode("dark")
+    }
+    else{
+      document.querySelector("html")?.classList.remove("dark")
+      setMode("light")
+    }
+  },[])
   return (
     <div className="sticky top-0 z-50 shadow-lg py-4 bg-bodyColor dark:bg-inputDark text-inputDark dark:text-bodyColor">
       <div className="container mx-auto flex justify-between items-center px-5 md:px-10">

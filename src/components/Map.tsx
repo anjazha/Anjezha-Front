@@ -15,11 +15,11 @@ L.Icon.Default.mergeOptions({
     shadowUrl,
 });
 
-const Map = ({setErrorMap}:{setErrorMap: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const Map = ({latitude,longitude,setErrorMap}:{latitude:any,longitude:any,setErrorMap?: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const [position, setPosition] = useState<LatLng | null>(null);
     const location = {
-        lat: +localStorage.latitude,
-        lng: +localStorage.longitude
+        lat: +latitude,
+        lng: +longitude
     }
 
     const LocationMarker = () => {
@@ -28,7 +28,7 @@ const Map = ({setErrorMap}:{setErrorMap: React.Dispatch<React.SetStateAction<boo
                 setPosition(e.latlng);  // تحديد الإحداثيات عند النقر
                 localStorage.setItem("latitude", e.latlng.lat.toString())
                 localStorage.setItem("longitude", e.latlng.lng.toString())
-                setErrorMap(false)
+                setErrorMap?.(false)
             },
         });
 
@@ -41,14 +41,14 @@ const Map = ({setErrorMap}:{setErrorMap: React.Dispatch<React.SetStateAction<boo
     // console.log(position?.lng)
 
     return (
-        <MapContainer center={[+localStorage.latitude || 30.088107753367257,+localStorage.longitude || 31.253356933593754]} zoom={7} style={{ height: '300px', width: '100%' }}>
+        <MapContainer center={[+(latitude) || 30.088107753367257,+(longitude) || 31.253356933593754]} zoom={7} style={{ height: '300px', width: '100%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             <LocationMarker />
             {
-                localStorage.latitude && localStorage.longitude && <Marker position={location}></Marker>
+                latitude && longitude && <Marker position={location}></Marker>
             }
         </MapContainer>
     );
