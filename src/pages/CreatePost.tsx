@@ -5,6 +5,7 @@ import Map from "../components/Map";
 import { XIcon } from "lucide-react";
 import { createPost } from "../functions/createPost";
 import { Categories } from "../types/categories";
+import Spinner from "../components/Spinner";
 
 interface formType {
     title: string;
@@ -247,20 +248,15 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="flex justify-center mt-6">
-                        <button
-                            disabled={loading}
-                            className="w-full p-2 py-2 text-white rounded bg-buttonsColor hover:bg-buttonsHover"
-                        >
-                            {loading ? (
-                                <div className="flex items-center justify-center">
-                                    <svg className="w-5 h-5 mr-3 animate-spin text-white" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                                    </svg>
-                                    <span>جاري التحميل...</span>
-                                </div>
-                            ) : "نشر"}
-                        </button>
+                            <button
+                                disabled={loading}
+                                className={`w-full p-2 py-2 ${loading?"border-b-2 border-buttonsColor":"bg-buttonsColor hover:bg-indigo-600 "} text-white rounded  transition duration-200`}              >
+                                {loading ? (
+                                <Spinner/>
+                                ) : (
+                                "نشر"
+                                )}
+                            </button>
                     </div>
                 </form>
             </div>

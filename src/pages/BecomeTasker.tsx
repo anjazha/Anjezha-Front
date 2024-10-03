@@ -4,6 +4,7 @@ import { getAllCategory } from "../functions/getAllCategory";
 import Map from "../components/Map";
 import { becomeTasker } from "../functions/becomeTasker";
 import { Categories } from "../types/categories";
+import Spinner from "../components/Spinner";
 
 interface formType {
     bio: string;
@@ -74,14 +75,14 @@ const BecomeTasker = () => {
                             {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
                         </div>
                         <div className="flex justify-center mt-4">
-                            <button disabled={loading} className="w-full p-2 py-1 text-white rounded bg-buttonsColor">
-                                {
-                                    loading ? 
-                                    <div className="flex items-center justify-center">
-                                        <span className="inline-block w-5 h-5 rounded-full border border-black border-l-[#D4CDA6] animate-spin"></span>
-                                    </div>
-                                    :"ارسال"
-                                }
+                            <button
+                                disabled={loading}
+                                className={`w-full p-2 py-2 ${loading?"border-b-2 border-buttonsColor":"bg-buttonsColor hover:bg-indigo-600 "} text-white rounded  transition duration-200`}              >
+                                {loading ? (
+                                <Spinner/>
+                                ) : (
+                                "ارسال"
+                                )}
                             </button>
                         </div>
                     </form>

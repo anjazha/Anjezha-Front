@@ -1,6 +1,7 @@
 import { ArrowDownToLine, FileText, Image, XIcon } from "lucide-react";
 import { tasks } from "../types/search";
 import Map from "./Map";
+import { Link } from "react-router-dom";
 
 const TaskDetails = ({task,left,setLeftDetails}:{task:tasks | null,left:string,setLeftDetails: React.Dispatch<React.SetStateAction<string>>}) => {
     return (
@@ -79,9 +80,9 @@ const TaskDetails = ({task,left,setLeftDetails}:{task:tasks | null,left:string,s
                     }
                 </div>
                 <div className="mt-4 flex justify-center gap-5">
-                    <button className="bg-buttonsColor text-white py-1 px-4 rounded-full text-sm hover:bg-navColor transition">
+                    <Link to={`/applyTask/${task?.id}`} className="bg-buttonsColor text-center text-white py-2 px-4 w-full rounded-lg text-sm hover:bg-navColor transition">
                         Apply Now
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

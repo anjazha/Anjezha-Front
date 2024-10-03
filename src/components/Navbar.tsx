@@ -8,6 +8,7 @@ import { getUser } from "../functions/getUser";
 import { useSelector } from "react-redux";
 import UserDialog from "./UserDialog";
 import { derminLocation } from "../functions/location";
+import { getTasker } from "../functions/getTasker";
 
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
@@ -26,6 +27,7 @@ const Navbar = () => {
   useEffect(() => {
     if (cookie) {
       getUser(dispatch, myUrl);
+      getTasker(dispatch)
       derminLocation();
     }
   }, [cookie]);

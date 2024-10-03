@@ -5,6 +5,7 @@ import Cookie from "cookie-universal";
 import { deleteUser } from "../store/Slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { deleteTasker } from "../store/Slices/taskerSlice";
 
 const UserDialog = () => {
     const user = useSelector((state:RootState)=>state.user)
@@ -15,6 +16,7 @@ const UserDialog = () => {
     const Logout = ()=>{
         cookie.remove("token")
         dispatch(deleteUser())
+        dispatch(deleteTasker())
         myUrl("/login")
     }
     return (

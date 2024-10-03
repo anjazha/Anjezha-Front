@@ -1,5 +1,6 @@
 import { SetURLSearchParams } from "react-router-dom";
 import { paginaton } from "../types/search";
+import { ChevronsRight,ChevronsLeft } from 'lucide-react';
 
 const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undefined,search: URLSearchParams,setSearch: SetURLSearchParams}) => {
     const setPage = (number:string) => {
@@ -14,19 +15,20 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undef
         <div className="mt-5 flex justify-center gap-[3px] flex-wrap">
             {pagination?.prevPage && (
                 <button
-                    className={`relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset  bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
+                    className={`relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset ring-white dark:ring-inputDark bg-bodyColor border dark:border-inputDark text-inputDark dark:bg-inputDark dark:text-bodyColor shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:z-20 focus:outline-offset-0`}
                     onClick={() => {
                     setPage(`${pagination.prevPage}`);
                     }}
                 >
-                    &lt;&lt;
+                    {/* &lt;&lt; */}
+                    <ChevronsRight />
                 </button>
             )}
             {Array.from({length:pagination?.totalPages || 0},(_e, i) => (
                 <button
                     key={i}
-                    className={` relative z-10 inline-flex items-center rounded px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                    pagination?.currentPage === i + 1 ? "bg-indigo-600" : "bg-bodyColor text-inputDark border shadow hover:bg-gray-200"
+                    className={` relative z-10 inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold shadow-md focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                    pagination?.currentPage === i + 1 ? "bg-indigo-600 text-white" : "bg-bodyColor border dark:border-inputDark text-inputDark dark:bg-inputDark dark:text-bodyColor hover:bg-gray-200 dark:hover:bg-gray-700"
                     }`}
                     onClick={() => {
                     setPage(`${i + 1}`);
@@ -37,12 +39,13 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undef
             ))}
             {pagination?.nextPage && (
                 <button
-                    className={`relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset bg-bodyColor border text-inputDark shadow hover:bg-gray-200 focus:z-20 focus:outline-offset-0`}
+                    className={`relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset ring-white dark:ring-inputDark bg-bodyColor border dark:border-inputDark text-inputDark dark:bg-inputDark dark:text-bodyColor shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:z-20 focus:outline-offset-0`}
                     onClick={() => {
                     setPage(`${pagination.nextPage}`);
                     }}
                 >
-                    &gt;&gt;
+                    {/* &gt;&gt; */}
+                    <ChevronsLeft />
                 </button>
             )}
         </div>

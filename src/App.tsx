@@ -16,6 +16,7 @@ import CreatePost from './pages/CreatePost'
 import SubCategories from './pages/SubCategories'
 import BookNow from './pages/BookNow';
 import BrowseTasks from './pages/BrowseTasks'
+import ApplyTask from './pages/ApplyTask'
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
             <Route path='/subCategories/:id' element={<SubCategories />} />
             <Route path='/BookNow/:id' element={<BookNow/>} />
             <Route path='/browseTasks' element={<BrowseTasks />} />
+            <Route path='/applyTask/:id' element={<ApplyTask />} />
           </Route>
         </Routes>
       </div>
