@@ -12,6 +12,7 @@ import { getTasker } from "../functions/getTasker";
 
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
+  const tasker = useSelector((state: RootState) => state.tasker);
   const [mode, setMode] = useState("light");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -82,9 +83,12 @@ const Navbar = () => {
                 <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
                   <Link to="/createPost">نشر مهمة</Link>
                 </li>
-                <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
-                  <Link to="/becomeTasker">اصبح عامل</Link>
-                </li>
+                {
+                  !tasker.id &&
+                  <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
+                    <Link to="/becomeTasker">اصبح عامل</Link>
+                  </li>
+                }
               </>
             ) : (
               <li>

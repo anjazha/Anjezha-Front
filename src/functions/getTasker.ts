@@ -12,7 +12,7 @@ export const getTasker = (dispatch:any)=>{
         }
     })
     .then((res)=>{
-        console.log(res);
+        // console.log(res);
         dispatch(addTasker(res.data))
     }).catch((err)=>{
         console.log(err);

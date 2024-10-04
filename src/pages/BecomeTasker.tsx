@@ -5,6 +5,7 @@ import Map from "../components/Map";
 import { becomeTasker } from "../functions/becomeTasker";
 import { Categories } from "../types/categories";
 import Spinner from "../components/Spinner";
+import { useAppDispatch } from "../store/store";
 
 interface formType {
     bio: string;
@@ -18,6 +19,7 @@ const BecomeTasker = () => {
     const [loading,setLoading] = useState(false)
     const [data,setData] = useState<Categories[]>([])
     const [errorMap,setErrorMap] = useState(false)
+    const dispatch = useAppDispatch()
     const onSubmit = (data:formType) => {
         setLoading(true)
         // console.log(data);
@@ -35,7 +37,7 @@ const BecomeTasker = () => {
             longitude: +localStorage.longitude
         }
         console.log(allData);
-        becomeTasker(allData,setLoading)
+        becomeTasker(allData,dispatch,setLoading)
     }
     useEffect(() => {
         getAllCategory(setData)

@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { applyTask } from "../functions/applyTask";
+import toast from "react-hot-toast";
 
 interface ApplyFormData {
     expectedSalary:string;
@@ -22,6 +23,11 @@ const ApplyTask = () => {
     const onSubmit = (data:ApplyFormData) =>{
         setLoading(true)
         console.log("Form Data:", data);
+        if(!tasker.id){
+            toast.error("من فضلك اصبح عامل حتي تستطيع التقديم علي المهام")
+            setLoading(false)
+            return;
+        }
         // Apply task logic here
         const allData = {
             taskId:+(id as string),

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L, { LatLng } from 'leaflet';
+import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
@@ -16,39 +16,44 @@ L.Icon.Default.mergeOptions({
 });
 
 const Map = ({latitude,longitude,setErrorMap}:{latitude:any,longitude:any,setErrorMap?: React.Dispatch<React.SetStateAction<boolean>>}) => {
-    const [position, setPosition] = useState<LatLng | null>(null);
-    const location = {
+    const [position, setPosition] = useState({
         lat: +latitude,
         lng: +longitude
-    }
+    });
+    // const location = {
+    //     lat: +latitude,
+    //     lng: +longitude
+    // }
+    // console.log(position);
 
     const LocationMarker = () => {
         useMapEvents({
             click(e) {
-                setPosition(e.latlng);  // تحديد الإحداثيات عند النقر
-                localStorage.setItem("latitude", e.latlng.lat.toString())
-                localStorage.setItem("longitude", e.latlng.lng.toString())
+                setPosition({lat:+e.latlng.lat.toString(),lng:+e.latlng.lng.toString()});  // تحديد الإحداثيات عند النقر
+                // localStorage.setItem("latitude", e.latlng.lat.toString())
+                // localStorage.setItem("longitude", e.latlng.lng.toString())
                 setErrorMap?.(false)
             },
         });
 
-        return position === null ? null : (
-            <Marker position={position}></Marker>
-        );
+        return null;
+        // return position === null ? null : (
+        //     <Marker position={position}></Marker>
+        // );
     };
 
     // console.log(position?.lat)
     // console.log(position?.lng)
 
     return (
-        <MapContainer center={[+(latitude) || 30.088107753367257,+(longitude) || 31.253356933593754]} zoom={7} style={{ height: '300px', width: '100%' }}>
+        <MapContainer center={[position.lat || 30.088107753367257,position.lng || 31.253356933593754]} zoom={7} style={{ height: '300px', width: '100%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
             <LocationMarker />
             {
-                latitude && longitude && <Marker position={location}></Marker>
+                position.lat && position.lng && <Marker position={position}></Marker>
             }
         </MapContainer>
     );

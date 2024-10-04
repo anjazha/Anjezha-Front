@@ -25,6 +25,7 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undef
                 </button>
             )}
             {Array.from({length:pagination?.totalPages || 0},(_e, i) => (
+                i+1 === pagination?.currentPage || i+1 === pagination?.totalPages || i+1 ===1 ?
                 <button
                     key={i}
                     className={` relative z-10 inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold shadow-md focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
@@ -36,6 +37,8 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undef
                 >
                     {i + 1}
                 </button>
+                : i+1 === +(pagination?.totalPages || 1)-1 || i+1 ===2 ? <div className="flex items-center"><span className="dark:text-white px-2">...</span></div>
+                :null
             ))}
             {pagination?.nextPage && (
                 <button

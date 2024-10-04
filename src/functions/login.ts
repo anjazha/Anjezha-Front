@@ -15,7 +15,7 @@ export const loginUser = (data:dataType,myUrl:NavigateFunction,setLoading:React.
             "Content-Type":"application/json"
         }
     }).then((res)=>{
-        console.log(res);
+        // console.log(res);
         cookie.set("token",res.data.token)
         toast.success("تم تسجيل الدخول بنجاح")
         myUrl("/")

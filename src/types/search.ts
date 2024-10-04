@@ -1,5 +1,5 @@
 export interface paginaton {
-    currentPage: number | null;
+    currentPage: number;
     nextPage: number | null;
     prevPage: number | null;
     resultCount: number | null;
