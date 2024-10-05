@@ -18,6 +18,8 @@ import BookNow from './pages/BookNow';
 import BrowseTasks from './pages/BrowseTasks'
 import ApplyTask from './pages/ApplyTask'
 import UserTasks from './pages/UserTasks';
+import TaskerApplication from './pages/TaskerApplication'
+import TaskerProfile from './pages/TaskerProfile'
 
 function App() {
 
@@ -43,6 +45,8 @@ function App() {
             <Route path='/browseTasks' element={<BrowseTasks />} />
             <Route path='/applyTask/:id' element={<ApplyTask />} />
             <Route path='/userTasks' element={<UserTasks />} />
+            <Route path='/taskerApplication/:id' element={<TaskerApplication />} />
+            <Route path='/taskerProfile/:id' element={<TaskerProfile />} />
           </Route>
         </Routes>
       </div>

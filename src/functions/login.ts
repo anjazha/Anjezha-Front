@@ -1,6 +1,5 @@
 import toast from "react-hot-toast";
-import { axiosInstance } from "./axiosInstance";
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance";
 import { NavigateFunction } from "react-router-dom";
 
 interface dataType {
@@ -9,7 +8,6 @@ interface dataType {
 }
 
 export const loginUser = (data:dataType,myUrl:NavigateFunction,setLoading:React.Dispatch<React.SetStateAction<boolean>>)=>{
-    const cookie = Cookie()
     axiosInstance.post("/auth/login",{...data},{
         headers:{
             "Content-Type":"application/json"

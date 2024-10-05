@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { addTasker } from "../store/Slices/taskerSlice"
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance"
 
 export const getTasker = (dispatch:any)=>{
-    const cookie = Cookie()
     axiosInstance.get("/about-tasker",{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

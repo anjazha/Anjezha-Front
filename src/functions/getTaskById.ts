@@ -1,9 +1,7 @@
 import { tasks } from "../types/search"
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance"
 
 export const getTaskById = (id:string,setTask: React.Dispatch<React.SetStateAction<tasks | null>>)=>{
-    const cookie = Cookie()
     axiosInstance.get(`/tasks/${id}`,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

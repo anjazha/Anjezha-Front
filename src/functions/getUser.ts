@@ -1,7 +1,6 @@
 
 import { NavigateFunction } from "react-router-dom"
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance"
 import { addUser } from "../store/Slices/userSlice"
 import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit"
 
@@ -18,7 +17,6 @@ type dispatch = ThunkDispatch<{
 }, undefined, UnknownAction> 
 
 export const getUser = (dispatch:dispatch,myUrl:NavigateFunction)=>{
-    const cookie = Cookie()
     axiosInstance.get("/profile",{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

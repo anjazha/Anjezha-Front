@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Cookie from "cookie-universal";
-import { axiosInstance } from "./axiosInstance";
+import { axiosInstance, cookie } from "./axiosInstance";
 import toast from "react-hot-toast";
 import { addTasker } from "../store/Slices/taskerSlice";
 
@@ -14,7 +13,6 @@ interface dataType{
 }
 
 export const becomeTasker = (data:dataType,dispatch:any,setLoading:React.Dispatch<React.SetStateAction<boolean>>)=>{
-    const cookie = Cookie()
     axiosInstance.post("/become-tasker",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

@@ -1,5 +1,4 @@
-import Cookie from "cookie-universal";
-import { axiosInstance } from "./axiosInstance";
+import { axiosInstance, cookie } from "./axiosInstance";
 import toast from "react-hot-toast";
 
 interface dataType {
@@ -23,7 +22,6 @@ interface dataType {
 }
 
 export const createPost = (data:dataType,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
-    const cookie = Cookie()
     axiosInstance.post("/tasks",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

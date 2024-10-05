@@ -1,15 +1,16 @@
 import { axiosInstance, cookie } from "./axiosInstance"
 
-export const getAllTasks = ()=>{
-    axiosInstance.get(`/tasks?limit=7&page=1`,{
+export const getTaskerById = (taskerId: string)=>{
+    axiosInstance.get(`/tasker/${taskerId}`,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
-            "Content-Type":"application/json",
+            "Content-Type":"application/json"
         }
     })
-    .then((res)=>{
+    .then(res=>{
         console.log(res);
-    }).catch((err)=>{
+    })
+    .catch(err=>{
         console.log(err);
     })
 }

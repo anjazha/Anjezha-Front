@@ -36,8 +36,8 @@ const Pagination = ({ pagination,search,setSearch }:{pagination:paginaton| undef
                     }}
                 >
                     {i + 1}
-                </button>
-                : i+1 === +(pagination?.totalPages || 1)-1 || i+1 ===2 ? <div className="flex items-center"><span className="dark:text-white px-2">...</span></div>
+                </button >
+                : i+1 === +(pagination?.totalPages || 1)-1 || i+1 ===2 ? <div key={i} className="flex items-center"><span className="dark:text-white px-2">...</span></div>
                 :null
             ))}
             {pagination?.nextPage && (

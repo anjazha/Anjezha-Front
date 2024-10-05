@@ -1,9 +1,7 @@
 import { tasks } from "../types/search";
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal";
+import { axiosInstance, cookie } from "./axiosInstance"
 
 export const getUserTasks = (setTasks: React.Dispatch<React.SetStateAction<tasks[]>>,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
-    const cookie = Cookie()
     axiosInstance.get('/user-tasks',{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
@@ -12,7 +10,7 @@ export const getUserTasks = (setTasks: React.Dispatch<React.SetStateAction<tasks
     })
     .then((res)=>{
         console.log(res);
-        setTasks(res.data);
+        setTasks(res.data.data.tasks);
         setLoading(false);
     }).catch((err)=>{
         console.log(err);
