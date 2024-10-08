@@ -10,6 +10,7 @@ export interface taskersData {
     id:number;
     status:string;
     task_id:string
+    price:string | null,
     tasker : {
         id:number,
         name:string,
@@ -50,8 +51,9 @@ const TaskerApplication = () => {
                                                     <img src={ele.tasker.profile_picture || defaultImage} alt="tasker" className="w-14 h-14 rounded-full" />
                                                 </div>
                                                 <div>
-                                                    <h3 className="text-lg font-semibold dark:text-bodyColor capitalize">{ele.tasker.name}</h3>
+                                                    <h3 className="font-semibold dark:text-bodyColor capitalize">{ele.tasker.name}</h3>
                                                     <p className="dark:text-bodyColor text-sm">{ele.content}</p>
+                                                    <p className="dark:text-bodyColor text-sm">{ele.price || 2000} ج.م</p>
                                                 </div>
                                             </div>
                                             <div className="flex justify-center w-full sm:w-fit gap-5">

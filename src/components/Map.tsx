@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
     shadowUrl,
 });
 
-const Map = ({latitude,longitude,setErrorMap}:{latitude:any,longitude:any,setErrorMap?: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const Map = ({latitude,longitude,location,setErrorMap}:{latitude:any,longitude:any,location:boolean,setErrorMap?: React.Dispatch<React.SetStateAction<boolean>>}) => {
     const [position, setPosition] = useState({
         lat: +latitude,
         lng: +longitude
@@ -30,8 +30,8 @@ const Map = ({latitude,longitude,setErrorMap}:{latitude:any,longitude:any,setErr
         useMapEvents({
             click(e) {
                 setPosition({lat:+e.latlng.lat.toString(),lng:+e.latlng.lng.toString()});  // تحديد الإحداثيات عند النقر
-                // localStorage.setItem("latitude", e.latlng.lat.toString())
-                // localStorage.setItem("longitude", e.latlng.lng.toString())
+                localStorage.setItem("latitude", e.latlng.lat.toString())
+                localStorage.setItem("longitude", e.latlng.lng.toString())
                 setErrorMap?.(false)
             },
         });
@@ -46,12 +46,21 @@ const Map = ({latitude,longitude,setErrorMap}:{latitude:any,longitude:any,setErr
     // console.log(position?.lng)
 
     return (
-        <MapContainer center={[position.lat || 30.088107753367257,position.lng || 31.253356933593754]} zoom={7} style={{ height: '300px', width: '100%' }}>
+        <MapContainer 
+            center={[position.lat || 30.088107753367257,position.lng || 31.253356933593754]}
+            zoom={7} 
+            style={{ height: '300px', width: '100%',zIndex:10 }}
+            dragging={location} // منع السحب
+            touchZoom={location} // منع التكبير باللمس
+            scrollWheelZoom={location} // منع التكبير باستخدام عجلة الماوس
+            doubleClickZoom={location} // منع التكبير بالنقر المزدوج
+            zoomControl={true} // إخفاء أدوات التحكم بالتكبير
+        >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            <LocationMarker />
+            { location && <LocationMarker />}
             {
                 position.lat && position.lng && <Marker position={position}></Marker>
             }

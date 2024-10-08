@@ -10,7 +10,7 @@ import { applyTask } from "../functions/applyTask";
 import toast from "react-hot-toast";
 
 interface ApplyFormData {
-    expectedSalary:string;
+    price:string;
     content:string;
 }
 
@@ -33,6 +33,7 @@ const ApplyTask = () => {
             taskId:+(id as string),
             taskerId:+tasker.id,
             ...data,
+            price:+data.price,
         }
         console.log(tasker);
         console.log(allData);
@@ -62,11 +63,11 @@ const ApplyTask = () => {
                                 <label htmlFor="expectedSalary" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الراتب المتوقع</label>
                                 <input
                                     type="number"
-                                    {...register("expectedSalary", { required: true })}
+                                    {...register("price", { required: true })}
                                     id="expectedSalary"
                                     className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                                 />
-                                {errors.expectedSalary?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الراتب المتوقع</p>}
+                                {errors.price?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الراتب المتوقع</p>}
                             </div>
                             <div className="">
                                 <label htmlFor="content" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">اخبرنا عن نفسك و لماذا يتم اختيارك</label>

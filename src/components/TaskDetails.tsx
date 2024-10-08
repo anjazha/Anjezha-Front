@@ -76,7 +76,7 @@ const TaskDetails = ({task,left,setLeftDetails}:{task:tasks | null,left:string,s
                     
                     {
                         task?.latitude && task?.longitude &&
-                        <Map latitude={(task?.latitude)} longitude={(task?.longitude)}/>
+                        <Map latitude={(task?.latitude)} location={false} longitude={(task?.longitude)}/>
                     }
                 </div>
                 <div className="mt-4 flex justify-center gap-5">

@@ -59,7 +59,7 @@ const Navbar = () => {
         {/* Navigation Links */}
         <div
           className={`fixed z-50 ${
-            isNavOpen ? "right-0 shadow-md" : "right-[-100%]"
+            isNavOpen ? "right-0 shadow-md rounded-l-md" : "right-[-100%]"
           }  h-full w-[300px] bg-bodyColor dark:bg-inputDark text-inputDark dark:text-bodyColor p-5 top-20 transition-all duration-500 md:static md:flex md:items-center md:gap-10 md:bg-transparent md:w-auto md:p-0`}
         >
           <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:gap-4 font-semibold">

@@ -73,7 +73,7 @@ const BecomeTasker = () => {
                         </div>
                         <div className="mt-3">
                             <label htmlFor="location" className="block mb-2 text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
-                            <Map latitude={+localStorage.latitude} longitude={+localStorage.longitude} setErrorMap={setErrorMap}/>
+                            <Map latitude={+localStorage.latitude} location={true} longitude={+localStorage.longitude} setErrorMap={setErrorMap}/>
                             {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
                         </div>
                         <div className="flex justify-center mt-4">

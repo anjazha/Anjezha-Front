@@ -20,6 +20,7 @@ import ApplyTask from './pages/ApplyTask'
 import UserTasks from './pages/UserTasks';
 import TaskerApplication from './pages/TaskerApplication'
 import TaskerProfile from './pages/TaskerProfile'
+import UpdateTask from './pages/UpdateTask'
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
             <Route path='/userTasks' element={<UserTasks />} />
             <Route path='/taskerApplication/:id' element={<TaskerApplication />} />
             <Route path='/taskerProfile/:id' element={<TaskerProfile />} />
+            <Route path='/updateTask/:id' element={<UpdateTask />} />
           </Route>
         </Routes>
       </div>

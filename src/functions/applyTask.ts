@@ -5,7 +5,7 @@ interface dataType{
     taskId: number;
     taskerId: number;
     content:string;
-    expectedSalary:string;
+    price:number;
 }
 
 export const applyTask = (data:dataType,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{

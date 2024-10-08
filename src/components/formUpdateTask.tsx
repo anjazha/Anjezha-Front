@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from "react"
-import { useForm } from "react-hook-form"
+import { useEffect, useRef, useState } from "react";
+import Map from "./Map";
+import Spinner from "./Spinner";
 import { getAllCategory } from "../functions/getAllCategory";
-import Map from "../components/Map";
-import { XIcon } from "lucide-react";
-import { createPost } from "../functions/createPost";
 import { Categories } from "../types/categories";
-import Spinner from "../components/Spinner";
+import { useForm } from "react-hook-form";
+import { tasks } from "../types/search";
+import { XIcon } from "lucide-react";
+import { updateTaskById } from "../functions/updateTaskById";
 
 interface formType {
     title: string;
@@ -21,14 +22,30 @@ interface formType {
     schedule_type:string;
 }
 
-const CreatePost = ()=>{
-    const {register,handleSubmit,formState:{errors}} = useForm<formType>()
-    const [loading,setLoading] = useState(false)
+const FormUpdateTask = ({task}:{task:tasks}) => {
     const [data,setData] = useState<Categories[]>([])
+    const date = `${new Date(task.date).getFullYear()}-${new Date(task.date).getMonth()+1 >=10 ? `${new Date(task.date).getMonth()+1}` : `0${new Date(task.date).getMonth()+1}` }-${new Date(task.date).getDate()}`
+    // const cate = data.find((ele)=>ele.category=== task.category);
+    // console.log(cate);
+    const {register,handleSubmit,formState:{errors}} = useForm<formType>({
+        defaultValues: {
+            title: task.title,
+            description: task.description,
+            date: date,
+            budget: task.budget.toString(),
+            address: task.address,
+            status: task.status,
+            start_time: task.start_time,
+            end_time: task.end_time,
+            schedule_type: task.schedule_type
+        }
+    })
+    // console.log(date);
+    const [loading,setLoading] = useState(false)
     const [errorMap,setErrorMap] = useState(false)
     const [errorSkills,setErrorSkills] = useState(false)
     const inputSkills = useRef<HTMLInputElement | null>(null)
-    const [skills,setSkills] = useState<string[]>([])
+    const [skills,setSkills] = useState<string[]>(task.skills)
     const addSkills = ()=>{
         setErrorSkills(false)
         const newSkill = inputSkills.current?.value
@@ -53,6 +70,14 @@ const CreatePost = ()=>{
             setLoading(false)
             return
         }
+        const startPush = data.start_time.split(":").concat(["00"]).join(":")
+        const start = data.start_time.split(":").length === 2 ? startPush : data.start_time
+        // console.log(start);
+
+        const endPush = data.end_time.split(":").concat(["00"]).join(":")
+        const end = data.end_time.split(":").length === 2 ? endPush : data.end_time
+        // console.log(end);
+
         const allData = {
             title: data.title,
             description: data.description,
@@ -63,8 +88,8 @@ const CreatePost = ()=>{
             category_id: +data.categoryId,
             skills: skills,
             schedule : {
-                start_time:`${data.start_time}:00`,
-                end_time:`${data.end_time}:00`,
+                start_time:start,
+                end_time:end,
                 schedule_type:data.schedule_type,
             },
             location :{
@@ -73,16 +98,13 @@ const CreatePost = ()=>{
             }
         }
         console.log(allData);
-        createPost(allData,setLoading)
+        updateTaskById(task.id,allData,setLoading)
     }
     useEffect(() => {
         getAllCategory(setData)
     },[])
-    return(
-        <div className="flex justify-center py-5">
-        <div className="container z-30 flex flex-col items-center">
-            <h1 className="text-2xl font-bold text-center text-darkColor dark:text-bodyColor">نشر مهمة</h1>
-            <div className="bg-bodyColor dark:bg-inputDark p-5 rounded-xl w-full  mt-5 shadow-md">
+    return (
+        <div className="bg-bodyColor dark:bg-inputDark p-5 rounded-xl w-full  mt-5 shadow-md">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-4">
                         <label htmlFor="title" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الاسم</label>
@@ -195,7 +217,7 @@ const CreatePost = ()=>{
                             <label className="block text-lg font-semibold text-darkColor dark:text-bodyColor">مهاراتك</label>
                             <div className="flex flex-wrap items-center gap-5 mt-2">
                                 {skills.map((ele, index) => (
-                                    <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-navColor rounded">
+                                    <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-buttonsColor rounded">
                                         <span className="text-sm">{ele}</span>
                                         <span onClick={() => deleteSkill(ele)} className="absolute bg-black rounded cursor-pointer -left-1 -top-1"><XIcon size={15} /></span>
                                     </div>
@@ -241,9 +263,9 @@ const CreatePost = ()=>{
                         {errors.end_time?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت نهاية العمل</p>}
                     </div>
     
-                    <div className="mb-4">
+                    <div className="mb-4 z-10">
                         <label htmlFor="location" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
-                        <Map latitude={+localStorage.latitude} location={true} longitude={+localStorage.longitude} setErrorMap={setErrorMap} />
+                        <Map latitude={+task.latitude} location={true} longitude={+task.longitude} setErrorMap={setErrorMap} />
                         {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك</p>}
                     </div>
     
@@ -254,15 +276,13 @@ const CreatePost = ()=>{
                                 {loading ? (
                                 <Spinner/>
                                 ) : (
-                                "نشر"
+                                "تعديل"
                                 )}
                             </button>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-    
-    )
+    );
 }
-export default CreatePost;
+
+export default FormUpdateTask;
