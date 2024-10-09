@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { axiosInstance, cookie } from "./axiosInstance"
+import { reviewsTypes } from "../components/ReviewsTasker"
 
-export const getReviewsTasker = (taskerId:string,setReviews: React.Dispatch<React.SetStateAction<any[] | null>>)=>{
+export const getReviewsTasker = (taskerId:string,setReviews: React.Dispatch<React.SetStateAction<reviewsTypes[] | null>>)=>{
     axiosInstance.get(`/tasker-reviews/${taskerId}`,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

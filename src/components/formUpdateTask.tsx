@@ -27,6 +27,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
     const date = `${new Date(task.date).getFullYear()}-${new Date(task.date).getMonth()+1 >=10 ? `${new Date(task.date).getMonth()+1}` : `0${new Date(task.date).getMonth()+1}` }-${new Date(task.date).getDate()}`
     // const cate = data.find((ele)=>ele.category=== task.category);
     // console.log(cate);
+    const [categoryId,setCategoryId] = useState("")
     const {register,handleSubmit,formState:{errors}} = useForm<formType>({
         defaultValues: {
             title: task.title,
@@ -34,6 +35,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
             date: date,
             budget: task.budget.toString(),
             address: task.address,
+            categoryId,
             status: task.status,
             start_time: task.start_time,
             end_time: task.end_time,
@@ -103,6 +105,10 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
     useEffect(() => {
         getAllCategory(setData)
     },[])
+    useEffect(()=>{
+        const cate = data.find((ele)=>ele.category=== task.category);
+        setCategoryId(cate?.id as string)
+    },[data,task])
     return (
         <div className="bg-bodyColor dark:bg-inputDark p-5 rounded-xl w-full  mt-5 shadow-md">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -152,14 +158,14 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
     
                     <div className="mb-4">
                         <label htmlFor="category" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الفئة</label>
-                        <select
+                        <select defaultValue={categoryId}
                             required
                             {...register("categoryId", { required: true })}
                             id="category"
                             className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             {data.map(item => (
-                                <option key={item.id} value={item.id}>{item.category}</option>
+                                <option key={item.id} value={item.id} selected={categoryId === item.id ? true : false}>{item.category}</option>
                             ))}
                         </select>
                         {errors.categoryId?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الفئة</p>}

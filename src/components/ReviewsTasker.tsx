@@ -1,14 +1,31 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { getReviewsTasker } from "../functions/getReviewsTasker";
 import AddReview from "./AddReview";
 import Spinner from "./Spinner";
-import image from "../assets/default-user-image.jpg"
-import { Star } from "lucide-react";
+import image from "../assets/default-user-image.jpg";
 import UpdateADeleteReview from "./UpdateADeleteReview";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+
+interface user {
+    id:string;
+    email:string;
+    name:string;
+    phoneNumber:string;
+    profilePicture:string;
+}
+
+export interface reviewsTypes {
+    id:string;
+    review:string;
+    rating:number;
+    User:user;
+    taskerId:string;
+}
 
 const ReviewsTasker = ({taskerId}:{taskerId:string | undefined}) => {
-    const [reviews, setReviews] = useState<any[] | null>(null);
+    const user = useSelector((state: RootState) => state.user);
+    const [reviews, setReviews] = useState<reviewsTypes[] | null>(null);
     const [changes, setChanges] = useState(false);
     const [updateReview,setUpdateReview] = useState({
         id:"",
@@ -33,19 +50,29 @@ const ReviewsTasker = ({taskerId}:{taskerId:string | undefined}) => {
                                     <h2 className="text-lg font-semibold text-center dark:text-bodyColor">لا يوجد اراء بعد</h2>
                                 </div>
                                 :
-                                reviews.map((review, index) => (
+                                reviews.map((item, index) => (
                                     <div key={index} className="bg-bodyColor dark:bg-bodyDark relative p-3 rounded-md flex gap-3 shadow-md">
                                         <div>
-                                            <img src={image} alt="user image" className="w-10 h-10 rounded-full border" />
+                                            <img src={item.User.profilePicture || image} alt="user image" className="w-10 h-10 rounded-full border" />
                                         </div>
                                         <div>
-                                            <h2 className="font-semibold dark:text-bodyColor m-0">Abdo Ahmed</h2>
-                                            <p className="text-xl text-yellow-500 flex items-center gap-1 m-0">{review.rating} <Star size={20}/></p>
+                                            <h2 className="font-semibold dark:text-bodyColor m-0">{item.User.name}</h2>
+                                            <p className="text-xl text-yellow-500 flex items-center gap-1 m-0">{item.rating} 
+                                                <svg className="w-4 h-4 text-yellow-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                                </svg>
+                                            </p>
                                             <p className="dark:text-bodyColor m-0">
-                                                {review.review}
+                                                {item.review}
                                             </p>
                                         </div>
-                                        <UpdateADeleteReview review={review} setChanges={setChanges} setUpdateReview={setUpdateReview}/>
+                                        {
+                                            item.User.email === user.email &&
+                                            <UpdateADeleteReview review={{id:item.id,review:item.review,rating:`${item.rating}`}} 
+                                                setChanges={setChanges} 
+                                                setUpdateReview={setUpdateReview}
+                                            />
+                                        }
                                     </div>
                                 ))
                             }
