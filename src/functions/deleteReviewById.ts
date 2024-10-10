@@ -11,11 +11,11 @@ export const deleteReviewById = (id: string,setChanges: React.Dispatch<React.Set
     .then(()=>{
         // console.log(res);
         setChanges(prev=> prev ? false : true)
-        toast.success("تم حذف رايك بنجاح")
+        toast.success("تم حذف التقييم بنجاح")
     })
     .catch(err=>{
         console.log(err);
-        toast.error("حدث خطأ أثناء حذف رايك")
+        toast.error("حدث خطأ أثناء حذف التقييم")
     })
     .finally(()=>setLoading(false));
 }

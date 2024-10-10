@@ -23,20 +23,24 @@ const UserTasksPage = () => {
                     <Spinner />
                 ) : tasks.length > 0 ? (
                     <>
-                    <h2 className="text-center text-xl mb-5 font-bold dark:text-bodyColor" >المهام المنشورة</h2>
+                    <h2 className="mb-5 text-xl font-bold text-center dark:text-bodyColor" >المهام المنشورة</h2>
                     <div className="flex flex-col gap-5">
                     {tasks.map((task, index) => (
-                        <div key={index} className="p-4 rounded-lg relative shadow-md bg-bodyColor dark:bg-inputDark border border-transparent hover:border-navColor duration-300 transition-transform transform hover:scale-105 cursor-pointer flex flex-col sm:flex-row items-start">
+                        <div key={index} className="relative flex flex-col items-start p-4 transition-transform duration-300 transform border border-transparent rounded-lg shadow-md cursor-pointer bg-bodyColor dark:bg-inputDark hover:border-navColor hover:scale-105 sm:flex-row">
                             {/* update and delete */}
                             <UpadteADeleteTask id={task.id} setChanges={setChanges}/>
 
                             <div onClick={()=>myUrl(`/taskerApplication/${task.id}`)} className="flex-1" >
                                 {/* Task Title */}
-                                <h2 className="font-semibold md:text-xl text-darkColor dark:text-bodyColor text-ellipsis line-clamp-1">
-                                    {task.title}
-                                </h2>
+                                <div className="flex items-center gap-3">
+                                    <h2 className="font-semibold md:text-xl text-darkColor dark:text-bodyColor text-ellipsis line-clamp-1">
+                                        {task.title}
+                                    </h2>
+                                    <p className="dark:text-bodyColor"> - </p>
+                                    <p className="text-sm text-green-500 capitalize">{task.status}</p>
+                                </div>
                                 {/* Task Details */}
-                                <div className="text-xs text-gray-500 dark:text-gray-400 flex gap-x-5 flex-wrap">
+                                <div className="flex flex-wrap text-xs text-gray-500 dark:text-gray-400 gap-x-5">
                                     <p>{task.address}</p>
                                     <p>{new Date(task.date).toLocaleDateString()}</p>
                                     <p>
@@ -51,17 +55,17 @@ const UserTasksPage = () => {
                                 </p>
 
                                 {/* Task Category as a Primary Color Tag */}
-                                <div className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                                    <span className="inline-block bg-buttonsColor text-white px-2 py-1 rounded-full text-xs font-medium">
+                                <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                                    <span className="inline-block px-2 py-1 text-xs font-medium text-white rounded-full bg-buttonsColor">
                                         {task.category}
                                     </span>
 
                                     {/* Task Skills as Gray Tags */}
-                                    <div className="mt-2 flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2 mt-2">
                                         {task.skills.map((skill, skillIndex) => (
                                             <span
                                                 key={skillIndex}
-                                                className="inline-block bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs font-medium"
+                                                className="inline-block px-2 py-1 text-xs font-medium text-gray-800 bg-gray-200 rounded-full"
                                             >
                                                 {skill}
                                             </span>
@@ -79,7 +83,7 @@ const UserTasksPage = () => {
                     </div>
                     </>
                 ) : (
-                    <div className="text-center text-xl font-bold dark:text-bodyColor">لم تقم بنشر أي مهام بعد.</div>
+                    <div className="text-xl font-bold text-center dark:text-bodyColor">لم تقم بنشر أي مهام بعد.</div>
                 )}
             </div>
         </div>

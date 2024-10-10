@@ -24,9 +24,8 @@ interface formType {
 
 const FormUpdateTask = ({task}:{task:tasks}) => {
     const [data,setData] = useState<Categories[]>([])
-    const date = `${new Date(task.date).getFullYear()}-${new Date(task.date).getMonth()+1 >=10 ? `${new Date(task.date).getMonth()+1}` : `0${new Date(task.date).getMonth()+1}` }-${new Date(task.date).getDate()}`
-    // const cate = data.find((ele)=>ele.category=== task.category);
-    // console.log(cate);
+    const date = `${new Date(task.date).getFullYear()}-${new Date(task.date).getMonth()+1 >=10 ? `${new Date(task.date).getMonth()+1}` : `0${new Date(task.date).getMonth()+1}` }-${new Date(task.date).getDate() >=10 ? `${new Date(task.date).getDate()}` : `0${new Date(task.date).getDate()}` }`
+    // console.log(date);
     const [categoryId,setCategoryId] = useState("")
     const {register,handleSubmit,formState:{errors}} = useForm<formType>({
         defaultValues: {
@@ -110,7 +109,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
         setCategoryId(cate?.id as string)
     },[data,task])
     return (
-        <div className="bg-bodyColor dark:bg-inputDark p-5 rounded-xl w-full  mt-5 shadow-md">
+        <div className="w-full p-5 mt-5 shadow-md bg-bodyColor dark:bg-inputDark rounded-xl">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-4">
                         <label htmlFor="title" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الاسم</label>
@@ -118,7 +117,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             type="text"
                             {...register("title", { required: true })}
                             id="title"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         />
                         {errors.title?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل اسم المهمة</p>}
                     </div>
@@ -129,7 +128,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             rows={10}
                             {...register("description", { required: true })}
                             id="description"
-                            className="w-full h-50 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full p-2 mt-1 border border-gray-300 rounded h-50 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         />
                         {errors.description?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وصف المهمة</p>}
                     </div>
@@ -140,7 +139,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             type="date"
                             {...register("date", { required: true })}
                             id="date"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         />
                         {errors.date?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل تاريخ المهمة</p>}
                     </div>
@@ -151,7 +150,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             type="number"
                             {...register("budget", { required: true })}
                             id="budget"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         />
                         {errors.budget?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل السعر</p>}
                     </div>
@@ -162,7 +161,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             required
                             {...register("categoryId", { required: true })}
                             id="category"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             {data.map(item => (
                                 <option key={item.id} value={item.id} selected={categoryId === item.id ? true : false}>{item.category}</option>
@@ -177,7 +176,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             type="text"
                             {...register("address", { required: true })}
                             id="address"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         />
                         {errors.address?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل العنوان</p>}
                     </div>
@@ -187,7 +186,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                         <select
                             {...register("status", { required: true })}
                             id="status"
-                            className="w-full h-10 px-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 px-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             <option value="pending">Pending</option>
                             <option value="open">Open</option>
@@ -205,7 +204,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                                 type="text"
                                 ref={inputSkills}
                                 id="skills"
-                                className="w-full h-10 p-2 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                                className="w-full h-10 p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                             />
                             <button
                                 type="button"
@@ -223,7 +222,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             <label className="block text-lg font-semibold text-darkColor dark:text-bodyColor">مهاراتك</label>
                             <div className="flex flex-wrap items-center gap-5 mt-2">
                                 {skills.map((ele, index) => (
-                                    <div key={index} className="relative flex items-center gap-2 p-2 text-white bg-buttonsColor rounded">
+                                    <div key={index} className="relative flex items-center gap-2 p-2 text-white rounded bg-buttonsColor">
                                         <span className="text-sm">{ele}</span>
                                         <span onClick={() => deleteSkill(ele)} className="absolute bg-black rounded cursor-pointer -left-1 -top-1"><XIcon size={15} /></span>
                                     </div>
@@ -238,7 +237,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             required
                             {...register("schedule_type", { required: true })}
                             id="schedule_type"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             {["morning", "evening"].map((ele, index) => (
                                 <option key={index} value={ele}>{ele === "morning" ? "صباحا" : "مساءا"}</option>
@@ -253,7 +252,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             type="time"
                             {...register("start_time", { required: true })}
                             id="start_time"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         />
                         {errors.start_time?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت بدء العمل</p>}
                     </div>
@@ -264,12 +263,12 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             type="time"
                             {...register("end_time", { required: true })}
                             id="end_time"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         />
                         {errors.end_time?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل وقت نهاية العمل</p>}
                     </div>
     
-                    <div className="mb-4 z-10">
+                    <div className="z-10 mb-4">
                         <label htmlFor="location" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
                         <Map latitude={+task.latitude} location={true} longitude={+task.longitude} setErrorMap={setErrorMap} />
                         {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك</p>}

@@ -31,10 +31,10 @@ const BrowseTasks = () => {
             <div className="container relative">
                 {allData ? (
                     <>
-                        <div className="flex justify-center gap-3 flex-row-reverse items-start mb-5">
+                        <div className="flex flex-row-reverse items-start justify-center gap-3 mb-5">
                             <SearchBar search={search} setSearch={setSearch} />
                             <div onClick={()=>setIsSidebarOpen(true)}
-                                className="p-2 md:hidden shadow-md cursor-pointer rounded-md dark:bg-inputDark w-fit dark:text-bodyColor"
+                                className="p-2 rounded-md shadow-md cursor-pointer md:hidden dark:bg-inputDark w-fit dark:text-bodyColor"
                             >
                                 <Settings />
                             </div>
@@ -42,17 +42,17 @@ const BrowseTasks = () => {
 
                         <div className="flex justify-between gap-6">
                             <div className={`fixed top-20 ${isSidebarOpen ? 'right-0' : 'right-[-100%]'} duration-500 h-[calc(100vh-78px)] overflow-y-scroll md:h-full md:overflow-visible py-5 pt-14 rounded-l-md md:py-0 px-5 md:px-0 flex items-center flex-col z-40 shadow-lg bg-bodyColor dark:bg-inputDark md:dark:bg-transparent md:bg-transparent w-[270px] md:block md:w-1/4 md:sticky md:top-12 md:right-0 mb-5`}>
-                                <div onClick={()=>setIsSidebarOpen(false)} className="absolute top-2 left-2 cursor-pointer hover:text-buttonsColor dark:text-bodyColor">
+                                <div onClick={()=>setIsSidebarOpen(false)} className="absolute cursor-pointer top-2 left-2 hover:text-buttonsColor dark:text-bodyColor">
                                         <XIcon size={28}/>
                                 </div>
-                                <div onClick={()=>myUrl('/profile')} className="bg-bodyColor w-full border border-transparent hover:border-navColor duration-300 transition-transform transform hover:scale-105 cursor-pointer dark:bg-inputDark p-4 rounded-lg shadow-md mb-5">
+                                <div onClick={()=>myUrl('/profile')} className="w-full p-4 mb-5 transition-transform duration-300 transform border border-transparent rounded-lg shadow-md cursor-pointer bg-bodyColor hover:border-navColor hover:scale-105 dark:bg-inputDark">
                                     <div className="flex flex-col items-center">
                                         <img
                                             src={user.profilePicture || image}
                                             alt="Profile"
-                                            className="w-20 h-20 rounded-full border-4 border-white shadow-md mb-2"
+                                            className="w-20 h-20 mb-2 border-4 border-white rounded-full shadow-md"
                                         />
-                                        <h2 className="text-lg text-center font-bold dark:text-bodyColor">
+                                        <h2 className="text-lg font-bold text-center dark:text-bodyColor">
                                                 {user.name || "User Name"}
                                         </h2>
                                     </div>
@@ -63,7 +63,7 @@ const BrowseTasks = () => {
                         
                             {allData?.data.tasks.length === 0 ? (
                                 <div className="w-full md:w-3/4">
-                                    <h2 className="text-2xl text-center font-semibold dark:text-bodyColor">
+                                    <h2 className="text-2xl font-semibold text-center dark:text-bodyColor">
                                         لا يوجد مهام في هذه الفئة
                                     </h2>
                                 </div>
@@ -87,11 +87,15 @@ const BrowseTasks = () => {
                                                 pagination={allData?.pagination}
                                             />
 
-                                            <TaskDetails
-                                                task={task}
-                                                left={leftDetails}
-                                                setLeftDetails={setLeftDetails}
-                                            />
+                                            {
+                                                task &&
+                                                <TaskDetails
+                                                    task={task}
+                                                    setTask={setTask}
+                                                    left={leftDetails}
+                                                    setLeftDetails={setLeftDetails}
+                                                />
+                                            }
                                         </div>
                                 </>
                             )}

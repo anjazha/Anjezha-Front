@@ -53,15 +53,15 @@ const AddReview = ({data,setUpdateReview,setChanges}:IProp) => {
     return (
         <div className="w-full">
             <form onSubmit={onSubmit} action="" className="w-full">
-                <div className="flex flex-col sm:flex-row items-center gap-2">
+                <div className="flex flex-col items-center gap-2 sm:flex-row">
                     <div className="w-full">
-                        <input type="text" value={formData.review} onChange={(e)=>setFormData({...formData,review:e.target.value})} required placeholder="ادخل رايك" className="w-full h-10 p-2 py-0 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"/>
+                        <input type="text" value={formData.review} onChange={(e)=>setFormData({...formData,review:e.target.value})} required placeholder="ادخل تقييم" className="w-full h-10 p-2 py-0 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"/>
                     </div>
                     <div className="w-full sm:w-[100px]">
                         <select value={formData.rating} onChange={(e)=>{
                             setFormData({...formData,rating:e.target.value})
                             setErrRating(false)
-                        }} required id="rate" className="w-full h-10 p-2 py-0 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor">
+                        }} required id="rate" className="w-full h-10 p-2 py-0 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor">
                             {Array.from({length:5},(_e,x)=>(
                                 <option key={x} value={x+1}>{x+1}</option>
                             ))}

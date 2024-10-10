@@ -16,10 +16,12 @@ L.Icon.Default.mergeOptions({
 });
 
 const Map = ({latitude,longitude,location,setErrorMap}:{latitude:any,longitude:any,location:boolean,setErrorMap?: React.Dispatch<React.SetStateAction<boolean>>}) => {
-    const [position, setPosition] = useState({
-        lat: +latitude,
-        lng: +longitude
-    });
+    const [position, setPosition] = useState<{lat:number,lng:number}>(
+        {
+            lat: +latitude,
+            lng: +longitude
+        }
+    );
     // const location = {
     //     lat: +latitude,
     //     lng: +longitude
@@ -44,27 +46,27 @@ const Map = ({latitude,longitude,location,setErrorMap}:{latitude:any,longitude:a
 
     // console.log(position?.lat)
     // console.log(position?.lng)
-
     return (
-        <MapContainer 
-            center={[position.lat || 30.088107753367257,position.lng || 31.253356933593754]}
-            zoom={7} 
-            style={{ height: '300px', width: '100%',zIndex:10 }}
-            dragging={location} // منع السحب
-            touchZoom={location} // منع التكبير باللمس
-            scrollWheelZoom={location} // منع التكبير باستخدام عجلة الماوس
-            doubleClickZoom={location} // منع التكبير بالنقر المزدوج
-            zoomControl={true} // إخفاء أدوات التحكم بالتكبير
-        >
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            />
-            { location && <LocationMarker />}
-            {
-                position.lat && position.lng && <Marker position={position}></Marker>
-            }
-        </MapContainer>
+                <MapContainer
+                    center={[ position.lat || 30.088107753367257,position.lng || 31.253356933593754]}
+                    zoom={7} 
+                    style={{ height: '300px', width: '100%',zIndex:10 }}
+                    dragging={location} // منع السحب
+                    touchZoom={location} // منع التكبير باللمس
+                    scrollWheelZoom={location} // منع التكبير باستخدام عجلة الماوس
+                    doubleClickZoom={location} // منع التكبير بالنقر المزدوج
+                    zoomControl={true} // إخفاء أدوات التحكم بالتكبير
+                >
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    />
+                    { location && <LocationMarker />}
+                    {
+                        position.lat && position.lng && <Marker position={position}></Marker>
+                    }
+                </MapContainer>
+        
     );
 };
 

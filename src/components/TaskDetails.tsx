@@ -3,29 +3,33 @@ import { tasks } from "../types/search";
 import Map from "./Map";
 import { Link } from "react-router-dom";
 
-const TaskDetails = ({task,left,setLeftDetails}:{task:tasks | null,left:string,setLeftDetails: React.Dispatch<React.SetStateAction<string>>}) => {
+const TaskDetails = ({task,setTask,left,setLeftDetails}:{task:tasks,setTask: React.Dispatch<React.SetStateAction<tasks | null>>,left:string,setLeftDetails: React.Dispatch<React.SetStateAction<string>>}) => {
     return (
         <div className={`w-full sm:w-[500px] bg-bodyColor dark:bg-inputDark dark:text-bodyColor shadow-xl rounded-lg h-[calc(100vh-75px)] overflow-y-scroll fixed top-[80px] px-4 py-5 ${left} duration-500 z-40`}>
-            <h1 className="text-center text-xl font-bold">تفاصيل المهمة</h1>
-            <div onClick={()=>setLeftDetails("left-[-100%]")} className="absolute top-2 cursor-pointer right-3 hover:text-buttonsColor duration-300">
+            <h1 className="text-xl font-bold text-center">تفاصيل المهمة</h1>
+            <div onClick={()=>{
+                setLeftDetails("left-[-100%]")
+                setTask(null);
+            }} 
+            className="absolute duration-300 cursor-pointer top-2 right-3 hover:text-buttonsColor">
                 <XIcon size={30}/>
             </div>
             <div className="mt-5">
                 
                 <div className="flex-1">
                     {/* Task Title */}
-                    <div className="flex justify-between items-center">
+                    <div className="flex items-center justify-between">
                         <h2 className="font-semibold md:text-xl text-darkColor dark:text-bodyColor text-ellipsis line-clamp-1">
                             {task?.title}
                         </h2>
-                        <h2 className="text-green-500 text-center font-semibold mb-3">{task?.status}</h2>
+                        <h2 className="mb-3 font-semibold text-center text-green-500">{task?.status}</h2>
                     </div>
                     <div className="mb-1 text-lg font-bold text-primaryColor dark:text-bodyColor">
                         {task?.budget} ج.م 
                     </div>
                 
                     {/* Task Address, Date, Time, Schedule - Small Text */}
-                    <div className="text-xs text-gray-500 dark:text-gray-400 flex gap-x-5 flex-wrap">
+                    <div className="flex flex-wrap text-xs text-gray-500 dark:text-gray-400 gap-x-5">
                         <p>{task?.address}</p>
                         <p>{new Date(task?.date as string).toLocaleDateString()}</p>
                         <p>{task?.start_time} - {task?.end_time}</p>
@@ -38,17 +42,17 @@ const TaskDetails = ({task,left,setLeftDetails}:{task:tasks | null,left:string,s
                     </p>
                 
                     {/* Task Category as a Primary Color Tag */}
-                    <div className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                        <span className="inline-block bg-buttonsColor text-white px-2 py-1 rounded-full text-xs font-medium">
+                    <div className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+                        <span className="inline-block px-2 py-1 text-xs font-medium text-white rounded-full bg-buttonsColor">
                             {task?.category}
                         </span>
                     
                         {/* Task Skills as Gray Tags */}
-                        <div className="mt-2 mb-4 flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 mt-2 mb-4">
                             {task?.skills.map((skill, index) => (
                                 <span
                                     key={index}
-                                    className="inline-block bg-gray-200 text-gray-800 px-2 py-1 rounded-full text-xs font-medium"
+                                    className="inline-block px-2 py-1 text-xs font-medium text-gray-800 bg-gray-200 rounded-full"
                                     >
                                     {skill}
                                 </span>
@@ -61,7 +65,7 @@ const TaskDetails = ({task,left,setLeftDetails}:{task:tasks | null,left:string,s
                         <div className="mb-4">
                             {
                                 task?.attachments.map((attachment, index) => (
-                                    <div className="flex gap-3 items-center" key={index}>
+                                    <div className="flex items-center gap-3" key={index}>
                                         {
                                             attachment.type === "image" ?
                                             <Image className="text-green-500" />
@@ -73,14 +77,10 @@ const TaskDetails = ({task,left,setLeftDetails}:{task:tasks | null,left:string,s
                             }
                         </div>
                     }
-                    
-                    {
-                        task?.latitude && task?.longitude &&
-                        <Map latitude={(task?.latitude)} location={false} longitude={(task?.longitude)}/>
-                    }
+                    <Map latitude={+(task?.latitude as string)} location={false} longitude={+(task?.longitude as string)}/>
                 </div>
-                <div className="mt-4 flex justify-center gap-5">
-                    <Link to={`/applyTask/${task?.id}`} className="bg-buttonsColor text-center text-white py-2 px-4 w-full rounded-lg text-sm hover:bg-navColor transition">
+                <div className="flex justify-center gap-5 mt-4">
+                    <Link to={`/applyTask/${task?.id}`} className="w-full px-4 py-2 text-sm text-center text-white transition rounded-lg bg-buttonsColor hover:bg-navColor">
                         Apply Now
                     </Link>
                 </div>
