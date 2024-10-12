@@ -17,7 +17,7 @@ type dispatch = ThunkDispatch<{
         email: string;
         password: string;
         phone_number: string;
-        profile_picture: string;
+        profilePicture: string;
         created_at: string;
     };
 }, undefined, UnknownAction> 
