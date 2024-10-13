@@ -30,7 +30,7 @@ export interface tasks {
     title: string;
     total_count: string;
     user_id:string
-    attachments?:attachments[],
+    attachments?:attachments[] | null,
 }
 
 export interface dataTypeSearch {

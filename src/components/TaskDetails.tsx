@@ -61,17 +61,17 @@ const TaskDetails = ({task,setTask,left,setLeftDetails}:{task:tasks,setTask: Rea
                     </div>
 
                     {
-                        task?.attachments &&
+                        task?.attachments && task?.attachments[0]?.url &&
                         <div className="mb-4">
                             {
                                 task?.attachments.map((attachment, index) => (
                                     <div className="flex items-center gap-3" key={index}>
                                         {
-                                            attachment.type === "image" ?
+                                            attachment.type.startsWith('image') ?
                                             <Image className="text-green-500" />
                                             : <FileText className="text-red-500" />
                                         }
-                                        <a href={attachment.url} download={true} className={`${attachment.type === "image" ? "bg-green-500 hover:bg-red-600" : "bg-red-500 hover:bg-red-600"} duration-300 p-1 px-3 text-white text-sm flex items-center gap-2 rounded-full`}><ArrowDownToLine size={18}/>{attachment.size}</a>
+                                        <a href={attachment.url} download={true} target="_blank" className={`${attachment.type === "image" ? "bg-green-500 hover:bg-red-600" : "bg-red-500 hover:bg-red-600"} duration-300 p-1 px-3 text-white text-sm flex items-center gap-2 rounded-full`}><ArrowDownToLine size={18}/>{attachment.size}</a>
                                     </div>
                                 ))
                             }
