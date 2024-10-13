@@ -21,6 +21,11 @@ import UserTasks from './pages/UserTasks';
 import TaskerApplication from './pages/TaskerApplication'
 import TaskerProfile from './pages/TaskerProfile'
 import UpdateTask from './pages/UpdateTask'
+import Porpasel from './pages/Porpasel'
+import VerifyEmail from './pages/VerifyEmail'
+import ForgetPassword from './pages/ForgetPassword'
+import ResetPassword from './pages/ResetPassword'
+import VerifyCode from './pages/VerifyCode'
 
 function App() {
 
@@ -32,13 +37,16 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route element={<GlobalRoutes />}>
             <Route path='/login' element={<Login />} />
+            <Route path='/forgetPassword' element={<ForgetPassword />} />
+            <Route path='/resetPassword/:token' element={<ResetPassword />} />
             <Route path='/register' element={<Register />} />
-            
+            <Route path='/verifyEmail' element={<VerifyEmail />} />
+            <Route path='/verifyCode' element={<VerifyCode />} />
           </Route>
-          <Route element={<ProtectRoutes />}>
-            <Route path='/search' element={<Search />} />
-            <Route path='/becomeTasker' element={<BecomeTasker />} />
             <Route path='/categories' element={<Categories />} />
+            <Route path='/search' element={<Search />} />
+          <Route element={<ProtectRoutes />}>
+            <Route path='/becomeTasker' element={<BecomeTasker />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/createPost' element={<CreatePost />} />
             <Route path='/subCategories/:id' element={<SubCategories />} />
@@ -49,6 +57,7 @@ function App() {
             <Route path='/taskerApplication/:id' element={<TaskerApplication />} />
             <Route path='/taskerProfile/:id' element={<TaskerProfile />} />
             <Route path='/updateTask/:id' element={<UpdateTask />} />
+            <Route path='/porpasel/:id/:index' element={<Porpasel />} />
           </Route>
         </Routes>
       </div>

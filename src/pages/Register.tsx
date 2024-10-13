@@ -1,13 +1,12 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../functions/register";
 import Spinner from "../components/Spinner";
 
 interface dataType {
     name:string,
-    email:string,
     password:string,
     phoneNumber:string
 }
@@ -20,7 +19,9 @@ const Register = () => {
     const onSubmit = (data:dataType) => {
         setLoading(true)
         console.log(data);
-        registerUser(data,myUrl,setLoading)
+        const allData = {...data,email:localStorage.email}
+        console.log(allData);
+        registerUser(allData,myUrl,setLoading)
     }
     return (
         <div className="flex justify-center py-5">
@@ -32,11 +33,6 @@ const Register = () => {
                             <label htmlFor="name" className="text-gray-700 dark:text-gray-300">الاسم</label><br/>
                             <input type="text" {...register("name",{required:true})} id="name" className="w-full h-10 p-2 mt-1 rounded border border-gray-300 dark:border-gray-600 outline-none bg-inputColor dark:bg-inputDark dark:text-gray-200" />
                             {errors.name?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الاسم</p>}
-                        </div>
-                        <div className="mt-4">
-                            <label htmlFor="email" className="text-gray-700 dark:text-gray-300">الايميل</label><br/>
-                            <input type="email" {...register("email",{required:true})} id="email" className="w-full h-10 p-2 mt-1 rounded border border-gray-300 dark:border-gray-600 outline-none bg-inputColor dark:bg-inputDark dark:text-gray-200" />
-                            {errors.email?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الايميل</p>}
                         </div>
                         <div className="mt-4">
                             <label htmlFor="pass" className="text-gray-700 dark:text-gray-300">كلمة المرور</label><br/>
@@ -70,9 +66,9 @@ const Register = () => {
                         </div>
                     </form>
                 </div>
-                <div className="mt-4 font-bold text-center dark:text-bodyColor">
+                {/* <div className="mt-4 font-bold text-center dark:text-bodyColor">
                     <p>لديك حساب ؟ <Link to={"/login"} className="underline text-navColor">سجل الان</Link></p>
-                </div>
+                </div> */}
             </div>
         </div>
     );

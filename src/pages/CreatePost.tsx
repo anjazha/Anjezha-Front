@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { getAllCategory } from "../functions/getAllCategory";
 import Map from "../components/Map";
-import { XIcon } from "lucide-react";
+import { Download, XIcon } from "lucide-react";
 import { createPost } from "../functions/createPost";
 import { Categories } from "../types/categories";
 import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
 
 interface formType {
     title: string;
@@ -19,6 +20,7 @@ interface formType {
     start_time:string;
     end_time:string;
     schedule_type:string;
+    attachments:FileList
 }
 
 const CreatePost = ()=>{
@@ -29,6 +31,8 @@ const CreatePost = ()=>{
     const [errorSkills,setErrorSkills] = useState(false)
     const inputSkills = useRef<HTMLInputElement | null>(null)
     const [skills,setSkills] = useState<string[]>([])
+    const [file,setFile] = useState<FileList | null>(null)
+    const maxSize = 5 * 1024 * 1024;
     const addSkills = ()=>{
         setErrorSkills(false)
         const newSkill = inputSkills.current?.value
@@ -42,7 +46,7 @@ const CreatePost = ()=>{
         setSkills(newSkills)
     }
     const onSubmit = (data:formType) => {
-        setLoading(true)
+        // setLoading(true)
         if(skills.length === 0){
             setErrorSkills(true)
             setLoading(false)
@@ -53,9 +57,14 @@ const CreatePost = ()=>{
             setLoading(false)
             return
         }
+        if(maxSize < (file?.item(0)?.size || 10000)){
+            toast.error('حجم الملف أكبر من 5 ميجابايت. الرجاء اختيار ملف أصغر.')
+            return;
+        }
         const allData = {
             title: data.title,
             description: data.description,
+            attachments:[file?.item(0)],
             date: data.date,
             budget: +data.budget,
             address: data.address,
@@ -107,6 +116,21 @@ const CreatePost = ()=>{
                     </div>
     
                     <div className="mb-4">
+                        <p  className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الملفات</p>
+                        <label htmlFor="attachments" className="w-full text-gray-500 flex flex-row-reverse gap-2 items-center justify-center cursor-pointer h-20 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor">
+                            {
+                                file ? file?.item(0)?.name : <>تحميل ملف <Download /></>
+                            }
+                        </label>
+                        <input
+                            type="file"
+                            onChange={(e)=>setFile(e.target.files)}
+                            id="attachments"
+                            className="hidden"
+                        />
+                    </div>
+
+                    <div className="mb-4">
                         <label htmlFor="date" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">التاريخ</label>
                         <input
                             type="date"
@@ -134,7 +158,7 @@ const CreatePost = ()=>{
                             required
                             {...register("categoryId", { required: true })}
                             id="category"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 py-0 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             {data.map(item => (
                                 <option key={item.id} value={item.id}>{item.category}</option>
@@ -210,7 +234,7 @@ const CreatePost = ()=>{
                             required
                             {...register("schedule_type", { required: true })}
                             id="schedule_type"
-                            className="w-full h-10 p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 p-2 py-0 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             {["morning", "evening"].map((ele, index) => (
                                 <option key={index} value={ele}>{ele === "morning" ? "صباحا" : "مساءا"}</option>

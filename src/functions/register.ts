@@ -10,7 +10,7 @@ interface dataType {
 }
 
 export const registerUser = (data:dataType,myUrl:NavigateFunction,setLoading:React.Dispatch<React.SetStateAction<boolean>>)=>{
-    axiosInstance.post("/auth/signup",{...data},{
+    axiosInstance.post("/auth/register",{...data},{
         headers:{
             "Content-Type":"application/json"
         }

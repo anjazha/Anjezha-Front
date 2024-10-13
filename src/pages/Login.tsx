@@ -121,7 +121,7 @@ const Login = () => {
               </div>
               <div>
                 <Link
-                  to={""}
+                  to={"/forgetPassword"}
                   className="underline text-navColor dark:text-bodyColor"
                 >
                   هل نسيت كلمة المرور؟
@@ -134,7 +134,7 @@ const Login = () => {
           <p>
             ليس لديك حساب ؟{" "}
             <Link
-              to={"/register"}
+              to={"/verifyEmail"}
               className="underline text-navColor dark:text-bodyColor"
             >
               انشئ حساب

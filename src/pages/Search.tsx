@@ -31,7 +31,7 @@ const Search = () => {
               <>
                 <div className="flex flex-row-reverse items-start justify-center gap-3">
                   {/* search bar Component*/}
-                  <SearchBar search={search} setSearch={setSearch} />
+                  <SearchBar search={search} value={search.get("q")} setSearch={setSearch} />
                   {/* open filters icon */}
                   <div
                     onClick={() => setRightFilters("right-0")}

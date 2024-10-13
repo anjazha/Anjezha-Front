@@ -25,7 +25,7 @@ export const createPost = (data:dataType,setLoading: React.Dispatch<React.SetSta
     axiosInstance.post("/tasks",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
-            "Content-Type":"application/json",
+            "Content-Type":"multipart/form-data",
         }
     })
     .then((res)=>{
