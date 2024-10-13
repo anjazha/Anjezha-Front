@@ -9,7 +9,7 @@ import UpdatePassword from "./UpdatePassword";
 interface formData {
     name: string;
     email: string;
-    phone_number: string;
+    phoneNumber: string;
 }
 
 const UpdateProfile = () => {
@@ -31,7 +31,6 @@ const UpdateProfile = () => {
         <div className="min-h-screen bg-gray-50 dark:bg-inputDark rounded-lg py-10 px-4 flex flex-col justify-center">
         <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl border w-full bg-white dark:bg-bodyDark shadow-md rounded-lg p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 md:gap-8">
-            
             {/* Profile Section */}
             <div className="col-span-1 md:w-full">
               <div className="bg-indigo-600 dark:bg-inputDark text-white p-6 rounded-lg text-center">
@@ -95,8 +94,8 @@ const UpdateProfile = () => {
                     <label htmlFor="phone" className="block text-sm font-semibold text-gray-600 dark:text-bodyColor  mb-2">رقم الهاتف</label>
                     <input
                       type="text"
-                      {...register("phone_number")}
-                      defaultValue={user.phone_number}
+                      {...register("phoneNumber")}
+                      defaultValue={user.phoneNumber}
                       id="phone"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
                     />

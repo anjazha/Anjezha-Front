@@ -1,8 +1,6 @@
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance"
 
 export const getSkills = ()=>{
-    const cookie = Cookie()
     axiosInstance.get("/get-skills",{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

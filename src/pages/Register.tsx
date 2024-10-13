@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../functions/register";
+import Spinner from "../components/Spinner";
 
 interface dataType {
     name:string,
@@ -18,7 +19,7 @@ const Register = () => {
     const [loading,setLoading] = useState(false)
     const onSubmit = (data:dataType) => {
         setLoading(true)
-        // console.log(data);
+        console.log(data);
         registerUser(data,myUrl,setLoading)
     }
     return (
@@ -54,14 +55,17 @@ const Register = () => {
                             {errors.phoneNumber?.type==="required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل رقم التلفون</p>}
                         </div>
                         <div className="flex justify-center mt-4">
-                            <button disabled={loading} className="w-full p-2 py-1 text-white rounded bg-buttonsColor">
-                                {
-                                    loading ? 
-                                    <div className="flex justify-center items-center">
-                                        <span className="inline-block w-5 h-5 rounded-full border border-black border-l-[#D4CDA6] animate-spin"></span>
-                                    </div>
-                                    :"انشاء"
-                                }
+                            <button
+                                disabled={loading}
+                                className={`w-full p-2 py-1 ${loading?"border-b-2 border-buttonsColor":"bg-buttonsColor hover:bg-indigo-600 "} text-white rounded  transition duration-200`}              >
+                                {loading ? (
+                                //   <div className="flex justify-center items-center">
+                                //     <span className="inline-block w-5 h-5 rounded-full border border-black border-l-[#D4CDA6] animate-spin"></span>
+                                //   </div>
+                                <Spinner/>
+                                ) : (
+                                "انشاء"
+                                )}
                             </button>
                         </div>
                     </form>

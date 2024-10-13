@@ -8,13 +8,15 @@ import { getUser } from "../functions/getUser";
 import { useSelector } from "react-redux";
 import UserDialog from "./UserDialog";
 import { derminLocation } from "../functions/location";
+import { getTasker } from "../functions/getTasker";
 
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
+  const tasker = useSelector((state: RootState) => state.tasker);
   const [mode, setMode] = useState("light");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  console.log(isNavOpen);
+  // console.log(isNavOpen);
   const changeMode = () => {
     localStorage.mode = mode === "light" ? "dark" : "light"
     setMode(mode === "light" ? "dark" : "light");
@@ -26,6 +28,7 @@ const Navbar = () => {
   useEffect(() => {
     if (cookie) {
       getUser(dispatch, myUrl);
+      getTasker(dispatch)
       derminLocation();
     }
   }, [cookie]);
@@ -56,7 +59,7 @@ const Navbar = () => {
         {/* Navigation Links */}
         <div
           className={`fixed z-50 ${
-            isNavOpen ? "right-0 shadow-md" : "right-[-100%]"
+            isNavOpen ? "right-0 shadow-md rounded-l-md" : "right-[-100%]"
           }  h-full w-[300px] bg-bodyColor dark:bg-inputDark text-inputDark dark:text-bodyColor p-5 top-20 transition-all duration-500 md:static md:flex md:items-center md:gap-10 md:bg-transparent md:w-auto md:p-0`}
         >
           <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:gap-4 font-semibold">
@@ -71,7 +74,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="" className="hover:text-indigo-600">
+              <Link to="/browseTasks?page=1" className="hover:text-indigo-600">
                 تصفح المهام
               </Link>
             </li>
@@ -80,9 +83,12 @@ const Navbar = () => {
                 <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
                   <Link to="/createPost">نشر مهمة</Link>
                 </li>
-                <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
-                  <Link to="/becomeTasker">اصبح عامل</Link>
-                </li>
+                {
+                  !tasker.id &&
+                  <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
+                    <Link to="/becomeTasker">اصبح عامل</Link>
+                  </li>
+                }
               </>
             ) : (
               <li>

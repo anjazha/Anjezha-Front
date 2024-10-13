@@ -1,9 +1,7 @@
 import { subCategories } from "../types/categories"
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance"
 
 export const getSubCategoriesById = (id:string | undefined,setData: React.Dispatch<React.SetStateAction<subCategories|null>>)=>{
-    const cookie = Cookie()
     axiosInstance.get(`/subcategory/${id}`,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

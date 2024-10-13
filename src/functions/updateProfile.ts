@@ -1,5 +1,4 @@
-import Cookie from "cookie-universal";
-import { axiosInstance } from "./axiosInstance";
+import { axiosInstance, cookie } from "./axiosInstance";
 import { ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { addUser } from "../store/Slices/userSlice";
 import toast from "react-hot-toast";
@@ -7,7 +6,7 @@ import toast from "react-hot-toast";
 interface formData {
     name: string;
     email: string;
-    phone_number: string;
+    phoneNumber: string;
 }
 
 type dispatch = ThunkDispatch<{
@@ -16,14 +15,13 @@ type dispatch = ThunkDispatch<{
         name: string;
         email: string;
         password: string;
-        phone_number: string;
+        phoneNumber: string;
         profilePicture: string;
         created_at: string;
     };
 }, undefined, UnknownAction> 
 
 export const updateProfile = (data: formData,dispatch:dispatch,setLoad: React.Dispatch<React.SetStateAction<boolean>>) => {
-    const cookie = Cookie()
     axiosInstance.put("/profile",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
@@ -43,15 +41,14 @@ export const updateProfile = (data: formData,dispatch:dispatch,setLoad: React.Di
 }
 
 export const updatePicture = (data:{profilePicture:File | null | undefined}) => {
-    const cookie = Cookie()
     axiosInstance.patch("/profile/picture",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
             "Content-Type":"multipart/form-data"
         }
     })
-    .then((res)=>{
-        console.log(res)
+    .then(()=>{
+        console.log("res")
     }).catch((err)=>{
         console.log(err)
     })
