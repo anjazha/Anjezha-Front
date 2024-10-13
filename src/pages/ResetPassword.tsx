@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -15,11 +15,13 @@ const ResetPassword = () => {
     } = useForm<{password:string}>();
     const [changePass, setPass] = useState("password");
     const [loading, setLoading] = useState(false);
+    const myUrl = useNavigate()
     const onSubmit = (data: {password:string}) => {
         setLoading(true);
         // console.log(data);
+        const allData = {password:data.password,token:token as string}
         if(token){
-            resetPassword(data,token,setLoading)
+            resetPassword(allData,myUrl,setLoading)
         }
     }
     return (

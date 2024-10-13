@@ -17,6 +17,7 @@ export const registerUser = (data:dataType,myUrl:NavigateFunction,setLoading:Rea
     }).then(()=>{
         // console.log(res)
         toast.success('تم انشاء حسابك بنجاح')
+        localStorage.removeItem("email")
         myUrl("/login")
     }).catch((err)=>{
         console.log(err)
