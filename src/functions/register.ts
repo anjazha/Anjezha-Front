@@ -18,8 +18,8 @@ export const registerUser = (data:dataType,myUrl:NavigateFunction,setLoading:Rea
         // console.log(res)
         toast.success('تم انشاء حسابك بنجاح')
         myUrl("/login")
-    }).catch(()=>{
-        // console.log(err)
+    }).catch((err)=>{
+        console.log(err)
         toast.error("هذا الايميل مستخدم بالفعل")
     }).finally(()=>setLoading(false));
 }

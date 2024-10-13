@@ -4,6 +4,8 @@ import { getAllCategory } from "../functions/getAllCategory";
 import Map from "../components/Map";
 import { becomeTasker } from "../functions/becomeTasker";
 import { Categories } from "../types/categories";
+import Spinner from "../components/Spinner";
+import { useAppDispatch } from "../store/store";
 
 interface formType {
     bio: string;
@@ -17,6 +19,7 @@ const BecomeTasker = () => {
     const [loading,setLoading] = useState(false)
     const [data,setData] = useState<Categories[]>([])
     const [errorMap,setErrorMap] = useState(false)
+    const dispatch = useAppDispatch()
     const onSubmit = (data:formType) => {
         setLoading(true)
         // console.log(data);
@@ -34,7 +37,7 @@ const BecomeTasker = () => {
             longitude: +localStorage.longitude
         }
         console.log(allData);
-        becomeTasker(allData,setLoading)
+        becomeTasker(allData,dispatch,setLoading)
     }
     useEffect(() => {
         getAllCategory(setData)
@@ -70,18 +73,18 @@ const BecomeTasker = () => {
                         </div>
                         <div className="mt-3">
                             <label htmlFor="location" className="block mb-2 text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
-                            <Map latitude={+localStorage.latitude} longitude={+localStorage.longitude} setErrorMap={setErrorMap}/>
+                            <Map latitude={+localStorage.latitude} location={true} longitude={+localStorage.longitude} setErrorMap={setErrorMap}/>
                             {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك </p>}
                         </div>
                         <div className="flex justify-center mt-4">
-                            <button disabled={loading} className="w-full p-2 py-1 text-white rounded bg-buttonsColor">
-                                {
-                                    loading ? 
-                                    <div className="flex items-center justify-center">
-                                        <span className="inline-block w-5 h-5 rounded-full border border-black border-l-[#D4CDA6] animate-spin"></span>
-                                    </div>
-                                    :"ارسال"
-                                }
+                            <button
+                                disabled={loading}
+                                className={`w-full p-2 py-2 ${loading?"border-b-2 border-buttonsColor":"bg-buttonsColor hover:bg-indigo-600 "} text-white rounded  transition duration-200`}              >
+                                {loading ? (
+                                <Spinner/>
+                                ) : (
+                                "ارسال"
+                                )}
                             </button>
                         </div>
                     </form>

@@ -1,7 +1,7 @@
 import { axiosInstance, cookie } from "./axiosInstance"
 
-export const getSkills = ()=>{
-    axiosInstance.get("/get-skills",{
+export const getAllTasks = ()=>{
+    axiosInstance.get(`/tasks?limit=7&page=1`,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
             "Content-Type":"application/json",

@@ -1,9 +1,7 @@
 import toast from "react-hot-toast"
-import { axiosInstance } from "./axiosInstance"
-import Cookie from "cookie-universal"
+import { axiosInstance, cookie } from "./axiosInstance"
 
 export const updatePassword = (data:{oldPassword:string,newPassword:string},setLoad:React.Dispatch<React.SetStateAction<boolean>>) => {
-    const cookie = Cookie()
     axiosInstance.patch("/profile/change-password",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

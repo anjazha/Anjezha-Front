@@ -1,8 +1,9 @@
-import { subCategories } from "../types/categories"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { addTasker } from "../store/Slices/taskerSlice"
 import { axiosInstance, cookie } from "./axiosInstance"
 
-export const getSubCategoriesById = (id:string | undefined,setData: React.Dispatch<React.SetStateAction<subCategories|null>>)=>{
-    axiosInstance.get(`/subcategory/${id}`,{
+export const getTasker = (dispatch:any)=>{
+    axiosInstance.get("/about-tasker",{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
             "Content-Type":"application/json",
@@ -10,7 +11,7 @@ export const getSubCategoriesById = (id:string | undefined,setData: React.Dispat
     })
     .then((res)=>{
         // console.log(res);
-        setData(res.data.data);
+        dispatch(addTasker(res.data))
     }).catch((err)=>{
         console.log(err);
     })

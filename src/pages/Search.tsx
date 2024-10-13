@@ -29,13 +29,13 @@ const Search = () => {
           <>
             {
               <>
-                <div className="flex justify-center gap-3 flex-row-reverse items-start">
+                <div className="flex flex-row-reverse items-start justify-center gap-3">
                   {/* search bar Component*/}
                   <SearchBar search={search} setSearch={setSearch} />
                   {/* open filters icon */}
                   <div
                     onClick={() => setRightFilters("right-0")}
-                    className="p-2 shadow-md cursor-pointer rounded-md dark:bg-inputDark w-fit dark:text-bodyColor"
+                    className="p-2 rounded-md shadow-md cursor-pointer dark:bg-inputDark w-fit dark:text-bodyColor"
                   >
                     <List />
                   </div>
@@ -76,11 +76,15 @@ const Search = () => {
                     />
 
                     {/* Task Details Component */}
-                    <TaskDetails
-                      task={task}
-                      left={leftDetails}
-                      setLeftDetails={setLeftDetails}
-                    />
+                    {
+                      task &&
+                      <TaskDetails
+                        task={task}
+                        setTask={setTask}
+                        left={leftDetails}
+                        setLeftDetails={setLeftDetails}
+                      />
+                    }
                   </>
                 )}
               </>

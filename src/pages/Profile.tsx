@@ -3,7 +3,6 @@ import { RootState} from "../store/store";
 import Spinner from "../components/Spinner";
 import UpdateProfile from "../components/UpdateProfile";
 
-
 const Profile = () => {
     const user = useSelector((state:RootState) => state.user);
     return (

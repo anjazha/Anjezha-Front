@@ -4,6 +4,8 @@ import { getSubCategoriesById } from "../functions/getSubCategoriesById";
 import Spinner from '../components/Spinner';
 import HowItWorks from "../components/HowItWorks";
 import { subCategories } from "../types/categories";
+import { Link } from 'react-router-dom';
+
 
 const SubCategories = () => {
     const {id} = useParams()
@@ -33,9 +35,11 @@ const SubCategories = () => {
                     </div>
     
                     <div className="text-center">
-                        <button className="bg-primary text-white px-10 py-4 rounded-full text-lg hover:bg-primaryDark transition duration-300 ease-in-out shadow-lg">
+                        <Link to={`/BookNow/${data.id}`}  className="text-lg hover">
+                        <button className="bg-primary text-white font-bold px-10 py-4 rounded-full text-lg hover:bg-primaryDark  ease-in-out shadow-lg bg-[#4F46E5]  hover:bg-[#3832a9] transition duration-300">
                             احجز الآن
                         </button>
+                        </Link>
                     </div>
                 </>
             ) : (

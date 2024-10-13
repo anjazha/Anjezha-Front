@@ -14,6 +14,14 @@ import Categories from './pages/Categories'
 import Profile from './pages/Profile'
 import CreatePost from './pages/CreatePost'
 import SubCategories from './pages/SubCategories'
+import BookNow from './pages/BookNow';
+import BrowseTasks from './pages/BrowseTasks'
+import ApplyTask from './pages/ApplyTask'
+import UserTasks from './pages/UserTasks';
+import TaskerApplication from './pages/TaskerApplication'
+import TaskerProfile from './pages/TaskerProfile'
+import UpdateTask from './pages/UpdateTask'
+import ResetPassword from './pages/ResetPassword'
 
 function App() {
 
@@ -26,6 +34,7 @@ function App() {
           <Route element={<GlobalRoutes />}>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path="/resetPassword/:token" element={<ResetPassword />} />
             
           </Route>
           <Route element={<ProtectRoutes />}>
@@ -35,6 +44,14 @@ function App() {
             <Route path='/profile' element={<Profile />} />
             <Route path='/createPost' element={<CreatePost />} />
             <Route path='/subCategories/:id' element={<SubCategories />} />
+            <Route path='/BookNow/:id' element={<BookNow/>} />
+            <Route path='/browseTasks' element={<BrowseTasks />} />
+            <Route path='/applyTask/:id' element={<ApplyTask />} />
+            <Route path='/userTasks' element={<UserTasks />} />
+            <Route path='/taskerApplication/:id' element={<TaskerApplication />} />
+            <Route path='/taskerProfile/:id' element={<TaskerProfile />} />
+            <Route path='/updateTask/:id' element={<UpdateTask />} />
+            
           </Route>
         </Routes>
       </div>

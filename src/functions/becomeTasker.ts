@@ -1,6 +1,7 @@
-import Cookie from "cookie-universal";
-import { axiosInstance } from "./axiosInstance";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { axiosInstance, cookie } from "./axiosInstance";
 import toast from "react-hot-toast";
+import { addTasker } from "../store/Slices/taskerSlice";
 
 interface dataType{
     bio: string;
@@ -11,8 +12,7 @@ interface dataType{
     latitude: number;
 }
 
-export const becomeTasker = (data:dataType,setLoading:React.Dispatch<React.SetStateAction<boolean>>)=>{
-    const cookie = Cookie()
+export const becomeTasker = (data:dataType,dispatch:any,setLoading:React.Dispatch<React.SetStateAction<boolean>>)=>{
     axiosInstance.post("/become-tasker",data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
@@ -20,6 +20,7 @@ export const becomeTasker = (data:dataType,setLoading:React.Dispatch<React.SetSt
         }
     }).then((res)=>{
         console.log(res)
+        dispatch(addTasker(res.data))
         toast.success('تم تسجيلك كعامل بنجاح')
     }).catch((err)=>{
         console.log(err)

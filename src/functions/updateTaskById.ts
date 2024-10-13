@@ -1,5 +1,5 @@
-import { axiosInstance, cookie } from "./axiosInstance";
 import toast from "react-hot-toast";
+import { axiosInstance, cookie } from "./axiosInstance"
 
 interface dataType {
     title: string;
@@ -21,20 +21,19 @@ interface dataType {
     }
 }
 
-export const createPost = (data:dataType,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
-    axiosInstance.post("/tasks",data,{
+export const updateTaskById = (taskId: string,data:dataType,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
+    axiosInstance.put(`/tasks/${taskId}`,data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
-            "Content-Type":"application/json",
+            "Content-Type":"application/json"
         }
     })
     .then((res)=>{
         console.log(res);
-        toast.success("تم إنشاء المهمة بنجاح")
+        toast.success("تم  تعديل المهمة بنجاح")
     }).catch((err)=>{
         console.log(err);
-        toast.error("حدث خطأ أثناء إنشاء المهمة")
-    }).finally(()=>{
-        setLoading(false)
+        toast.error("حدث خطأ اثناء تعديل المهمة")
     })
+    .finally(()=>setLoading(false));
 }
