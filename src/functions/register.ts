@@ -10,13 +10,14 @@ interface dataType {
 }
 
 export const registerUser = (data:dataType,myUrl:NavigateFunction,setLoading:React.Dispatch<React.SetStateAction<boolean>>)=>{
-    axiosInstance.post("/auth/signup",{...data},{
+    axiosInstance.post("/auth/register",{...data},{
         headers:{
             "Content-Type":"application/json"
         }
     }).then(()=>{
         // console.log(res)
         toast.success('تم انشاء حسابك بنجاح')
+        localStorage.removeItem("email")
         myUrl("/login")
     }).catch((err)=>{
         console.log(err)

@@ -1,7 +1,7 @@
 import { SearchIcon } from "lucide-react";
 import { SetURLSearchParams } from "react-router-dom";
 
-const SearchBar = ({search,setSearch}:{search: URLSearchParams,setSearch: SetURLSearchParams}) => {
+const SearchBar = ({search,setSearch,value}:{search: URLSearchParams,setSearch: SetURLSearchParams,value:string | null}) => {
     const inputsChange = (ele:string,value:string)=>{
         const currentParams = new URLSearchParams(search);
         if(value === ""){
@@ -22,7 +22,7 @@ const SearchBar = ({search,setSearch}:{search: URLSearchParams,setSearch: SetURL
         <div
             className="w-full sm:w-[400px] mx-auto h-10 rounded-full mb-4 bg-inputColor dark:bg-inputDark flex justify-between items-center px-4 shadow-md"
             >
-            <input onChange={(e)=>inputsChange(e.target.name,e.target.value)}
+            <input defaultValue={value? value : ""} onChange={(e)=>inputsChange(e.target.name,e.target.value)}
                 type="text"
                 name="q"
                 className="w-full h-full bg-transparent rounded-full outline-none text-navColor dark:text-bodyColor dark:caret-bodyColor"

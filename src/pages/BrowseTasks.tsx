@@ -32,7 +32,7 @@ const BrowseTasks = () => {
                 {allData ? (
                     <>
                         <div className="flex flex-row-reverse items-start justify-center gap-3 mb-5">
-                            <SearchBar search={search} setSearch={setSearch} />
+                            <SearchBar search={search} value={search.get("q")} setSearch={setSearch} />
                             <div onClick={()=>setIsSidebarOpen(true)}
                                 className="p-2 rounded-md shadow-md cursor-pointer md:hidden dark:bg-inputDark w-fit dark:text-bodyColor"
                             >
