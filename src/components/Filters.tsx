@@ -1,78 +1,218 @@
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { XIcon } from "lucide-react";
-import { SetURLSearchParams } from "react-router-dom";
-import DualRangeSlider from "./DualRangeSlider";
-// import DualRangeSlider from "./DualRangeSlider";
+import { SetURLSearchParams} from "react-router-dom";
+import { Categories } from "../types/categories";
+import { getAllCategory } from "../functions/getAllCategory";
+import MultiRangeSlider from "multi-range-slider-react";
 
 interface IProp {
-    right:string,
-    setRightFilters: React.Dispatch<React.SetStateAction<string>>,
-    search: URLSearchParams,
-    setSearch: SetURLSearchParams
+  right: string;
+  setRightFilters: React.Dispatch<React.SetStateAction<string>>;
+  search: URLSearchParams;
+  setSearch: SetURLSearchParams;
 }
 
-const Filters = ({right,setRightFilters,search,setSearch}:IProp) => {
-    const inputsChange = (ele:string,value:string )=>{
-        const currentParams = new URLSearchParams(search);
-        if(value === ""){
-            currentParams.delete(ele);
-            setSearch(currentParams);
-            return;
-        }
-        if(currentParams.has(ele)){
-            currentParams.set(ele, value);
-            setSearch(currentParams);
-        }
-        else{
-            currentParams.append(ele, value);
-            setSearch(currentParams);
-        }
+const Filters = ({ right, setRightFilters,search,  setSearch }: IProp) => {
+  const searchParams = useMemo(()=> new URLSearchParams(search), [search]) 
+  const handleInputChange = useCallback((name: string, value: string) => {
+    // const updatedParams = new URLSearchParams(searchParams);
+    // console.log(name, value)
+    if (value) {
+      searchParams.set(name, value);
+    } else {
+      searchParams.delete(name);
     }
-    // console.log(search.toString());
-    return (
-        <div className={`h-[calc(100vh-75px)] w-[300px] fixed top-[80px] ${right} py-5 px-4 duration-500 z-40  bg-bodyColor dark:bg-inputDark dark:text-bodyColor shadow-xl rounded-lg`}>
-            <h1 className="text-center text-xl font-bold">تصفية</h1>
-            <div onClick={()=>setRightFilters('right-[-100%]')} className="absolute top-2 cursor-pointer left-3 hover:text-buttonsColor duration-300">
-                <XIcon size={30}/>
-            </div>
-            <div className="mt-4">
-                <form action="">
-                    {/* <div>
-                        <label htmlFor="least" className="block font-semibold text-darkColor dark:text-bodyColor">اقل سعر</label>
-                        <input type="number" onChange={(e)=>inputsChange(e.target.name,e.target.value)} name="minBudget" id="least" className="w-full h-9 p-2 mt-2 rounded border dark:text-bodyDark border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"/>
-                    </div>
-                    <div className="mt-3">
-                        <label htmlFor="max" className="block font-semibold text-darkColor dark:text-bodyColor">اكثر سعر</label>
-                        <input type="number" onChange={(e)=>inputsChange(e.target.name,e.target.value)} name="maxBudget" id="max" className="w-full h-9 p-2 mt-2 rounded border dark:text-bodyDark border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"/>
-                    </div> */}
 
-                        {
-                        /* price filter */ }
+    setSearch(searchParams);
+  }, [ searchParams, setSearch]);
 
-                        <DualRangeSlider min={0} max={1000} onChangeProp={(min, max)=>{console.log(min, max)}}/>
+//   useEffect(()=>setSearch(searchParams),[])
 
-                    <div className="mt-3">
-                        <label htmlFor="address" className="block font-semibold text-darkColor dark:text-bodyColor">العنوان</label>
-                        <input type="text" onChange={(e)=>inputsChange(e.target.name,e.target.value)} name="government" id="address" className="w-full h-9 p-2 mt-2 rounded border dark:text-bodyDark border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"/>
-                    </div>
-                    <div className="mt-3">
-                        <label htmlFor="status" className="block font-semibold text-darkColor dark:text-bodyColor">الحالة</label>
-                        <select onChange={(e)=>inputsChange(e.target.name,e.target.value)} name="status" id="status" className="w-full h-9 px-2 mt-2 rounded border dark:text-bodyDark border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor">
-                            <option value="">...</option>
-                            <option value="pending">Pending</option>
-                            <option value="open">Open</option>
-                            <option value="completed">Completed</option>
-                            <option value="cancelled">Cancelled</option>
-                            <option value="closed">Closed</option>
-                        </select>
-                    </div>
-                    <div className="mt-3">
-                        <label htmlFor="skills" className="block font-semibold text-darkColor dark:text-bodyColor">المهارات</label>
-                        <input type="text" onChange={(e)=>inputsChange(e.target.name,e.target.value)} name="skills" id="skills" className="w-full h-9 p-2 mt-2 rounded border dark:text-bodyDark border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"/>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
-}
+// console.log(searchParams)
+  return (
+    <div
+      className={`h-[calc(100vh-75px)] overflow-auto w-[300px] fixed top-[80px] ${right} py-5 px-4 duration-500 z-40 bg-bodyColor dark:bg-inputDark dark:text-bodyColor shadow-xl rounded-lg`}
+    >
+      <h1 className="text-center text-xl font-bold">تصفية</h1>
+
+      <CloseButton onClose={() => setRightFilters("right-[-100%]")} />
+
+      <div className="mt-4">
+        <form>
+          <SelectInput
+            label="ترتيب حسب"
+            name="sortBy"
+            value={searchParams.get("sortBy") || ""}
+            options={[
+              { value: "", label: "..." },
+              { value: "relevance", label: "الأكثر تطابقا" },
+              { value: "newest", label: "الأحدث" },
+              { value: "budget", label: "الأعلي سعرا" },
+            ]}
+            onChange={handleInputChange}
+          />
+
+          <SelectInput
+            label="الحالة"
+            name="status"
+            value={searchParams.get("status") || ""}
+            options={[
+              { value: "", label: "..." },
+              { value: "pending", label: "Pending" },
+              { value: "open", label: "Open" },
+              { value: "completed", label: "Completed" },
+              { value: "cancelled", label: "Cancelled" },
+              { value: "closed", label: "Closed" },
+            ]}
+            onChange={handleInputChange}
+          />
+          {/* Price Filter */}
+          <PriceFilter
+            minValue={Number(searchParams.get("minBudget")) || 0}
+            maxValue={Number(searchParams.get("maxBudget")) || 10000}
+            onMinPriceChange={handleInputChange}
+            onMaxPriceChange={handleInputChange}
+          />
+
+          <CategoryFilter
+            value={Number(searchParams.get("category")) || 0}
+            onChange={(id: number) => {
+              handleInputChange("category", id.toString());
+            }}
+          />
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// Smaller components
+
+const CloseButton = ({ onClose }: { onClose: () => void }) => (
+  <div
+    onClick={onClose}
+    className="absolute top-2 cursor-pointer left-3 hover:text-buttonsColor duration-300"
+  >
+    <XIcon size={30} />
+  </div>
+);
+
+const PriceFilter = ({
+  minValue,
+  maxValue,
+  onMinPriceChange,
+  onMaxPriceChange,
+}: {
+  minValue: number;
+  maxValue: number;
+  onMinPriceChange: (name: string, value: string) => void;
+  onMaxPriceChange: (name: string, value: string) => void;
+}) => {
+
+
+  return (
+    <div className="mt-3" dir="ltr">
+      <label className="block font-semibold text-darkColor dark:text-bodyColor">
+        السعر
+      </label>
+      <MultiRangeSlider
+        step={10}
+        min={0}
+        max={10000}
+        minValue={minValue}
+        maxValue={maxValue}
+        thumbLeftColor="blue"
+        thumbRightColor="blue"
+        barInnerColor="blue"
+        style={{ boxShadow: "none", border: "none" }}
+        onChange={(e) => {
+        //   handleSliderChange(e.minValue, e.maxValue);
+        onMinPriceChange("minBudget", e.minValue.toString());
+        onMaxPriceChange("maxBudget", e.maxValue.toString());
+        }}
+      />
+      <div className="mt-2">
+        <span>الحد الأدنى: {minValue}</span>
+        <span> - </span>
+        <span>الحد الأقصى: {maxValue}</span>
+      </div>
+    </div>
+  );
+};
+
+const SelectInput = ({
+  label,
+  name,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  name: string;
+  value: string;
+  options: { value: string; label: string }[];
+  onChange: (name: string, value: string) => void;
+}) => (
+  <div className="mt-3">
+    <label
+      htmlFor={name}
+      className="block font-semibold text-darkColor dark:text-bodyColor"
+    >
+      {label}
+    </label>
+    <select
+      name={name}
+      value={value}
+      onChange={(e) => onChange(name, e.target.value)}
+      className="w-full h-9 px-2 mt-2 rounded border dark:text-bodyDark border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+    >
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  </div>
+);
+
+const CategoryFilter = ({
+  value,
+  onChange,
+}: {
+  value: number;
+  onChange: (id: number) => void;
+}) => {
+  const [categories, setCategories] = useState<Categories[]>([]);
+
+  useEffect(() => {
+    getAllCategory(setCategories);
+  }, []);
+
+  return (
+    <div className="mt-3">
+      <label className="block font-semibold text-darkColor dark:text-bodyColor">
+        الفئات
+      </label>
+      {categories.length > 0 ? (
+        categories.map((category: Categories) => (
+          <div key={category.id} className="mt-2">
+            <input
+              type="radio"
+              name="category"
+              id={`category-${category.id}`}
+              checked={value === +category.id}
+              onChange={() => onChange(+category.id)}
+            />
+            <label htmlFor={`category-${category.id}`} className="mx-1">
+              {category.category}
+            </label>
+          </div>
+        ))
+      ) : (
+        <p>لا توجد فئات</p>
+      )}
+    </div>
+  );
+};
 
 export default Filters;

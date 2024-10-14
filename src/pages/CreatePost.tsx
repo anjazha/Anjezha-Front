@@ -64,7 +64,8 @@ const CreatePost = ()=>{
         const allData = {
             title: data.title,
             description: data.description,
-            attachments:[file?.item(0)],
+            // attachments:[file?.item(0)],
+            attachments:file?.item(0),
             date: data.date,
             budget: +data.budget,
             address: data.address,
@@ -125,6 +126,7 @@ const CreatePost = ()=>{
                         <input
                             type="file"
                             onChange={(e)=>setFile(e.target.files)}
+                            multiple
                             id="attachments"
                             className="hidden"
                         />
