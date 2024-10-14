@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate } from "react-router-dom";
-import { AlignJustify, Moon, Sun, XIcon } from "lucide-react";
+import { AlignJustify, Moon, Sun, XIcon} from "lucide-react";
 import { useEffect, useState } from "react";
 import { RootState, useAppDispatch } from "../store/store";
 import Cookie from "cookie-universal";
@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import UserDialog from "./UserDialog";
 import { derminLocation } from "../functions/location";
 import { getTasker } from "../functions/getTasker";
-
+import NotificationsDialog from "./NotificationsDialog.js";
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
   const tasker = useSelector((state: RootState) => state.tasker);
@@ -102,6 +102,10 @@ const Navbar = () => {
 
         {/* Dark Mode & User Avatar */}
         <div className="flex items-center gap-4">
+          {/*Notifications*/}
+          {cookie && user?.email && (
+            <NotificationsDialog/>
+          )}
           {/* Dark/Light Mode Toggle */}
           <div onClick={changeMode} className="cursor-pointer">
             {mode === "light" ? (
