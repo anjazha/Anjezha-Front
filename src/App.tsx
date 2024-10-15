@@ -26,6 +26,7 @@ import VerifyEmail from './pages/VerifyEmail'
 import ForgetPassword from './pages/ForgetPassword'
 import ResetPassword from './pages/ResetPassword'
 import VerifyCode from './pages/VerifyCode'
+import Chats from './pages/Chats'
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
             <Route path='/taskerProfile/:id' element={<TaskerProfile />} />
             <Route path='/updateTask/:id' element={<UpdateTask />} />
             <Route path='/porpasel/:id/:index' element={<Porpasel />} />
+            <Route path='/chats/*' element={<Chats />} />
           </Route>
         </Routes>
       </div>

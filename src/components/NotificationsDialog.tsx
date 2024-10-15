@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { Bell, ArrowBigLeft } from "lucide-react";
 import { axiosInstance, cookie } from "../functions/axiosInstance";
 import toast from "react-hot-toast";
@@ -92,13 +92,13 @@ function NotificationsDialog() {
       </div>
 
       {open && (
-        <div className="absolute top-[100%] left-0 w-52 h-auto max-h-64 p-1 bg-inputColor dark:bg-inputDark z-10 rounded-md shadow-lg overflow-auto">
+        <div className="absolute top-[100%] mt-2 left-0 w-52 h-auto max-h-64 p-1 border bg-inputColor dark:bg-inputDark z-10 rounded-md shadow-lg overflow-auto">
           {isLoading ? (
             <div>جاري التحميل...</div>
           ) : (
             <>
               {notifications.length === 0 ? (
-                <div>لا يوجد إشعارات جديدة</div>
+                <div className="p-1">لا يوجد إشعارات جديدة</div>
               ) : (
                 <>
                   {unreadNotifications.length > 0 && (

@@ -46,7 +46,7 @@ const CreatePost = ()=>{
         setSkills(newSkills)
     }
     const onSubmit = (data:formType) => {
-        // setLoading(true)
+        setLoading(true)
         if(skills.length === 0){
             setErrorSkills(true)
             setLoading(false)
@@ -64,7 +64,6 @@ const CreatePost = ()=>{
         const allData = {
             title: data.title,
             description: data.description,
-            // attachments:[file?.item(0)],
             attachments:file?.item(0),
             date: data.date,
             budget: +data.budget,

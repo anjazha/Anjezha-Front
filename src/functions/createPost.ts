@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 interface dataType {
     title: string;
     description: string;
+    attachments?:(File | null | undefined);
     date: string;
     budget: number;
     address: string;

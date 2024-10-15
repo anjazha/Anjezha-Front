@@ -19,6 +19,7 @@ const UserDialog = () => {
         dispatch(deleteTasker())
         myUrl("/login")
     }
+    // console.log(user);
     return (
         <div className="flex relative items-center flex-row-reverse gap-2">
             <div onClick={()=>setDisplay((prev)=>prev==="block" ? "hidden" : "block")} className="h-fit w-fit cursor-pointer">
@@ -29,7 +30,7 @@ const UserDialog = () => {
                     <span className="inline-block rounded-full text-buttonsColor dark:text-[#0866ff] font-bold"><Settings /></span>
                     <span className="font-semibold text-inputDark dark:text-bodyColor">الاعدادات</span>
                 </div>
-                <div className="w-full border-b flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-[#65676b] p-2 rounded-md cursor-pointer">
+                <div onClick={()=>myUrl("/chats")} className="w-full border-b flex items-center gap-2 hover:bg-slate-200 dark:hover:bg-[#65676b] p-2 rounded-md cursor-pointer">
                     <span className="inline-block rounded-full text-buttonsColor dark:text-[#0866ff] font-bold"><MessageCircleMore /></span>
                     <span className="font-semibold text-inputDark dark:text-bodyColor">الرسائل</span>
                 </div>

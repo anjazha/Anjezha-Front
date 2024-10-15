@@ -14,6 +14,7 @@ export interface taskersData {
         id:number,
         name:string,
         profile_picture:string | null,
+        user_id:number,
     }
 }
 

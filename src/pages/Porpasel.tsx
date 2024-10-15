@@ -28,7 +28,7 @@ const Porpasel = () => {
                     :
                         taskers.map((tasker,i)=>(
                             i===+(index as string) &&  (
-                            <div className="bg-[#D9D9D9] dark:bg-inputDark shadow-lg p-5 rounded-md">
+                            <div key={i} className="bg-[#D9D9D9] dark:bg-inputDark shadow-lg p-5 rounded-md">
                                 <div onClick={()=>myUrl(`/taskerProfile/${tasker.tasker.id}`)} className="flex cursor-pointer flex-col items-center gap-3 sm:flex-row sm:items-start">
                                     <div>
                                         <img src={tasker?.tasker.profile_picture || image} alt="tasker image" className="w-20 h-20 rounded-full"/>
@@ -41,7 +41,7 @@ const Porpasel = () => {
                                 </div>
                                 <div className="flex justify-center w-full mt-5 gap-5">
                                     <button onClick={()=>taskAssignment(tasker.task_id,tasker.tasker.id)} className="p-2 bg-indigo-500 hover:bg-buttonsColor duration-300 text-white rounded-md">قبول</button>
-                                    <button className="p-2 border-[2px] border-buttonsColor hover:bg-indigo-600 hover:text-white duration-300 dark:text-white rounded-md">مناقشة</button>
+                                    <button onClick={()=>myUrl(`/chats/userChat/${tasker.tasker.user_id}`)} className="p-2 border-[2px] border-buttonsColor hover:bg-indigo-600 hover:text-white duration-300 dark:text-white rounded-md">مناقشة</button>
                                 </div>
                             </div>
                             )
