@@ -27,6 +27,7 @@ import ForgetPassword from './pages/ForgetPassword'
 import ResetPassword from './pages/ResetPassword'
 import VerifyCode from './pages/VerifyCode'
 import Chats from './pages/Chats'
+import Next from './pages/Next'
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
             <Route path='/updateTask/:id' element={<UpdateTask />} />
             <Route path='/porpasel/:id/:index' element={<Porpasel />} />
             <Route path='/chats/*' element={<Chats />} />
+            <Route path='/Next/:id' element={<Next />} />
           </Route>
         </Routes>
       </div>

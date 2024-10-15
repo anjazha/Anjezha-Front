@@ -104,7 +104,7 @@ const HelpMovingForm = () => {
                                 {...register("taskDetails")}
                             ></textarea>
                         </div>
-                        <Link to={`/`}>
+                        <Link to={`/Next/${data.id}`}>
                         <button
                             type="submit"
                             className="w-full py-2 px-4 bg-[#4F46E5] text-white font-semibold rounded-lg hover:bg-[#3832a9] transition duration-300"
