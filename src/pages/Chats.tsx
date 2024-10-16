@@ -7,6 +7,7 @@ import { RootState } from "../store/store";
 import { useSelector } from "react-redux";
 import { getConversationByUserId } from "../functions/getConversationByUserId";
 import Spinner from "../components/Spinner";
+import { io, Socket } from "socket.io-client";
 
 export interface conversationType {
     conversationId:string,
@@ -20,13 +21,23 @@ const Chats = ()=>{
     const [conversation,setConversation] = useState<conversationType[] | null>(null)
     const myUrl = useNavigate()
     const [openChats,setChats] = useState("right-[-100%]")
+    const [socket,setSocket] = useState<Socket>()
     useEffect(()=>{
         if(user.id){
             // get user messages
             getConversationByUserId(user.id,setConversation)
         }
     },[user.id])
+    useEffect(()=>{
+        const socketUsers:Socket = io("https://e-learning-0wji.onrender.com?EIO=4&transport=polling")
+        setSocket(socketUsers)
+
+        return ()=>{
+            socketUsers.disconnect()
+        }
+    },[])
     console.log(conversation);
+    console.log(socket);
     return (
         <div className="py-5 flex justify-center">
             <div className="container">
@@ -79,7 +90,7 @@ const Chats = ()=>{
                     <div className="flex-1">
                         <Routes>
                             <Route path="/" element={<>{defaultChat()}</>} />
-                            <Route path="/userChat/:id" element={<UserChat conversation={conversation}/>} />
+                            <Route path="/userChat/:id" element={<UserChat socket={socket} conversation={conversation}/>} />
                         </Routes>
                     </div>
                 </div>

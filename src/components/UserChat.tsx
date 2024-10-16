@@ -5,19 +5,38 @@ import HeaderChat from "./HeaderChat";
 import SendMessage from "./SendMessage";
 import { useParams } from "react-router-dom";
 import Messages from "./Messages";
+import { Socket } from "socket.io-client";
 
-const UserChat = ({conversation}:{conversation: conversationType[] | null}) => {
-    console.log(conversation);
+const UserChat = ({socket,conversation}:{socket: Socket | undefined,conversation: conversationType[] | null}) => {
     const { id } = useParams()
     const [converId,setConverId] = useState<string | null>(null)
     useEffect(()=>{
         conversation?.map((ele)=> {
             if(ele.receiverId === +(id as string) || ele.senderId === +(id as string)) {
-                setConverId(ele.conversationId)
+                return setConverId(ele.conversationId)
+            }
+            else{
+                setConverId("none")
             }
         })
     },[conversation,id])
-    console.log(converId);
+    // console.log(converId);
+    useEffect(()=>{
+        if(socket && converId) {
+            socket.emit("join-conversation",{conversationId:converId})
+        }
+        else{
+            console.log("socket or converId is undefined");
+            
+        }
+    },[socket,converId])
+    useEffect(()=>{
+        if(socket){
+            socket.on("conversation-started",(data)=>{
+                console.log("conversation started",data);
+            })
+        }
+    },[socket])
     return (
         <div style={{backgroundImage:`url(${background})`}} className="w-full h-full bg-no-repeat bg-cover rounded-md shadow-lg">
             <HeaderChat/>
