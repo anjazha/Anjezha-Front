@@ -7,13 +7,19 @@ import { RootState } from "../store/store";
 import { useSelector } from "react-redux";
 import { getConversationByUserId } from "../functions/getConversationByUserId";
 import Spinner from "../components/Spinner";
-import { io, Socket } from "socket.io-client";
 
 export interface conversationType {
-    conversationId:string,
-    senderId:number,
-    receiverId:number,
-    updateAt:string,
+    id:string,
+    receiver:{
+        receiverId:number,
+        name:string,
+        profilePicture:string | null,
+    },
+    sender:{
+        senderId:number,
+        name:string,
+        profilePicture:string | null,
+    }
 }
 
 const Chats = ()=>{
@@ -21,23 +27,15 @@ const Chats = ()=>{
     const [conversation,setConversation] = useState<conversationType[] | null>(null)
     const myUrl = useNavigate()
     const [openChats,setChats] = useState("right-[-100%]")
-    const [socket,setSocket] = useState<Socket>()
+    
     useEffect(()=>{
         if(user.id){
             // get user messages
             getConversationByUserId(user.id,setConversation)
         }
     },[user.id])
-    useEffect(()=>{
-        const socketUsers:Socket = io("https://e-learning-0wji.onrender.com?EIO=4&transport=polling")
-        setSocket(socketUsers)
-
-        return ()=>{
-            socketUsers.disconnect()
-        }
-    },[])
-    console.log(conversation);
-    console.log(socket);
+    
+    // console.log(conversation);
     return (
         <div className="py-5 flex justify-center">
             <div className="container">
@@ -63,18 +61,18 @@ const Chats = ()=>{
                                             {
                                                 conversation.map((ele,i)=>(
                                                     <div key={i} onClick={()=>{
-                                                            myUrl(`/chats/userChat/${ele.receiverId}`)
+                                                            myUrl(`/chats/userChat/${ele.receiver.receiverId === +user.id ? ele.sender.senderId : ele.receiver.receiverId}`)
                                                         }} 
                                                         className="flex p-2 gap-2 items-center rounded-md hover:bg-slate-200 dark:hover:bg-[#65676b] cursor-pointer">
-                                                        <img src={defaultImage} alt="user image" className="w-12 h-12 rounded-full"/>
+                                                        <img src={`${ele.receiver.receiverId === +user.id ? ele.sender.profilePicture || defaultImage : ele.receiver.profilePicture || defaultImage}` } alt="user image" className="w-12 h-12 rounded-full"/>
                                                         <div className="flex-1 flex justify-between items-center">
                                                             <div>
-                                                                <h2 className="text-darkColor mb-1 dark:text-bodyColor font-semibold">Abdo Ahmed</h2>
-                                                                <p className="text-sm text-darkColor dark:text-bodyColor text-ellipsis line-clamp-1">Hello Abdo Ahmed</p>
+                                                                <h2 className="text-darkColor mb-1 dark:text-bodyColor font-semibold">{ele.receiver.receiverId === +user.id ? ele.sender.name : ele.receiver.name}</h2>
+                                                                {/* <p className="text-sm text-darkColor dark:text-bodyColor text-ellipsis line-clamp-1">Hello Abdo Ahmed</p> */}
                                                             </div>
-                                                            <div className="p-[9px] py-[2px] text-bodyColor bg-buttonsColor rounded-full">
+                                                            {/* <div className="p-[9px] py-[2px] text-bodyColor bg-buttonsColor rounded-full">
                                                                 1
-                                                            </div>
+                                                            </div> */}
                                                         </div>
                                                     </div>
                                                 ))
@@ -90,7 +88,7 @@ const Chats = ()=>{
                     <div className="flex-1">
                         <Routes>
                             <Route path="/" element={<>{defaultChat()}</>} />
-                            <Route path="/userChat/:id" element={<UserChat socket={socket} conversation={conversation}/>} />
+                            <Route path="/userChat/:id" element={<UserChat />} />
                         </Routes>
                     </div>
                 </div>

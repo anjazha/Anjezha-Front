@@ -10,7 +10,7 @@ export const getMessages = (id:string,setMessages: React.Dispatch<React.SetState
     })
     .then(res=>{
         console.log(res);
-        setMessages(res.data);
+        setMessages(res.data.reverse());
     })
     .catch(err=>{
         console.log(err);

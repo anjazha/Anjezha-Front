@@ -3,6 +3,7 @@ import { getMessages } from "../functions/getMessages";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import Spinner from "./Spinner";
+import { Socket } from "socket.io-client";
 
 export interface messages {
     changeStatusAt:string;
@@ -14,13 +15,22 @@ export interface messages {
     sentAt:string;
 }
 
-const Messages = ({converId}:{converId:string}) => {
+const Messages = ({socket,converId}:{socket: Socket | undefined,converId:string}) => {
     console.log(converId);
     const user = useSelector((state:RootState)=>state.user)
     const [messages, setMessages] = useState<messages[] | null>(null);
     useEffect(()=>{
-        getMessages(converId,setMessages);
+        if(converId){
+            getMessages(converId,setMessages);
+        }
     },[converId])
+    useEffect(()=>{
+        if(socket && converId){
+            socket?.on("receive-message",(data)=>{
+                console.log(data);
+            })
+        }
+    },[socket,converId])
     return (
         <div className="my-3">
             {
@@ -28,7 +38,7 @@ const Messages = ({converId}:{converId:string}) => {
                 <>
                     {
                         messages.map(msg=>(
-                            <div key={msg.id}>
+                            <div key={msg.id} className="mt-3">
                                 {msg.senderId === user.id ? 
                                 <div className="flex bg-teal-100 w-fit shadow-md ml-2 p-1 px-2 rounded-md mr-auto items-end flex-col justify-end">
                                     <p>{msg.message}</p>

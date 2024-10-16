@@ -2,21 +2,23 @@ import { SendHorizontal } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // import { createConversation } from "../functions/createConversation";
-import { createMessage } from "../functions/createMessage";
+import { Socket } from "socket.io-client";
 
-const SendMessage = ({converId}:{converId:string | null}) => {
+const SendMessage = ({socket,converId}:{socket: Socket | null,converId:string | null}) => {
     const user = useSelector((state:RootState)=>state.user)
-    // const {id} = useParams()
+    const {id} = useParams()
     const [message,setMessage] = useState("")
     const onSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         console.log(message);
-        if(converId){
-            const data = {senderId:user.id,message:message,conversationId:converId}
-            createMessage(data)
-        }
+        socket?.emit("send-message",{
+            message:message,
+            senderId:+(user.id as string),
+            receiverId:+(id as string),
+            conversationId:+(converId as string)
+        })
     }
     
     return (
