@@ -39,8 +39,13 @@ const HomePage = () => {
   return (
     <div className="flex justify-center py-5 bg-bodyColor dark:bg-bodyDark transition duration-300">
       <div className="container mx-auto">
-        <div style={{backgroundImage:'url(src/assets/cover.jpeg)', backgroundRepeat:"no-repeat", backgroundSize:'cover'}} className="h-[50vh] py-6 relative before:absolute before:bg-[#cecccc5d] before:w-full before:h-full before:top-0 before:left-0">
-        
+        <h1 className="text-7xl font-bold text-bodyDark  dark:text-bodyColor text-center">
+          Anjezha | أنجزها
+        </h1>
+        <br/>
+
+        <div style={{ backgroundImage: 'url(src/assets/cover.jpeg)', backgroundRepeat: "no-repeat", backgroundSize: 'cover' }} className="h-[50vh] py-6 relative before:absolute before:bg-[#cecccc5d] before:w-full before:h-full before:top-0 before:left-0">
+
           <div className="flex flex-col items-center gap-2 z-100 relative">
             <h2 className="text-lg font-bold text-bodyDark">
               ما هي المساعدة التي تحتاجها؟
