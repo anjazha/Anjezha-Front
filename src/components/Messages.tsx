@@ -18,23 +18,27 @@ export interface messages {
 const Messages = ({socket,converId}:{socket: Socket | undefined,converId:string}) => {
     console.log(converId);
     const user = useSelector((state:RootState)=>state.user)
-    const [messages, setMessages] = useState<messages[] | null>(null);
+    const [messages, setMessages] = useState<messages[]>([]);
+    const [loading, setLoading] = useState(true);
     useEffect(()=>{
         if(converId){
-            getMessages(converId,setMessages);
+            getMessages(converId,setMessages,setLoading);
         }
     },[converId])
     useEffect(()=>{
         if(socket && converId){
             socket?.on("receive-message",(data)=>{
                 console.log(data);
+                setMessages(prev=>[...prev,JSON.parse(data)])
             })
         }
     },[socket,converId])
     return (
         <div className="my-3">
             {
-                messages ?
+                loading ?
+                <Spinner />
+                :messages ?
                 <>
                     {
                         messages.map(msg=>(
@@ -54,7 +58,7 @@ const Messages = ({socket,converId}:{socket: Socket | undefined,converId:string}
                         ))
                     }
                 </>
-                :<Spinner />
+                :null
             }
         </div>
     );

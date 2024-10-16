@@ -39,7 +39,7 @@ const HomePage = () => {
   return (
     <div className="flex justify-center py-5 bg-bodyColor dark:bg-bodyDark transition duration-300">
       <div className="container mx-auto">
-        <h1 className="text-7xl font-bold text-bodyDark  dark:text-bodyColor text-center">
+        <h1 className="text-3xl sm:text-5xl font-bold text-bodyDark  dark:text-bodyColor text-center">
           Anjezha | أنجزها
         </h1>
         <br/>

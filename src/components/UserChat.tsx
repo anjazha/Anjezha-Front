@@ -15,7 +15,7 @@ const UserChat = () => {
     const [converId,setConverId] = useState<string | null>(null)
     const [socket,setSocket] = useState<Socket | null>(null)
     useEffect(()=>{
-        const socketUsers:Socket = io("https://anjezha-production.up.railway.app?EIO=4&transport=polling",{
+        const socketUsers:Socket = io("https://e-learning-0wji.onrender.com?EIO=4&transport=polling",{
             extraHeaders:{
                 token:cookie.get("token")
             }
@@ -35,7 +35,7 @@ const UserChat = () => {
         if(socket && id && user){
             socket?.emit("start-conversation",{senderId:+(user.id as string),receiverId:+(id as string)})
             socket?.on("conversation-started",(data)=>{
-                // console.log("conversation started",data);
+                console.log("conversation started",data);
                 setConverId(data);
                 socket?.emit("join-conversation",{conversationId:data})
             })

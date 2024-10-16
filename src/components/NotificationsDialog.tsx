@@ -115,7 +115,7 @@ function NotificationsDialog() {
                       key={notification.id}
                       className={`p-1 border-b-2 ${
                         !notification.is_read && "bg-slate-200"
-                      } border-gray-300 dark:border-gray-700`}
+                      } border-gray-300 dark:border-gray-700 dark:bg-[#65676b]`}
                     >
                       <div className="text-sm">{notification.message}</div>
                       <div className="text-[9px]">
