@@ -5,12 +5,15 @@ import { taskersData } from "./TaskerApplication";
 import Spinner from "../components/Spinner";
 import image from "../assets/default-user-image.jpg"
 import { assignment } from "../functions/taskAssignment";
+import { useAppDispatch } from "../store/store";
+import { addUserChat } from "../store/Slices/userChat";
 
 const Porpasel = () => {
     const {id,index} = useParams()
     const [taskers,setTaskers] = useState<taskersData[]>([])
     const [loading,setLoading] = useState<boolean>(true)
     const myUrl = useNavigate()
+    const dispatch = useAppDispatch()
     const taskAssignment = (taskId:string,taskerId:number)=>{
         assignment(taskId,taskerId)
     }
@@ -41,7 +44,10 @@ const Porpasel = () => {
                                 </div>
                                 <div className="flex justify-center w-full mt-5 gap-5">
                                     <button onClick={()=>taskAssignment(tasker.task_id,tasker.tasker.id)} className="p-2 bg-indigo-500 hover:bg-buttonsColor duration-300 text-white rounded-md">قبول</button>
-                                    <button onClick={()=>myUrl(`/chats/userChat/${tasker.tasker.user_id}`)} className="p-2 border-[2px] border-buttonsColor hover:bg-indigo-600 hover:text-white duration-300 dark:text-white rounded-md">مناقشة</button>
+                                    <button onClick={()=>{
+                                        dispatch(addUserChat({id:tasker.tasker.user_id,name:tasker.tasker.name,profilePicture:tasker.tasker.profile_picture}))
+                                        myUrl(`/chats/userChat/${tasker.tasker.user_id}`)
+                                    }} className="p-2 border-[2px] border-buttonsColor hover:bg-indigo-600 hover:text-white duration-300 dark:text-white rounded-md">مناقشة</button>
                                 </div>
                             </div>
                             )

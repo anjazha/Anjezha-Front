@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMessages } from "../functions/getMessages";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
@@ -15,43 +15,50 @@ export interface messages {
     sentAt:string;
 }
 
-const Messages = ({socket,converId}:{socket: Socket | undefined,converId:string}) => {
+const Messages = ({socket,converId}:{socket: Socket | null,converId:string}) => {
     console.log(converId);
     const user = useSelector((state:RootState)=>state.user)
     const [messages, setMessages] = useState<messages[]>([]);
     const [loading, setLoading] = useState(true);
+    const currentMessages:React.LegacyRef<HTMLDivElement> | null | undefined = useRef(null)
     useEffect(()=>{
         if(converId){
             getMessages(converId,setMessages,setLoading);
         }
     },[converId])
     useEffect(()=>{
-        if(socket && converId){
+        if(socket){
             socket?.on("receive-message",(data)=>{
                 console.log(data);
+                console.log(JSON.parse(data));
                 setMessages(prev=>[...prev,JSON.parse(data)])
             })
         }
-    },[socket,converId])
+    },[socket])
+    useEffect(()=>{
+        if(currentMessages.current){
+            currentMessages.current.scrollIntoView({behavior:"smooth",block:'end'})
+        }
+    },[messages])
     return (
-        <div className="my-3">
+        <div className="my-3" ref={currentMessages}>
             {
                 loading ?
                 <Spinner />
                 :messages ?
                 <>
                     {
-                        messages.map(msg=>(
-                            <div key={msg.id} className="mt-3">
-                                {msg.senderId === user.id ? 
+                        messages.map((msg,i)=>(
+                            <div key={i} className="mt-3">
+                                {+msg.senderId === +user.id ? 
                                 <div className="flex bg-teal-100 w-fit shadow-md ml-2 p-1 px-2 rounded-md mr-auto items-end flex-col justify-end">
                                     <p>{msg.message}</p>
-                                    <span className="text-sm text-start w-full">{new Date(msg.sentAt).getHours()}:{new Date(msg.sentAt).getMinutes()}</span>
+                                    <span className="text-sm text-start w-full">{new Date(msg.changeStatusAt).getHours()}:{new Date(msg.changeStatusAt).getMinutes()}</span>
                                 </div>
                                 : 
                                 <div className="flex bg-white w-fit shadow-md p-1 px-2 rounded-md mr-2 flex-col">
                                     <p>{msg.message}</p>
-                                    <span className="text-sm text-end w-full">{new Date(msg.sentAt).getHours()}:{new Date(msg.sentAt).getMinutes()}</span>
+                                    <span className="text-sm text-end w-full">{new Date(msg.changeStatusAt).getHours()}:{new Date(msg.changeStatusAt).getMinutes()}</span>
                                 </div>
                                 }
                             </div>

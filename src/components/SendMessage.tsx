@@ -19,6 +19,7 @@ const SendMessage = ({socket,converId}:{socket: Socket | null,converId:string | 
             receiverId:+(id as string),
             conversationId:+(converId as string)
         })
+        setMessage("")
     }
     
     return (

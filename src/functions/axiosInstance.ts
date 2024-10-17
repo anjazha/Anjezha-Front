@@ -1,14 +1,13 @@
 import axios from "axios";
 import Cookie from "cookie-universal";
 
-// const  baseURL="http://localhost:5000/api/v1"
-// const  baseURL="https://anjezha-production.up.railway.app/api/v1"
-// const  baseURL="https://api.anjez.tech/api/v1"
-const  baseURL="https://e-learning-0wji.onrender.com/api/v1"
+// export const baseURL="http://localhost:5000"
+// export const baseURL="https://anjezha-production.up.railway.app"
+// export const  baseURL="https://api.anjez.tech"
+export const  baseURL="https://e-learning-0wji.onrender.com"
 
 export const axiosInstance = axios.create({
-    // baseURL:"https://e-learning-0wji.onrender.com/api/v1",
-    baseURL,
+    baseURL:`${baseURL}/api/v1`,
     // withCredentials:true,
 })
 

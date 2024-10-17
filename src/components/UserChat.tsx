@@ -4,45 +4,28 @@ import HeaderChat from "./HeaderChat";
 import SendMessage from "./SendMessage";
 import { useParams } from "react-router-dom";
 import Messages from "./Messages";
-import { io, Socket } from "socket.io-client";
+import { Socket } from "socket.io-client";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { cookie } from "../functions/axiosInstance";
 
-const UserChat = () => {
+const UserChat = ({socket}:{socket: Socket | null}) => {
     const user = useSelector((state:RootState)=>state.user)
     const { id } = useParams()
     const [converId,setConverId] = useState<string | null>(null)
-    const [socket,setSocket] = useState<Socket | null>(null)
+    
     useEffect(()=>{
-        const socketUsers:Socket = io("https://e-learning-0wji.onrender.com?EIO=4&transport=polling",{
-            extraHeaders:{
-                token:cookie.get("token")
-            }
-        }).connect()
-
-        setSocket(socketUsers)
-
-        socketUsers.on("online-users",(data)=>{
-            console.log("online user",data);
-        })
-        
-        return ()=>{
-            socketUsers.disconnect()
-        }
-    },[])
-    useEffect(()=>{
-        if(socket && id && user){
-            socket?.emit("start-conversation",{senderId:+(user.id as string),receiverId:+(id as string)})
-            socket?.on("conversation-started",(data)=>{
+        if(socket?.connected === true && id && user){
+            console.log("socket connected");
+            socket.emit("start-conversation",{senderId:+(user.id as string),receiverId:+(id as string)})
+            socket.on("conversation-started",(data)=>{
                 console.log("conversation started",data);
                 setConverId(data);
-                socket?.emit("join-conversation",{conversationId:data})
+                socket.emit("join-conversation",{conversationId:data})
             })
         }
     },[socket,id,user])
-    // console.log(converId);
-    console.log(socket);
+    console.log("converId",converId);
+    console.log("user",socket);
     return (
         <div style={{backgroundImage:`url(${background})`}} className="w-full h-full bg-no-repeat bg-cover rounded-md shadow-lg">
             <HeaderChat/>

@@ -161,7 +161,7 @@ const CreatePost = ()=>{
                             id="category"
                             className="w-full h-10 p-2 py-0 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
-                            {data.map(item => (
+                            {data?.map(item => (
                                 <option key={item.id} value={item.id}>{item.category}</option>
                             ))}
                         </select>
