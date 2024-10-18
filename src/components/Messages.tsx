@@ -34,6 +34,10 @@ const Messages = ({socket,converId}:{socket: Socket | null,converId:string}) => 
                 setMessages(prev=>[...prev,JSON.parse(data)])
             })
         }
+
+        return ()=>{
+            socket?.off("receive-message")
+        }
     },[socket])
     useEffect(()=>{
         if(currentMessages.current){
