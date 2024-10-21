@@ -14,7 +14,7 @@ const UserChat = ({socket}:{socket: Socket | null}) => {
     const [converId,setConverId] = useState<string | null>(null)
     
     useEffect(()=>{
-        if(socket?.connected === true && id && user){
+        if(socket && id && user){
             console.log("socket connected");
             socket.emit("start-conversation",{senderId:+(user.id as string),receiverId:+(id as string)})
             socket.on("conversation-started",(data)=>{

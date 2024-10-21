@@ -21,18 +21,25 @@ const BrowseTasks = () => {
     const [leftDetails, setLeftDetails] = useState<string>("left-[-100%]");
     const myUrl = useNavigate()
     const [isSidebarOpen, setIsSidebarOpen] = useState(false); // حالة التحكم في القائمة الجانبية للموبايل
-
+    const [selectValue,setSelectValue] = useState("")
     useEffect(() => {
         getSearch(search.toString(), 7, setData);
     }, [search]);
-
     return (
         <div className="flex justify-center py-10">
             <div className="container relative">
                 {allData ? (
                     <>
                         <div className="flex flex-row-reverse items-start justify-center gap-3 mb-5">
-                            <SearchBar search={search} value={search.get("q")} setSearch={setSearch} />
+                            <div className="flex flex-row-reverse gap-3">
+                                <SearchBar selectValue={selectValue} search={search} value={search.get("q")} setSearch={setSearch} />
+                                <div>
+                                    <select onChange={(e)=>setSelectValue(e.target.value)} name="option" id="" className="w-[100px] h-10 rounded-md mb-4 bg-inputColor dark:bg-inputDark outline-none dark:text-white px-2 shadow-md">
+                                        <option value="task">مهمة</option>
+                                        <option value="tasker">عامل</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div onClick={()=>setIsSidebarOpen(true)}
                                 className="p-2 rounded-md shadow-md cursor-pointer md:hidden dark:bg-inputDark w-fit dark:text-bodyColor"
                             >

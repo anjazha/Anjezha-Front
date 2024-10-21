@@ -1,21 +1,27 @@
 import { SearchIcon } from "lucide-react";
-import { SetURLSearchParams } from "react-router-dom";
+import { SetURLSearchParams, useNavigate } from "react-router-dom";
 
-const SearchBar = ({search,setSearch,value}:{search: URLSearchParams,setSearch: SetURLSearchParams,value:string | null}) => {
+const SearchBar = ({search,setSearch,value,selectValue}:{search: URLSearchParams,setSearch: SetURLSearchParams,value:string | null,selectValue?:string}) => {
+    const myUrl = useNavigate()
     const inputsChange = (ele:string,value:string)=>{
-        const currentParams = new URLSearchParams(search);
-        if(value === ""){
-            currentParams.delete(ele);
-            setSearch(currentParams);
-            return;
-        }
-        if(currentParams.has(ele)){
-            currentParams.set(ele, value);
-            setSearch(currentParams);
+        if(selectValue==="tasker"){
+            myUrl(`/taskerSearch?page=1&${ele}=${value}`)
         }
         else{
-            currentParams.append(ele, value);
-            setSearch(currentParams);
+            const currentParams = new URLSearchParams(search);
+            if(value === ""){
+                currentParams.delete(ele);
+                setSearch(currentParams);
+                return;
+            }
+            if(currentParams.has(ele)){
+                currentParams.set(ele, value);
+                setSearch(currentParams);
+            }
+            else{
+                currentParams.append(ele, value);
+                setSearch(currentParams);
+            }
         }
     }
     return (
