@@ -4,6 +4,10 @@ import { useParams, Link } from "react-router-dom";
 import { getSubCategoriesById } from "../functions/getSubCategoriesById";
 import Spinner from '../components/Spinner';
 import { subCategories } from "../types/categories";
+import { getAllCategory } from "../functions/getAllCategory";
+import { Categories } from "../types/categories";
+import Map from "../components/Map";
+
 
 interface FormData {
     address: {
@@ -12,14 +16,22 @@ interface FormData {
     };
     taskSize: string[];
     taskDetails?: string;
+    categoryid:string;
 }
 
 const HelpMovingForm = () => {
     const { id } = useParams<{ id: string }>();
     const [data, setData] = useState<subCategories | null>(null);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+    const [categories,setCategories]= useState<Categories []>([]);
+    const [errorMap,setErrorMap] = useState(false);
+    
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
+        if(!localStorage.longitude || !localStorage.latitude){
+            setErrorMap(true)
+            return
+        }
         console.log("Form Data:", data);
     };
 
@@ -30,8 +42,12 @@ const HelpMovingForm = () => {
         }
     }, [id]);
 
+    useEffect(() => {
+        getAllCategory(setCategories)
+    },[]);
+
     return (
-        <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg ">
+        <div className=" p-6 bg-white shadow-lg rounded-lg ">
             
             {data ? (
                 <>
@@ -94,8 +110,24 @@ const HelpMovingForm = () => {
                                 </label>
                             </div>
                         </div>
-
-                        
+                        {
+                        categories.length > 0?
+                        <div className="mb-4">
+                        <label htmlFor="category" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الفئة</label>
+                        <select
+                            required
+                            {...register("categoryid", { required: true })}
+                            id="category"
+                            className="w-full h-10 p-2 py-0 mt-1 rounded border border-gray-300 focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            >
+                            {categories.map((category ,index) => (
+                                <option key={index} >{category.category}</option>
+                            ))}
+                        </select>
+                        {errors.categoryid?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الفئة</p>}
+                    </div>
+                    : <Spinner />
+                        }
                         <div className="mb-6">
                             <label className="block text-gray-700 font-semibold mb-2">أخبرنا بتفاصيل مهمتك؟</label>
                             <textarea
@@ -104,6 +136,13 @@ const HelpMovingForm = () => {
                                 {...register("taskDetails")}
                             ></textarea>
                         </div>
+
+                        <div className="mb-4">
+                        <label htmlFor="location" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الموقع</label>
+                        <Map latitude={+localStorage.latitude} location={true} longitude={+localStorage.longitude} setErrorMap={setErrorMap} />
+                        {errorMap && <p className="text-sm text-red-500 animate-bounce">من فضلك قوم بتحديد موقعك</p>}
+                        </div>
+
                         <Link to={`/Next/${data.id}`}>
                         <button
                             type="submit"
