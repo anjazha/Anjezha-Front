@@ -20,7 +20,7 @@ const TaskerList = ({tasker}:{tasker:taskerData})=>{
     const myUrl = useNavigate()
     const dispatch = useAppDispatch()
     return(
-        <div className="bg-[#D9D9D9] dark:bg-inputDark shadow-lg p-5 rounded-md border border-transparent hover:border-navColor duration-300 transition-transform transform hover:scale-105 cursor-pointer ">
+        <div className="bg-[#D9D9D9] dark:bg-inputDark relative shadow-lg p-5 rounded-md border border-transparent hover:border-navColor duration-300 transition-transform transform hover:scale-105 cursor-pointer ">
             <div onClick={()=>myUrl(`/taskerProfile/${tasker.id}`)} className="flex cursor-pointer flex-col items-center gap-3 sm:flex-row sm:items-start">
                 <div>
                     <img src={tasker.profilepicture || image} alt="tasker image" className="w-20 h-20 rounded-full"/>
@@ -31,7 +31,7 @@ const TaskerList = ({tasker}:{tasker:taskerData})=>{
                     <p className="dark:text-bodyColor text-center sm:text-start">{tasker.bio}</p>
                 </div>
             </div>
-            <div className="flex justify-center w-full mt-5 gap-5">
+            <div className="absolute left-5 top-5">
                 <button onClick={()=>{
                     dispatch(addUserChat({id:tasker.userid,name:tasker.name,profilePicture:tasker.profilepicture}))
                     myUrl(`/chats/userChat/${tasker.userid}`)
