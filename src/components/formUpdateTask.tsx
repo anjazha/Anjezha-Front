@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
 import Map from "./Map";
 import Spinner from "./Spinner";
 import { getAllCategory } from "../functions/getAllCategory";
 import { Categories } from "../types/categories";
 import { useForm } from "react-hook-form";
-import { tasks } from "../types/search";
+// import { tasks } from "../types/search";
 import { XIcon } from "lucide-react";
 import { updateTaskById } from "../functions/updateTaskById";
 
@@ -22,7 +23,7 @@ interface formType {
     schedule_type:string;
 }
 
-const FormUpdateTask = ({task}:{task:tasks}) => {
+const FormUpdateTask = ({task}:{task:any}) => {
     const [data,setData] = useState<Categories[]>([])
     const date = `${new Date(task.date).getFullYear()}-${new Date(task.date).getMonth()+1 >=10 ? `${new Date(task.date).getMonth()+1}` : `0${new Date(task.date).getMonth()+1}` }-${new Date(task.date).getDate() >=10 ? `${new Date(task.date).getDate()}` : `0${new Date(task.date).getDate()}` }`
     // console.log(date);
@@ -47,6 +48,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
     const [errorSkills,setErrorSkills] = useState(false)
     const inputSkills = useRef<HTMLInputElement | null>(null)
     const [skills,setSkills] = useState<string[]>(task.skills)
+    const [img,setImg] = useState<File | null | undefined>(null)
     const addSkills = ()=>{
         setErrorSkills(false)
         const newSkill = inputSkills.current?.value
@@ -96,7 +98,8 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
             location :{
                 latitude: +localStorage.latitude,
                 longitude: +localStorage.longitude
-            }
+            },
+            attachments: img,
         }
         console.log(allData);
         updateTaskById(task.id,allData,setLoading)
@@ -143,6 +146,31 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                         />
                         {errors.date?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل تاريخ المهمة</p>}
                     </div>
+
+                    <div className="mb-4">
+                        <label htmlFor="files" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الملفات</label>
+                        <div className="flex gap-5 items-center mt-2">
+                            {
+                                task.attachmets[0] || img ? 
+                                <img src={img ? URL.createObjectURL(img) : task.attachmets[0]} alt="image" className="w-20 h-20 rounded-full"/>
+                                : <p className="font-semibold text-darkColor dark:text-bodyColor">لا يوجد ملفات</p>
+                            }
+                            <div className="">
+                                <label htmlFor="file" className="cursor-pointer bg-white text-indigo-600 py-1 px-2 rounded-lg font-semibold">
+                                    {
+                                        task.attachmets[0] || img ? "تعديل" : "اضافة"
+                                    }
+                                </label>
+                                <input
+                                    type="file"
+                                    onChange={(e) => setImg(e.target.files?.item(0))}
+                                    name="profileImage"
+                                    id="file"
+                                    className="hidden"
+                                />
+                            </div>
+                        </div>
+                    </div>
     
                     <div className="mb-4">
                         <label htmlFor="budget" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">السعر</label>
@@ -161,7 +189,7 @@ const FormUpdateTask = ({task}:{task:tasks}) => {
                             required
                             {...register("categoryId", { required: true })}
                             id="category"
-                            className="w-full h-10 p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
+                            className="w-full h-10 px-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             {data.map(item => (
                                 <option key={item.id} value={item.id} selected={categoryId === item.id ? true : false}>{item.category}</option>

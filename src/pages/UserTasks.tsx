@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import  { useEffect, useState } from "react";
 import { getUserTasks } from "../functions/getUserTasks";
-import { tasks } from "../types/search";
+// import { tasks } from "../types/search";
 import Spinner from "../components/Spinner";
 import UpadteADeleteTask from "../components/UpadteADeleteTask";
 import { useNavigate } from "react-router-dom";
+import { Image,ArrowDownToLine } from "lucide-react"
 
 
 const UserTasksPage = () => {
-    const [tasks, setTasks] = useState<tasks[]>([]);
+    const [tasks, setTasks] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const myUrl = useNavigate()
     const [changes,setChanges] = useState(false);
@@ -62,7 +64,7 @@ const UserTasksPage = () => {
 
                                     {/* Task Skills as Gray Tags */}
                                     <div className="flex flex-wrap gap-2 mt-2">
-                                        {task.skills.map((skill, skillIndex) => (
+                                        {task.skills.map((skill:string, skillIndex:number) => (
                                             <span
                                                 key={skillIndex}
                                                 className="inline-block px-2 py-1 text-xs font-medium text-gray-800 bg-gray-200 rounded-full"
@@ -71,6 +73,18 @@ const UserTasksPage = () => {
                                             </span>
                                         ))}
                                     </div>
+                                </div>
+
+                                <div className="my-3 flex flex-col gap-3">
+                                    {
+                                        task.attachmets.map((attachment:string, index:number) => (
+                                            attachment &&
+                                            <div className="flex items-center gap-3" key={index}>
+                                                <Image className="text-green-500" />
+                                                <a href={attachment} download target="_blank" className={`bg-green-500 hover:bg-green-600 duration-300 p-1 px-3 text-white text-sm flex items-center gap-2 rounded-md`}><ArrowDownToLine size={18}/>100KB</a>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
 
                                 {/* Task Budget */}

@@ -18,10 +18,12 @@ interface dataType {
         start_time:string;
         end_time:string;
         schedule_type:string;
-    }
+    },
+    attachments: File | null | undefined;
 }
 
 export const updateTaskById = (taskId: string,data:dataType,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
+    console.log(data);
     axiosInstance.put(`/tasks/${taskId}`,data,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,

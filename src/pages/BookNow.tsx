@@ -47,18 +47,18 @@ const HelpMovingForm = () => {
     },[]);
 
     return (
-        <div className=" p-6 bg-white shadow-lg rounded-lg ">
-            
+        <div className="py-6 flex justify-center ">
+            <div className="container">
             {data ? (
-                <>
-                    <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+                <div className="bg-white dark:bg-inputDark dark:text-white shadow-lg rounded-lg p-5">
+                    <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                         {data.subcategory}
                     </h2>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-semibold mb-2">عنوان المهمة</label>
+                            <label className="block text-gray-700 dark:text-white font-semibold mb-2">عنوان المهمة</label>
                             <input
                                 type="text"
                                 placeholder="عنوان الشارع"
@@ -79,7 +79,7 @@ const HelpMovingForm = () => {
 
                         
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-semibold mb-2">ما حجم مهمتك؟</label>
+                            <label className="block text-gray-700 dark:text-white font-semibold mb-2">ما حجم مهمتك؟</label>
                             <div className="space-y-2">
                                 <label className="flex items-center space-x-2">
                                     <input
@@ -129,7 +129,7 @@ const HelpMovingForm = () => {
                     : <Spinner />
                         }
                         <div className="mb-6">
-                            <label className="block text-gray-700 font-semibold mb-2">أخبرنا بتفاصيل مهمتك؟</label>
+                            <label className="block text-gray-700 dark:text-white font-semibold mb-2">أخبرنا بتفاصيل مهمتك؟</label>
                             <textarea
                                 placeholder="أوصف مهمتك..."
                                 className="w-full p-2 border border-gray-300 rounded"
@@ -152,10 +152,11 @@ const HelpMovingForm = () => {
                         </button>
                         </Link>
                     </form>
-                </>
+                </div>
             ) : (
                 <Spinner />
             )}
+            </div>
         </div>
     );
 };
