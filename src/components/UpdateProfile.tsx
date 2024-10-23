@@ -5,6 +5,7 @@ import { useState } from "react";
 import image from "../assets/default-user-image.jpg"
 import { updatePicture, updateProfile } from "../functions/updateProfile";
 import UpdatePassword from "./UpdatePassword";
+import UpdateTasker from "./updateTasker";
 
 interface formData {
     name: string;
@@ -13,6 +14,7 @@ interface formData {
 }
 
 const UpdateProfile = () => {
+    const tasker = useSelector((state:RootState)=>state.tasker)
     const {register,handleSubmit} = useForm<formData>();
     const user = useSelector((state:RootState) => state.user);
     const [load, setLoad] = useState(false);
@@ -122,6 +124,10 @@ const UpdateProfile = () => {
             </div>
           </div>
         </form>
+        {
+          tasker.id.length > 0 &&
+          <UpdateTasker />
+        }
         <UpdatePassword/>
       </div>
       

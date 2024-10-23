@@ -4,6 +4,7 @@ import { SetURLSearchParams} from "react-router-dom";
 import { Categories } from "../types/categories";
 import { getAllCategory } from "../functions/getAllCategory";
 import MultiRangeSlider from "multi-range-slider-react";
+import Map from "./Map";
 
 interface IProp {
   right: string;
@@ -54,6 +55,12 @@ const FiltersTasker = ({ right, setRightFilters,search,  setSearch }: IProp) => 
             }}
           />
         </form>
+        <div className="mt-4">
+          <p className="mb-3 font-semibold text-darkColor dark:text-bodyColor">
+            الموقع
+          </p>
+          <Map latitude={null} location={true} longitude={null} tasker={true} search={search} setSearch={setSearch} />
+        </div>
       </div>
     </div>
   );

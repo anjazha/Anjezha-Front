@@ -186,8 +186,8 @@ const FormUpdateTask = ({task}:{task:any}) => {
                     <div className="mb-4">
                         <label htmlFor="category" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الفئة</label>
                         <select defaultValue={categoryId}
-                            required
-                            {...register("categoryId", { required: true })}
+                            
+                            {...register("categoryId")}
                             id="category"
                             className="w-full h-10 px-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >

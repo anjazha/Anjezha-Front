@@ -7,7 +7,7 @@ const initialState = {
     "bidding": "",
     "pricing": "",
     "avg_rating": "",
-    "category_id": "",
+    "categoryId": "",
     "longitude": "",
     "latitude": ""
 }
@@ -28,7 +28,7 @@ const taskerSlice = createSlice({
                 "bidding": "",
                 "pricing": "",
                 "avg_rating": "",
-                "category_id": "",
+                "categoryId": "",
                 "longitude": "",
                 "latitude": ""
             };

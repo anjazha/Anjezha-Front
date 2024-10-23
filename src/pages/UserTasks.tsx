@@ -5,8 +5,6 @@ import { getUserTasks } from "../functions/getUserTasks";
 import Spinner from "../components/Spinner";
 import UpadteADeleteTask from "../components/UpadteADeleteTask";
 import { useNavigate } from "react-router-dom";
-import { Image,ArrowDownToLine } from "lucide-react"
-
 
 const UserTasksPage = () => {
     const [tasks, setTasks] = useState<any[]>([]);
@@ -75,17 +73,13 @@ const UserTasksPage = () => {
                                     </div>
                                 </div>
 
-                                <div className="my-3 flex flex-col gap-3">
-                                    {
-                                        task.attachmets.map((attachment:string, index:number) => (
-                                            attachment &&
-                                            <div className="flex items-center gap-3" key={index}>
-                                                <Image className="text-green-500" />
-                                                <a href={attachment} download target="_blank" className={`bg-green-500 hover:bg-green-600 duration-300 p-1 px-3 text-white text-sm flex items-center gap-2 rounded-md`}><ArrowDownToLine size={18}/>100KB</a>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
+                                {/* Task attachmets */}
+                                {
+                                    task.attachmets[0] &&
+                                    <div className="my-3">
+                                        <img src={task.attachmets[0]} alt="image" className="w-20 h-20 rounded-full"/>
+                                    </div>
+                                }
 
                                 {/* Task Budget */}
                                 <div className="mt-4 text-lg font-bold text-primaryColor dark:text-bodyColor">

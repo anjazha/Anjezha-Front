@@ -8,7 +8,7 @@ import FormUpdateTask from "../components/formUpdateTask";
 const UpdateTask = () => {
     const {id} = useParams()
     const [task, setTask] = useState<tasks | null>(null)
-    console.log(id);
+    // console.log(id);
     useEffect(()=>{
         if(id){
             getTaskById(id,setTask)

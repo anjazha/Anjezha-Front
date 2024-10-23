@@ -6,6 +6,7 @@ import L from 'leaflet';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import { SetURLSearchParams } from 'react-router-dom';
 
 // لإصلاح مشكلة الأيقونات الافتراضية
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -15,7 +16,17 @@ L.Icon.Default.mergeOptions({
     shadowUrl,
 });
 
-const Map = ({latitude,longitude,location,setErrorMap}:{latitude:any,longitude:any,location:boolean,setErrorMap?: React.Dispatch<React.SetStateAction<boolean>>}) => {
+interface mapData {
+    latitude:any,
+    longitude:any,
+    location:boolean,
+    setErrorMap?: React.Dispatch<React.SetStateAction<boolean>>,
+    tasker?:boolean;
+    search?: URLSearchParams;
+    setSearch?: SetURLSearchParams;
+}
+
+const Map = ({latitude,longitude,location,setErrorMap,tasker,search,setSearch}:mapData) => {
     const [position, setPosition] = useState<{lat:number,lng:number}>(
         {
             lat: +latitude,
@@ -32,9 +43,17 @@ const Map = ({latitude,longitude,location,setErrorMap}:{latitude:any,longitude:a
         useMapEvents({
             click(e) {
                 setPosition({lat:+e.latlng.lat.toString(),lng:+e.latlng.lng.toString()});  // تحديد الإحداثيات عند النقر
-                localStorage.setItem("latitude", e.latlng.lat.toString())
-                localStorage.setItem("longitude", e.latlng.lng.toString())
-                setErrorMap?.(false)
+                if(tasker){
+                    const currentSearch = new URLSearchParams(search)
+                    currentSearch.set("latitude", e.latlng.lat.toString())
+                    currentSearch.set("longitude", e.latlng.lng.toString())
+                    setSearch?.(currentSearch)
+                }
+                else{
+                    localStorage.setItem("latitude", e.latlng.lat.toString())
+                    localStorage.setItem("longitude", e.latlng.lng.toString())
+                    setErrorMap?.(false)
+                }
             },
         });
 
