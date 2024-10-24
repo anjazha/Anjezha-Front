@@ -111,7 +111,6 @@ const FormUpdateTask = ({task}:{task:any}) => {
         const cate = data.find((ele)=>ele.category=== task.category);
         setCategoryId(cate?.id as string)
     },[data,task])
-    console.log(categoryId);
     return (
         <div className="w-full p-5 mt-5 shadow-md bg-bodyColor dark:bg-inputDark rounded-xl">
                 <form onSubmit={handleSubmit(onSubmit)}>

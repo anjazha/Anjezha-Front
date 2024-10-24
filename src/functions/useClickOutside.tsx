@@ -11,7 +11,7 @@ function useClickOutside(ref: RefObject<HTMLElement>, callback: () => void) {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         console.log('clicked outline')
-       callback()
+        callback()
       }
     }
     // Bind the event listener

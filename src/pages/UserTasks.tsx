@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import  { useEffect, useState } from "react";
 import { getUserTasks } from "../functions/getUserTasks";
-// import { tasks } from "../types/search";
+import { tasks } from "../types/search";
 import Spinner from "../components/Spinner";
 import UpadteADeleteTask from "../components/UpadteADeleteTask";
 import { useNavigate } from "react-router-dom";
+import { ArrowDownToLine, FileText, Image } from "lucide-react";
 
 const UserTasksPage = () => {
-    const [tasks, setTasks] = useState<any[]>([]);
+    const [tasks, setTasks] = useState<tasks[]>([]);
     const [loading, setLoading] = useState(true);
     const myUrl = useNavigate()
     const [changes,setChanges] = useState(false);
@@ -75,9 +75,20 @@ const UserTasksPage = () => {
 
                                 {/* Task attachmets */}
                                 {
-                                    task.attachmets[0] &&
-                                    <div className="my-3">
-                                        <img src={task.attachmets[0]} alt="image" className="w-20 h-20 rounded-full"/>
+                                    task?.attachments && task?.attachments[0]?.url &&
+                                    <div className="mb-4 flex flex-col gap-3">
+                                        {
+                                            task?.attachments.map((attachment, index) => (
+                                                <div className="flex items-center gap-3" key={index}>
+                                                    {
+                                                        attachment.type.startsWith('image') ?
+                                                        <Image className="text-green-500" />
+                                                        : <FileText className="text-red-500" />
+                                                    }
+                                                    <a href={attachment.url} download target="_blank" className={`${attachment.type.startsWith('image') ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"} duration-300 p-1 px-3 text-white text-sm flex items-center gap-2 rounded-md`}><ArrowDownToLine size={18}/>{attachment.size}</a>
+                                                </div>
+                                            ))
+                                        }
                                     </div>
                                 }
 
