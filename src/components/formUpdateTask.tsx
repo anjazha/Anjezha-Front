@@ -88,7 +88,7 @@ const FormUpdateTask = ({task}:{task:any}) => {
             budget: +data.budget,
             address: data.address,
             status: data.status,
-            category_id: +data.categoryId,
+            category_id: +data.categoryId > 0 ? +data.categoryId : +categoryId ,
             skills: skills,
             schedule : {
                 start_time:start,
@@ -111,6 +111,7 @@ const FormUpdateTask = ({task}:{task:any}) => {
         const cate = data.find((ele)=>ele.category=== task.category);
         setCategoryId(cate?.id as string)
     },[data,task])
+    console.log(categoryId);
     return (
         <div className="w-full p-5 mt-5 shadow-md bg-bodyColor dark:bg-inputDark rounded-xl">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -185,14 +186,14 @@ const FormUpdateTask = ({task}:{task:any}) => {
     
                     <div className="mb-4">
                         <label htmlFor="category" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الفئة</label>
-                        <select defaultValue={categoryId}
+                        <select
                             
                             {...register("categoryId")}
                             id="category"
                             className="w-full h-10 px-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-primaryColor bg-inputColor"
                         >
                             {data.map(item => (
-                                <option key={item.id} value={item.id} selected={categoryId === item.id ? true : false}>{item.category}</option>
+                                <option key={item.id} value={item.id} selected={item.category === task.category ? true : false}>{item.category}</option>
                             ))}
                         </select>
                         {errors.categoryId?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الفئة</p>}

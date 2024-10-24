@@ -88,10 +88,7 @@ const HomePage = () => {
             المهام الشائعة
           </h2>
           <div className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            { 
-            data ?
-            <>
-              {data.length > 0 ? (
+            {data.length > 0 ? (
                 data.map((ele, x) => (
                   <PopularTask
                     name={ele.category}
@@ -101,8 +98,6 @@ const HomePage = () => {
                   />
               ))
             )
-            :<h2 className="text-lg dark:text-bodyColor">لا يوجد مهام شائعة الان</h2>
-            }</>
             : (
               <Spinner />
             )}

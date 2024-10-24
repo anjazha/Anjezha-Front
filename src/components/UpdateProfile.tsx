@@ -6,6 +6,7 @@ import image from "../assets/default-user-image.jpg"
 import { updatePicture, updateProfile } from "../functions/updateProfile";
 import UpdatePassword from "./UpdatePassword";
 import UpdateTasker from "./updateTasker";
+import DeleteAccount from "./DeleteAccount";
 
 interface formData {
     name: string;
@@ -129,6 +130,7 @@ const UpdateProfile = () => {
           <UpdateTasker />
         }
         <UpdatePassword/>
+        <DeleteAccount />
       </div>
       
       

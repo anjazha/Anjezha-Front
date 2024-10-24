@@ -8,7 +8,6 @@ interface dataType {
     date: string;
     budget: number;
     address: string;
-    status: string;
     skills: string[];
     category_id: number;
     location :{

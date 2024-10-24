@@ -14,7 +14,6 @@ interface formType {
     date: string;
     budget: string;
     address: string;
-    status: string;
     skills: string;
     categoryId: string;
     start_time:string;
@@ -68,7 +67,6 @@ const CreatePost = ()=>{
             date: data.date,
             budget: +data.budget,
             address: data.address,
-            status: data.status,
             category_id: +data.categoryId,
             skills: skills,
             schedule : {
@@ -179,7 +177,7 @@ const CreatePost = ()=>{
                         {errors.address?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل العنوان</p>}
                     </div>
     
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label htmlFor="status" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">الحالة</label>
                         <select
                             {...register("status", { required: true })}
@@ -193,7 +191,7 @@ const CreatePost = ()=>{
                             <option value="closed">Closed</option>
                         </select>
                         {errors.status?.type === "required" && <p className="text-sm text-red-500 animate-bounce">من فضلك ادخل الحالة</p>}
-                    </div>
+                    </div> */}
     
                     <div className="mb-4">
                         <label htmlFor="skills" className="block text-lg font-semibold text-darkColor dark:text-bodyColor">المهارات</label>
