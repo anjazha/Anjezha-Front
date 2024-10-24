@@ -53,7 +53,7 @@ const TaskList = ({ele,setTask,setLeftDetails}:IProp) => {
             
                 {/* Task Budget */}
                 <div className="mt-4 text-lg font-bold text-primaryColor dark:text-bodyColor">
-                    $ {ele.budget}
+                    {ele.budget} ج.م
                 </div>
             </div>
         </div>
