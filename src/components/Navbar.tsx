@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Link, useNavigate } from "react-router-dom";
 import { AlignJustify, Moon, Sun, XIcon} from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RootState, useAppDispatch } from "../store/store";
 import Cookie from "cookie-universal";
 import { getUser } from "../functions/getUser";
@@ -10,12 +10,16 @@ import UserDialog from "./UserDialog";
 import { derminLocation } from "../functions/location";
 import { getTasker } from "../functions/getTasker";
 import NotificationsDialog from "./NotificationsDialog.js";
+import useClickOutside from "../functions/useClickOutside.js";
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
   const tasker = useSelector((state: RootState) => state.tasker);
   const [mode, setMode] = useState("light");
   const [isNavOpen, setIsNavOpen] = useState(false);
 
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  // use the click outside hook to hide the element when clicks outside it
+  useClickOutside(wrapperRef, () => setIsNavOpen(false));
   // console.log(user);
   const changeMode = () => {
     localStorage.mode = mode === "light" ? "dark" : "light"
@@ -57,36 +61,36 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links */}
-        <div
+        <div ref={wrapperRef}
           className={`fixed z-50 ${
             isNavOpen ? "right-0 shadow-md rounded-l-md" : "right-[-100%]"
           }  h-full w-[300px] bg-bodyColor dark:bg-inputDark text-inputDark dark:text-bodyColor p-5 top-20 transition-all duration-500 md:static md:flex md:items-center md:gap-10 md:bg-transparent md:w-auto md:p-0`}
         >
           <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:gap-4 font-semibold">
             <li>
-              <Link to="/" className="hover:text-indigo-600">
+              <Link onClick={() => setIsNavOpen(!isNavOpen)} to="/" className="hover:text-indigo-600">
                 الصفحة الرئيسية
               </Link>
             </li>
             <li>
-              <Link to="/categories" className="hover:text-indigo-600">
+              <Link onClick={() => setIsNavOpen(!isNavOpen)} to="/categories" className="hover:text-indigo-600">
                 الفئات
               </Link>
             </li>
             <li>
-              <Link to="/browseTasks?page=1" className="hover:text-indigo-600">
+              <Link onClick={() => setIsNavOpen(!isNavOpen)} to="/browseTasks?page=1" className="hover:text-indigo-600">
                 تصفح المهام
               </Link>
             </li>
             {cookie ? (
               <>
                 <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
-                  <Link to="/createPost">نشر مهمة</Link>
+                  <Link onClick={() => setIsNavOpen(!isNavOpen)} to="/createPost">نشر مهمة</Link>
                 </li>
                 {
                   !tasker.id &&
                   <li className="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-700">
-                    <Link to="/becomeTasker">اصبح عامل</Link>
+                    <Link onClick={() => setIsNavOpen(!isNavOpen)} to="/becomeTasker">اصبح عامل</Link>
                   </li>
                 }
               </>

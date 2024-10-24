@@ -1,7 +1,8 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { Bell, ArrowBigLeft } from "lucide-react";
 import { axiosInstance, cookie } from "../functions/axiosInstance";
 import toast from "react-hot-toast";
+import useClickOutside from "../functions/useClickOutside";
 
 // Notification Interface
 interface Notification {
@@ -65,6 +66,9 @@ const useNotifications = () => {
 
 function NotificationsDialog() {
   const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  // use the click outside hook to hide the element when clicks outside it
+  useClickOutside(wrapperRef, () => setOpen(false));
   const { notifications, isLoading, fetchNotifications, markAsRead } =
     useNotifications();
 
@@ -92,7 +96,7 @@ function NotificationsDialog() {
       </div>
 
       {open && (
-        <div className="absolute top-[100%] mt-2 left-0 w-52 h-auto max-h-64 p-1 border bg-inputColor dark:bg-inputDark z-10 rounded-md shadow-lg overflow-auto">
+        <div ref={wrapperRef} className="absolute top-[100%] mt-2 left-0 w-52 h-auto max-h-64 p-1 border bg-inputColor dark:bg-inputDark z-10 rounded-md shadow-lg overflow-auto">
           {isLoading ? (
             <div>جاري التحميل...</div>
           ) : (
