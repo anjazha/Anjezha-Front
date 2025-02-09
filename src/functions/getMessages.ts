@@ -1,7 +1,7 @@
-import { messages } from "../components/Messages";
+import { Message } from "../components/Messages";
 import { axiosInstance,cookie } from "./axiosInstance"
 
-export const getMessages = (id:string,setMessages: React.Dispatch<React.SetStateAction<messages[]>>,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
+export const getMessages = (id:string,setMessages: React.Dispatch<React.SetStateAction<Message[]>>,setLoading: React.Dispatch<React.SetStateAction<boolean>>)=>{
     axiosInstance.get(`/get-messages/${id}`,{
         headers:{
             "Authorization":`Bearer ${cookie.get("token")}`,
