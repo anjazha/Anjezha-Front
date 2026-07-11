@@ -1,2 +1,2 @@
 # Anjezha-Front
-this is repo frontend for Anjezha project
+this is repo frontend for Anjezha project.
